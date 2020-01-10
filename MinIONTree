@@ -96,7 +96,7 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, dcmMethylatio
     else:
         cmd = "ccphylo dist -i {}/*.fsa -o {}{} -r \"{}\" -m {} -pr 10".format(target_dir, target_dir, "distmatrix", templatename, dcmMethylation)
         os.system(cmd)
-    cmd = "ccphylo tree -i {} -o {}outtree.newick".format("distmatrix", target_dir)
+    cmd = "ccphylo tree -i {}{} -o {}outtree.newick".format(target_dir,"distmatrix", target_dir)
     os.system(cmd)
 
     mtf.cleanUp(target_dir, illumina_files, nanopore_files, paired_end, reference)
