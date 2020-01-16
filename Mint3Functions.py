@@ -6,7 +6,6 @@
 import sys
 import os
 import argparse
-import operatorv
 import time
 import gc
 import numpy as np
@@ -33,6 +32,8 @@ def findTemplateResearch(total_filenames, target_dir, kma_database_path, logfile
         print("# Mapping reads to template", file=logfile)
         cmd = "kma -i " + total_filenames + " -o " + target_dir + "template_kma_results" + " -t_db " + target_dir + "temdb.ATG" + " -Sparse -mp 20"
         os.system(cmd)
+
+        print ("midway complete")
         try:
             infile_template = open(target_dir + "template_kma_results.spa", 'r')
             line = infile_template.readlines()[1]
@@ -70,7 +71,7 @@ def findTemplateResearch(total_filenames, target_dir, kma_database_path, logfile
 #Mapping
 def illuminaMappingForward(complete_path_illumina_input, illumina_input, best_template, target_dir, kma_database_path, logfile, multi_threading, reference):
     if reference != "":
-        kma_database_path = target_dir + "temdb"
+        kma_database_path = target_dir + "temdb.ATG"
 
     # Illumina input
     if illumina_input != "":
@@ -81,7 +82,7 @@ def illuminaMappingForward(complete_path_illumina_input, illumina_input, best_te
 
 def illuminaMappingPE(complete_path_illumina_input, illumina_input, best_template, target_dir, kma_database_path, logfile, multi_threading, reference):
     if reference != "":
-        kma_database_path = target_dir + "temdb"
+        kma_database_path = target_dir + "temdb.ATG"
 
     # Illumina input
     if illumina_input != "":
@@ -94,7 +95,7 @@ def illuminaMappingPE(complete_path_illumina_input, illumina_input, best_templat
 def nanoporeMapping(complete_path_nanopore_input, nanopore_input, best_template, target_dir, kma_database_path, logfile, multi_threading, bc, reference):
     # Nanopore input
     if reference != "":
-        kma_database_path = target_dir + "temdb"
+        kma_database_path = target_dir + "temdb.ATG"
 
     if nanopore_input != "":
         for i in range(0, len(nanopore_input)):
@@ -182,15 +183,15 @@ def cleanUp( target_dir, illumina_input, nanopore_input, paired_end, reference):
                 os.system(cmd)
 
     if reference != "":
-        cmd = "rm " + target_dir + "temdb.comp.b"
+        cmd = "rm " + target_dir + "temdb.ATG.comp.b"
         os.system(cmd)
-        cmd = "rm " + target_dir + "temdb.index.b"
+        cmd = "rm " + target_dir + "temdb.ATG.index.b"
         os.system(cmd)
-        cmd = "rm " + target_dir + "temdb.length.b"
+        cmd = "rm " + target_dir + "temdb.ATG.length.b"
         os.system(cmd)
-        cmd = "rm " + target_dir + "temdb.name"
+        cmd = "rm " + target_dir + "temdb.ATG.name"
         os.system(cmd)
-        cmd = "rm " + target_dir + "temdb.seq.b"
+        cmd = "rm " + target_dir + "temdb.ATG.seq.b"
         os.system(cmd)
 
 def load_illumina(illumina_path_input):
@@ -274,5 +275,3 @@ def logfileConditionsResearch(logfile, dcmMethylation, prune, prune_distance, bc
     else:
         logdict['paired_end'] = str(False)
     print (logdict, file=logfile)
-
-def mutationSpotter():

@@ -82,23 +82,33 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, dcmMethylatio
     else:
         mtf.illuminaMappingForward(complete_path_illumina_files, illumina_files, best_template, target_dir, kma_database_path, logfile, multi_threading, reference)
     mtf.nanoporeMapping(complete_path_nanopore_files, nanopore_files, best_template, target_dir, kma_database_path, logfile, multi_threading, bc, reference)
-    """
-    temp disabling of prune function 
+
+    if dcmMethylation != "":
+        dcmstring= "-m {}".format(dcmMethylation)
+    else:
+        dcmstring = ""
+
+
     if prune == True:
-        cmd = "ccphylo dist -i {}/*.fsa -o {}{} -r \"{}\" -pr {} {} {}".format(target_dir, target_dir, "distmatrix",
-                                                                         templatename, "-m", dcmMethylation)
+        cmd = "ccphylo dist -i {}*.fsa -o {}{} -r \"{}\" -mc 1 -nm 0 -pr {} {} -nv {}nucleotideVarriance".format(target_dir, target_dir, "distmatrix", templatename, prune_distance, dcmstring, target_dir)
+
         os.system(cmd)
+        print (cmd)
     
     else:
-        cmd = "ccphylo dist -i {}/*.fsa -o {}{} -r \"{}\" {} {}".format(target_dir, target_dir, "distmatrix",
-                                                                               templatename, "-m",
-                                                                               dcmMethylation)
+        cmd = "ccphylo dist -i {}*.fsa -o {}{} -r \"{}\" -mc 1 -nm 0 {} -nv {}nucleotideVarriance".format(target_dir, target_dir, "distmatrix",
+                                                                               templatename,
+                                                                               dcmstring, target_dir)
         os.system(cmd)
+        print (cmd)
+
+
     """
     cmd = "ccphylo dist -i {}/*.fsa -o {}{} -r \"{}\" {} {} -nv {}nucleotideVarriance".format(target_dir, target_dir, "distmatrix",
                                                                     templatename, "-m",
                                                                     dcmMethylation, target_dir)
     os.system(cmd)
+    """
 
 
     cmd = "ccphylo tree -i {}{} -o {}outtree.newick".format(target_dir, "distmatrix", target_dir)

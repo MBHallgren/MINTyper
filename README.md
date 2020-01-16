@@ -9,8 +9,9 @@ Read more about Mint3 here:
 * [Options and usage](#options-and-usage)
     * [Functions](#functions)
     * [Standard usage](#standard-options)
+    
 # Introduction
-Mint3 is a tools designed to quickly a distance matrix from a set of input sequencing reads. It can take both short read illumina sequences and long read Oxford Nanopore sequences. 
+Mint3 is a tools designed to quickly a distance matrix from a set of input sequencing reads. It can take both short read Illumina sequences and long read Oxford Nanopore sequences. 
 
 # Requirements
 

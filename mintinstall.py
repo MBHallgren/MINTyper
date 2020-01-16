@@ -21,7 +21,7 @@ cmd = "git clone https://bitbucket.org/genomicepidemiology/ccphylo.git"
 os.system(cmd)
 cmd = "cd ccphylo && make"
 os.system(cmd)
-cmd = "ccphylo ~/bin/"
+cmd = "mv ccphylo ~/bin/"
 os.system(cmd)
 cmd = "cd .."
 os.system(cmdos.system(cmd)
