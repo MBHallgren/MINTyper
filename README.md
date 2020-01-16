@@ -40,7 +40,7 @@ Use the dcmMethylations file as input to mask DCM motifs (CC(A/T)GG). Additional
 
 Make sure to move all your isolate files to an empty directory. Nanopore and Illumina files should be placed in seperated directories.
 
-An example  os a standard usage could be:
+An example  of a standard usage could be:
 
 "Mint3 -i_path_illumina /home/usr/illuminaDirectory/ -i_path_nanopore /home/usr/NanoporeDirectory/ -dcm /home/usr/currentDir/dcmFile -o run1 -db /home/user/databases/Bacteria.ATG -thread 6"
 
