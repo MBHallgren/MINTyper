@@ -1,9 +1,9 @@
 import  os
 cmd = "chmod a+x Mint3"
 os.system(cmd)
-cmd = "mv Mint3 ~/bin/
+cmd = "mv Mint3 ~/bin/"
 os.system(cmd)
-cmd = "chmod a+x Mint3Functions.py
+cmd = "chmod a+x Mint3Functions.py"
 os.system(cmd)
 cmd = "mv Mint3Functions.py ~/bin~
 os.system(cmd)
