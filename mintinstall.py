@@ -24,4 +24,4 @@ os.system(cmd)
 cmd = "mv ccphylo ~/bin/"
 os.system(cmd)
 cmd = "cd .."
-os.system(cmdos.system(cmd)
+os.system(cmd)
