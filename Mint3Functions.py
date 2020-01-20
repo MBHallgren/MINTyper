@@ -275,3 +275,25 @@ def logfileConditionsResearch(logfile, dcmMethylation, prune, prune_distance, bc
     else:
         logdict['paired_end'] = str(False)
     print (logdict, file=logfile)
+
+def varriansfileRenamer(target_dir):
+    varfile =  open("{}nucleotideVarriance_file".format(target_dir),'w')
+    readfile = open("{}nucleotideVarriance".format(target_dir), 'r')
+    distfile = open("{}distmatrix".format(target_dir),'r')
+    indexnames = {}
+    for line in distfile:
+        line = line.rstrip()
+    return True
+
+
+
+def mutationSpotter(target_dir):
+    templatefile =  open("{}template_sequence".format(target_dir),'r')
+    sequence = ""
+
+    for line in templatefile:
+        line = line.rstrip()
+        if line[0] != ">":
+            sequnce += line
+    print ("Template lenght is {}".format(str(len(sequence))))
+    return True

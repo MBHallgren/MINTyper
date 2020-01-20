@@ -69,17 +69,20 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, dcmMethylatio
         print("# -thread: " + str(multi_threading), file=logfile)
     if reference != "":
         print("# -ref: " + reference, file=logfile)
-
+    print ("loading input")
     illumina_files = mtf.load_illumina(i_path_illumina)
     nanopore_files = mtf.load_nanopore(i_path_nanopore)
     complete_path_illumina_files = mtf.generate_complete_path_illumina_files(illumina_files, i_path_illumina)
     complete_path_nanopore_files = mtf.generate_complete_path_nanopore_files(nanopore_files, i_path_nanopore)
     total_filenames = mtf.combine_input_files(complete_path_illumina_files, complete_path_nanopore_files)
+    print ("finding best template")
     best_template, templatename = mtf.findTemplateResearch(total_filenames, target_dir, kma_database_path, logfile, reference)
-
+    print ("performing KMA mapping")
     if paired_end == True:
+        print ("Paired end illumina input was given")
         mtf.illuminaMappingPE(complete_path_illumina_files, illumina_files, best_template, target_dir, kma_database_path, logfile, multi_threading, reference)
     else:
+        print ("Only forward illumina reads was given")
         mtf.illuminaMappingForward(complete_path_illumina_files, illumina_files, best_template, target_dir, kma_database_path, logfile, multi_threading, reference)
     mtf.nanoporeMapping(complete_path_nanopore_files, nanopore_files, best_template, target_dir, kma_database_path, logfile, multi_threading, bc, reference)
 
@@ -87,28 +90,30 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, dcmMethylatio
         dcmstring= "-m {}".format(dcmMethylation)
     else:
         dcmstring = ""
+    print ("calculating distance matrix")
 
 
     if prune == True:
-        cmd = "ccphylo dist -i {}*.fsa -o {}{} -r \"{}\" -mc 1 -nm 0 -pr {} {} -nv {}nucleotideVarriance".format(target_dir, target_dir, "distmatrix", templatename, prune_distance, dcmstring, target_dir)
+        cmd = "ccphylo dist -i {}*.fsa -o {}{} -r \"{}\" -mc 1 -nm 0 -pr {} {} -nv {}nucleotideVarriance &>> {}distance_matrix_logfile".format(target_dir, target_dir, "distmatrix", templatename, prune_distance, dcmstring, target_dir, target_dir)
 
         os.system(cmd)
-        print (cmd)
     
     else:
-        cmd = "ccphylo dist -i {}*.fsa -o {}{} -r \"{}\" -mc 1 -nm 0 {} -nv {}nucleotideVarriance".format(target_dir, target_dir, "distmatrix",
+        cmd = "ccphylo dist -i {}*.fsa -o {}{} -r \"{}\" -mc 1 -nm 0 {} -nv {}nucleotideVarriance &>> {}distance_matrix_logfile".format(target_dir, target_dir, "distmatrix",
                                                                                templatename,
-                                                                               dcmstring, target_dir)
+                                                                               dcmstring, target_dir, target_dir)
         os.system(cmd)
-        print (cmd)
 
 
-    """
-    cmd = "ccphylo dist -i {}/*.fsa -o {}{} -r \"{}\" {} {} -nv {}nucleotideVarriance".format(target_dir, target_dir, "distmatrix",
-                                                                    templatename, "-m",
-                                                                    dcmMethylation, target_dir)
-    os.system(cmd)
-    """
+    infile = open("{}distance_matrix_logfile",'r')
+    for line in infile:
+        line = line.rstrip()
+        print (line, file=logfile)
+    infile.close()
+
+    #HUSK AT DELETE  distance_matrix_logfile
+
+
 
 
     cmd = "ccphylo tree -i {}{} -o {}outtree.newick".format(target_dir, "distmatrix", target_dir)
@@ -119,6 +124,7 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, dcmMethylatio
     dTime = endTime - startTime
     print("Mint3 total runtime: " + str(dTime) + " seconds", file=logfile)
     logfile.close()
+    print ("Mint3 has completed")
 
 def main():
     researchPipeline(args.i_path_illumina, args.i_path_nanopore, args.paired_end, args.dcmMethylation, args.prune,
