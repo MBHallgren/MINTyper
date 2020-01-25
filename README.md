@@ -1,4 +1,4 @@
-Read more about Mint3 here:
+Read more about MinIONTree here:
 > PUBLICATION TBA
 
 # Table of contents
@@ -11,7 +11,7 @@ Read more about Mint3 here:
     * [Standard usage](#standard-options)
     
 # Introduction
-Mint3 is a tools designed to quickly a distance matrix from a set of input sequencing reads. It can take both short read Illumina sequences and long read Oxford Nanopore sequences. 
+MinIONTree is a tools designed to quickly a distance matrix from a set of input sequencing reads. It can take both short read Illumina sequences and long read Oxford Nanopore sequences. 
 
 # Requirements
 
@@ -22,15 +22,15 @@ Mint3 is a tools designed to quickly a distance matrix from a set of input seque
 
 
 # Installation
-The following instructions will install the latest version of Mint3:
+The following instructions will install the latest version of MinIONTree:
 
 First, clone the github repository:
 
-"git clone https://github.com/s153002/Mint3.git"
+"git clone https://github.com/s153002/MinIONTree.git"
 
 Then run the  installer:
 
-"python3 mintinstall.py"
+"python3 MinIONtreeInstall.py"
 
 ### Standard usage
 
@@ -42,5 +42,5 @@ Make sure to move all your isolate files to an empty directory. Nanopore and Ill
 
 An example  of a standard usage could be:
 
-"Mint3 -i_path_illumina /home/usr/illuminaDirectory/ -i_path_nanopore /home/usr/NanoporeDirectory/ -dcm /home/usr/currentDir/dcmFile -o run1 -db /home/user/databases/Bacteria.ATG -thread 6"
+"MinIONTree -i_path_illumina /home/usr/illuminaDirectory/ -i_path_nanopore /home/usr/NanoporeDirectory/ -dcm /home/usr/currentDir/dcmFile -o run1 -db /home/user/databases/Bacteria.ATG -thread 6"
 

@@ -19,7 +19,7 @@ from operator import itemgetter
 import re
 import json
 import sqlite3
-import Mint3Functions as mtf
+import MinIONTreeFunctions as mtf
 import json
 
 
@@ -29,12 +29,12 @@ parser.add_argument('-i_path_nanopore', action="store", type=str, dest='i_path_n
 parser.add_argument("-pe", action="store_true", dest="paired_end", default = False, help="If paipred ends are used give input as True (-pe True). If Paired-ends are used, it is important that the files are written in the correct order, such as: sample1_1.fasta sample1_2.fasta sample2_1.fasta sample2_1.fasta")
 parser.add_argument("-dcmMethylation", type=str, action="store", dest="dcmMethylation", default="", help="Will mask the dcmMethylation patterns matching CC[X]GG, where X will be ")
 parser.add_argument("-prune", action="store_true", dest="prune", default = False, help="If set to true, all SNPs that are located within 10 bp will not be included")
-parser.add_argument("-prune_distance", type=int, action="store", dest="prune_distance", default=10, help="X lenght that SNPs can be located between each other. Default is 10. If two SNPs are located within X lenght of eachother, everything between them as well as X lenght on each side of the SNPs will not be used in the alignments to calculate the distance matrix.")
+parser.add_argument("-prune_distance", type=int, action="store", dest="prune_distance", default=3, help="X lenght that SNPs can be located between each other. Default is 10. If two SNPs are located within X lenght of eachother, everything between them as well as X lenght on each side of the SNPs will not be used in the alignments to calculate the distance matrix.")
 parser.add_argument("-bc", action="store", type=float, default = 0.7, dest="bc", help="Base calling parameter for nanopore KMA mapping. Default is 0.7")
 parser.add_argument("-db", action="store", type=str, default = "", dest="ref_kma_database", help="Comeplete path for the ref_kma_database for KMA mapping")
 parser.add_argument("-thread", action="store", default = 1, dest="multi_threading", help="Set this parameter to x-number of threads that you would like to use during KMA-mapping.")
 parser.add_argument("-ref", action="store", type=str, default = "", dest="reference", help="KMA will by default determine the best template against the given database. However, if you want to align your query sequences against a reference of your own choice, use this function. If this is left blank, KMA will determine the optimal reference.")
-parser.add_argument('-version', action='version', version='Mint3 1.0.0', help = "current version of Mint3")
+parser.add_argument('-version', action='version', version='MinIONTree 1.0.0', help = "current version of MinIONTree")
 parser.add_argument("-o", action="store", dest="output_name", help="Name that you would like the output directory to be called.")
 args = parser.parse_args()
 
@@ -54,7 +54,7 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, dcmMethylatio
 
     # Print messages
     startTime = time.time()
-    print("# Running Mint3 1.0.0 with following input conditions:", file=logfile)
+    print("# Running MinIONTree 1.0.0 with following input conditions:", file=logfile)
     mtf.logfileConditionsResearch(logfile, dcmMethylation, prune, prune_distance, bc, ref_kma_database, multi_threading, reference, output_name, paired_end)
     if paired_end == True:
         print("# -pe", file=logfile)
@@ -105,12 +105,14 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, dcmMethylatio
         os.system(cmd)
 
 
-    infile = open("{}distance_matrix_logfile",'r')
+    infile = open("{}distance_matrix_logfile".format(target_dir),'r')
     for line in infile:
         line = line.rstrip()
         print (line, file=logfile)
     infile.close()
 
+    cmd = "rm {}distance_matrix_logfile".format(target_dir)
+    os.system(cmd)
     #HUSK AT DELETE  distance_matrix_logfile
 
 
@@ -122,9 +124,11 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, dcmMethylatio
     mtf.cleanUp(target_dir, illumina_files, nanopore_files, paired_end, reference)
     endTime = time.time()
     dTime = endTime - startTime
-    print("Mint3 total runtime: " + str(dTime) + " seconds", file=logfile)
+    print("MinIONTree total runtime: " + str(dTime) + " seconds", file=logfile)
     logfile.close()
-    print ("Mint3 has completed")
+    print ("MinIONTree has completed")
+
+    mtf.varriansfileRenamer(total_filenames)
 
 def main():
     researchPipeline(args.i_path_illumina, args.i_path_nanopore, args.paired_end, args.dcmMethylation, args.prune,

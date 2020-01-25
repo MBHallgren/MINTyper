@@ -276,14 +276,13 @@ def logfileConditionsResearch(logfile, dcmMethylation, prune, prune_distance, bc
         logdict['paired_end'] = str(False)
     print (logdict, file=logfile)
 
-def varriansfileRenamer(target_dir):
-    varfile =  open("{}nucleotideVarriance_file".format(target_dir),'w')
-    readfile = open("{}nucleotideVarriance".format(target_dir), 'r')
-    distfile = open("{}distmatrix".format(target_dir),'r')
-    indexnames = {}
-    for line in distfile:
-        line = line.rstrip()
-    return True
+def varriansfileRenamer(total_filenames):
+    inputs = total_filenames.split(" ")
+    sorted_input = []
+    for i in range(len(inputs)):
+        name = inputs[i].split("/")[-1]
+        sorted_input.append(name)
+
 
 
 

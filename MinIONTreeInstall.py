@@ -1,11 +1,11 @@
 import  os
-cmd = "chmod a+x Mint3"
+cmd = "chmod a+x MinIONTree"
 os.system(cmd)
-cmd = "mv Mint3 ~/bin/"
+cmd = "mv MinIONTree ~/bin/"
 os.system(cmd)
-cmd = "chmod a+x Mint3Functions.py"
+cmd = "chmod a+x MinIONTreeFunctions.py"
 os.system(cmd)
-cmd = "mv Mint3Functions.py ~/bin/"
+cmd = "mv MinIONTreeFunctions.py ~/bin/"
 os.system(cmd)
 #Kma
 cmd = "git clone https://bitbucket.org/genomicepidemiology/kma.git"
