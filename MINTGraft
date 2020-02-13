@@ -35,11 +35,12 @@ parser.add_argument("-db", action="store", type=str, default = "", dest="ref_kma
 parser.add_argument("-thread", action="store", default = 1, dest="multi_threading", help="Set this parameter to x-number of threads that you would like to use during KMA-mapping.")
 parser.add_argument("-ref", action="store", type=str, default = "", dest="reference", help="KMA will by default determine the best template against the given database. However, if you want to align your query sequences against a reference of your own choice, use this function. If this is left blank, KMA will determine the optimal reference.")
 parser.add_argument('-version', action='version', version='MINTGraft 1.0.0', help = "current version of MINTGraft")
+parser.add_argument("-binpath", action="store_true", dest="cgetrue", default = "", help="Path to your directory in which your files are localed. Do not use if your files are located in the bin")
 parser.add_argument("-o", action="store", dest="output_name", help="Name that you would like the output directory to be called.")
 args = parser.parse_args()
 
 def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, dcmMethylation, prune, prune_distance, bc,
-                     ref_kma_database, multi_threading, reference, output_name):
+                     ref_kma_database, multi_threading, reference, output_name, binpath):
     if i_path_illumina == "" and i_path_nanopore == "":
         sys.exit("You did not give any input. Run the program again with an input")
     current_path = os.getcwd()
@@ -51,6 +52,8 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, dcmMethylatio
     logfile = open(logfilename, 'w')
     cmd = "mkdir " + target_dir + "DataFiles"
     os.system(cmd)
+
+    kma_path = binpath + "kma"
 
     # Print messages
     startTime = time.time()
@@ -70,21 +73,26 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, dcmMethylatio
     if reference != "":
         print("# -ref: " + reference, file=logfile)
     print ("loading input")
+
+
     illumina_files = mtf.load_illumina(i_path_illumina)
     nanopore_files = mtf.load_nanopore(i_path_nanopore)
     complete_path_illumina_files = mtf.generate_complete_path_illumina_files(illumina_files, i_path_illumina)
     complete_path_nanopore_files = mtf.generate_complete_path_nanopore_files(nanopore_files, i_path_nanopore)
     total_filenames = mtf.combine_input_files(complete_path_illumina_files, complete_path_nanopore_files)
     print ("finding best template")
-    best_template, templatename = mtf.findTemplateResearch(total_filenames, target_dir, kma_database_path, logfile, reference)
+
+
+    best_template, templatename = mtf.findTemplateResearch(total_filenames, target_dir, kma_database_path, logfile, reference, kma_path)
     print ("performing KMA mapping")
     if paired_end == True:
         print ("Paired end illumina input was given")
-        mtf.illuminaMappingPE(complete_path_illumina_files, illumina_files, best_template, target_dir, kma_database_path, logfile, multi_threading, reference)
+        mtf.illuminaMappingPE(complete_path_illumina_files, illumina_files, best_template, target_dir, kma_database_path, logfile, multi_threading, reference, kma_path)
     else:
         print ("Only forward illumina reads was given")
-        mtf.illuminaMappingForward(complete_path_illumina_files, illumina_files, best_template, target_dir, kma_database_path, logfile, multi_threading, reference)
-    mtf.nanoporeMapping(complete_path_nanopore_files, nanopore_files, best_template, target_dir, kma_database_path, logfile, multi_threading, bc, reference)
+        mtf.illuminaMappingForward(complete_path_illumina_files, illumina_files, best_template, target_dir, kma_database_path, logfile, multi_threading, reference, kma_path)
+
+    mtf.nanoporeMapping(complete_path_nanopore_files, nanopore_files, best_template, target_dir, kma_database_path, logfile, multi_threading, bc, reference, kma_path)
 
     if dcmMethylation != "":
         dcmstring= "-m {}".format(dcmMethylation)
@@ -92,14 +100,16 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, dcmMethylatio
         dcmstring = ""
     print ("calculating distance matrix")
 
+    ccphylo_path = binpath + "ccphylo"
+
 
     if prune == True:
-        cmd = "ccphylo dist -i {}*.fsa -o {}{} -r \"{}\" -mc 1 -nm 0 -pr {} {} -nv {}nucleotideVarriance &>> {}distance_matrix_logfile".format(target_dir, target_dir, "distmatrix", templatename, prune_distance, dcmstring, target_dir, target_dir)
+        cmd = "{} dist -i {}*.fsa -o {}{} -r \"{}\" -mc 1 -nm 0 -pr {} {} -nv {}nucleotideVarriance &>> {}distance_matrix_logfile".format(ccphylo_path, target_dir, target_dir, "distmatrix", templatename, prune_distance, dcmstring, target_dir, target_dir)
 
         os.system(cmd)
     
     else:
-        cmd = "ccphylo dist -i {}*.fsa -o {}{} -r \"{}\" -mc 1 -nm 0 {} -nv {}nucleotideVarriance &>> {}distance_matrix_logfile".format(target_dir, target_dir, "distmatrix",
+        cmd = "{} dist -i {}*.fsa -o {}{} -r \"{}\" -mc 1 -nm 0 {} -nv {}nucleotideVarriance &>> {}distance_matrix_logfile".format(ccphylo_path, target_dir, target_dir, "distmatrix",
                                                                                templatename,
                                                                                dcmstring, target_dir, target_dir)
         os.system(cmd)
@@ -118,7 +128,7 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, dcmMethylatio
 
 
 
-    cmd = "ccphylo tree -i {}{} -o {}outtree.newick".format(target_dir, "distmatrix", target_dir)
+    cmd = "{} tree -i {}{} -o {}outtree.newick".format(ccphylo_path, target_dir, "distmatrix", target_dir)
     os.system(cmd)
 
     mtf.cleanUp(target_dir, illumina_files, nanopore_files, paired_end, reference)
@@ -132,7 +142,7 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, dcmMethylatio
 
 def main():
     researchPipeline(args.i_path_illumina, args.i_path_nanopore, args.paired_end, args.dcmMethylation, args.prune,
-                     args.prune_distance, args.bc, args.ref_kma_database, args.multi_threading, args.reference, args.output_name)
+                     args.prune_distance, args.bc, args.ref_kma_database, args.multi_threading, args.reference, args.output_name, args.binpath)
 if __name__== "__main__":
   main()
 

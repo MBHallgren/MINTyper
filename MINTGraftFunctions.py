@@ -17,7 +17,7 @@ import json
 import sqlite3
 import json
 
-def findTemplateResearch(total_filenames, target_dir, kma_database_path, logfile, reference):
+def findTemplateResearch(total_filenames, target_dir, kma_database_path, logfile, reference, kma_path):
     #NON-LEAN
     no_template_found = False
     best_template = ""
@@ -27,13 +27,12 @@ def findTemplateResearch(total_filenames, target_dir, kma_database_path, logfile
         best_template = reference
         print("# The reference given by the user was: " + best_template, file=logfile)
         print("#Making articial DB", file=logfile)
-        cmd = "kma_index -i " + best_template + " -o " + target_dir + "temdb.ATG -Sparse ATG"
+        cmd = "{}_index -i {}  -o {}temdb.ATG -Sparse ATG".format(kma_path, best_template, target_dir)
         os.system(cmd)
         print("# Mapping reads to template", file=logfile)
-        cmd = "kma -i " + total_filenames + " -o " + target_dir + "template_kma_results" + " -t_db " + target_dir + "temdb.ATG" + " -Sparse -mp 20"
+        cmd = "{} -i {} -o {}template_kma_results -t_db {}temdb.ATG -Sparse -mp 20".format(kma_path, total_filenames, target_dir, target_dir)
         os.system(cmd)
 
-        print ("midway complete")
         try:
             infile_template = open(target_dir + "template_kma_results.spa", 'r')
             line = infile_template.readlines()[1]
@@ -45,13 +44,13 @@ def findTemplateResearch(total_filenames, target_dir, kma_database_path, logfile
             sys.exit()
         print("# Best template found was " + templatename, file=logfile)
         print("#Template number was: " + str(best_template), file=logfile)
-        cmd = "kma seq2fasta -t_db " + target_dir + "temdb.ATG -seqs " + str(best_template) + " > " + target_dir + "template_sequence"
+        cmd = "{} seq2fasta -t_db {}temdb.ATG -seqs {} > {}template_sequence".format(kma_path, target_dir, str(best_template), target_dir)
         os.system(cmd)
         print("# Mapping reads to template", file=logfile)
         return best_template, templatename
     else:
         print("# Finding best template", file=logfile)
-        cmd = "kma -i " + total_filenames + " -o " + target_dir + "template_kma_results" + " -ID 50 -t_db " + kma_database_path + " -Sparse -mp 20"
+        cmd = "{} -i {} -o {}template_kma_results -ID 50 -t_db {} -Sparse -mp 20".format(kma_path, total_filenames, target_dir, kma_database_path)
         os.system(cmd)
         try:
             infile_template = open(target_dir + "template_kma_results.spa", 'r')
@@ -63,43 +62,45 @@ def findTemplateResearch(total_filenames, target_dir, kma_database_path, logfile
             sys.exit("Never found a template. Exiting. Check your SPA file.")
         print("# Best template found was " + templatename, file=logfile)
         print("# Template number was: " + str(best_template), file=logfile)
-        cmd = "kma seq2fasta -t_db " + kma_database_path + " -seqs " + str(best_template) + " > " + target_dir + "template_sequence"
+        cmd = "{} seq2fasta -t_db {} -seqs {} > {}template_sequence".format(kma_path, kma_database_path, str(best_template), target_dir)
         os.system(cmd)
         print("# Mapping reads to template", file=logfile)
         return best_template, templatename
 
 #Mapping
-def illuminaMappingForward(complete_path_illumina_input, illumina_input, best_template, target_dir, kma_database_path, logfile, multi_threading, reference):
+def illuminaMappingForward(complete_path_illumina_input, illumina_input, best_template, target_dir, kma_database_path, logfile, multi_threading, reference, kma_path):
+
     if reference != "":
         kma_database_path = target_dir + "temdb.ATG"
 
     # Illumina input
     if illumina_input != "":
         for i in range(len(illumina_input)):
-            cmd = "kma -i {} -o {}{}_mapping_results -t_db {} -ref_fsa -ca -dense -cge -vcf -bc90 -Mt1 {} -t {}".format(complete_path_illumina_input[i], target_dir, illumina_input[i], kma_database_path, str(best_template), str(multi_threading))
+            cmd = "{} -i {} -o {}{}_mapping_results -t_db {} -ref_fsa -ca -dense -cge -vcf -bc90 -Mt1 {} -t {}".format(kma_path, complete_path_illumina_input[i], target_dir, illumina_input[i], kma_database_path, str(best_template), str(multi_threading))
             os.system(cmd)
         print ("# Illumina mapping completed succesfully", file=logfile)
 
-def illuminaMappingPE(complete_path_illumina_input, illumina_input, best_template, target_dir, kma_database_path, logfile, multi_threading, reference):
+def illuminaMappingPE(complete_path_illumina_input, illumina_input, best_template, target_dir, kma_database_path, logfile, multi_threading, reference, kma_path):
     if reference != "":
         kma_database_path = target_dir + "temdb.ATG"
 
     # Illumina input
     if illumina_input != "":
         for i in range(0, len(illumina_input), 2):
-            cmd = "kma -ipe {} {} -o {}{}_mapping_results -t_db {} -ref_fsa -ca -dense -cge -vcf -bc90 -Mt1 {} -t {}".format(complete_path_illumina_input[i], complete_path_illumina_input[i+1], target_dir, illumina_input[i], kma_database_path, str(best_template), str(multi_threading))
+            cmd = "{} -ipe {} {} -o {}{}_mapping_results -t_db {} -ref_fsa -ca -dense -cge -vcf -bc90 -Mt1 {} -t {}".format(kma_path, complete_path_illumina_input[i], complete_path_illumina_input[i+1], target_dir, illumina_input[i], kma_database_path, str(best_template), str(multi_threading))
             os.system(cmd)
         print ("# Illumina mapping completed succesfully", file=logfile)
 
 
-def nanoporeMapping(complete_path_nanopore_input, nanopore_input, best_template, target_dir, kma_database_path, logfile, multi_threading, bc, reference):
+def nanoporeMapping(complete_path_nanopore_input, nanopore_input, best_template, target_dir, kma_database_path, logfile, multi_threading, bc, reference, kma_path):
     # Nanopore input
+
     if reference != "":
         kma_database_path = target_dir + "temdb.ATG"
 
     if nanopore_input != "":
         for i in range(0, len(nanopore_input)):
-            cmd = "kma -i " + complete_path_nanopore_input[i] + " -o " + target_dir + nanopore_input[
+            cmd = "{} -i ".format(kma_path) + complete_path_nanopore_input[i] + " -o " + target_dir + nanopore_input[
                 i] + "_mapping_results" + " -t_db " + kma_database_path + " -mp 20 -1t1 -dense -vcf -ref_fsa -ca -bcNano -Mt1 " + str(
                 best_template) + " -t " + str(multi_threading) + " -bc " + str(bc)
             os.system(cmd)
@@ -286,13 +287,13 @@ def varriansfileRenamer(total_filenames):
 
 
 
-def mutationSpotter(target_dir):
-    templatefile =  open("{}template_sequence".format(target_dir),'r')
-    sequence = ""
 
-    for line in templatefile:
-        line = line.rstrip()
-        if line[0] != ">":
-            sequnce += line
-    print ("Template lenght is {}".format(str(len(sequence))))
-    return True
+
+
+
+
+
+
+
+
+
