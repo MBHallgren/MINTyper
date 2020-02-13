@@ -1,4 +1,4 @@
-Read more about MinIONTree here:
+Read more about MINTGraft here:
 > PUBLICATION TBA
 
 # Table of contents
@@ -11,7 +11,7 @@ Read more about MinIONTree here:
     * [Standard usage](#standard-options)
     
 # Introduction
-MinIONTree is a tools designed to quickly a distance matrix from a set of input sequencing reads. It can take both short read Illumina sequences and long read Oxford Nanopore sequences. 
+MINTGraft is a tools designed to quickly a distance matrix from a set of input sequencing reads. It can take both short read Illumina sequences and long read Oxford Nanopore sequences. 
 
 # Requirements
 
@@ -22,15 +22,15 @@ MinIONTree is a tools designed to quickly a distance matrix from a set of input 
 
 
 # Installation
-The following instructions will install the latest version of MinIONTree:
+The following instructions will install the latest version of MINTGraft:
 
 First, clone the github repository:
 
-"git clone https://github.com/s153002/MinIONTree.git"
+"git clone https://github.com/s153002/MINTGraft.git"
 
 Then run the  installer:
 
-"python3 MinIONtreeInstall.py"
+"python3 MINTGraftInstall.py"
 
 ### Standard usage
 
@@ -42,5 +42,5 @@ Make sure to move all your isolate files to an empty directory. Nanopore and Ill
 
 An example  of a standard usage could be:
 
-"MinIONTree -i_path_illumina /home/usr/illuminaDirectory/ -i_path_nanopore /home/usr/NanoporeDirectory/ -dcm /home/usr/currentDir/dcmFile -o run1 -db /home/user/databases/Bacteria.ATG -thread 6"
+"MINTGraft -i_path_illumina /home/usr/illuminaDirectory/ -i_path_nanopore /home/usr/NanoporeDirectory/ -dcm /home/usr/currentDir/dcmFile -o run1 -db /home/user/databases/Bacteria.ATG -thread 6"
 
