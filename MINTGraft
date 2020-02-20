@@ -24,6 +24,7 @@ import json
 
 
 parser = argparse.ArgumentParser(description='.')
+parser.add_argument('-i_path', action="store", type=str, dest='i_path', default="", help='The path to the directory containing ONLY the input illumina files. Should be used when analyzing >5 read-files at a time.')
 parser.add_argument('-i_path_illumina', action="store", type=str, dest='i_path_illumina', default="", help='The path to the directory containing ONLY the input illumina files. Should be used when analyzing >5 read-files at a time.')
 parser.add_argument('-i_path_nanopore', action="store", type=str, dest='i_path_nanopore', default="", help='The path to the directory containing ONLY the input nanopore files. Should be used when analyzing >5 read-files at a time.')
 parser.add_argument("-pe", action="store_true", dest="paired_end", default = False, help="If paipred ends are used give input as True (-pe True). If Paired-ends are used, it is important that the files are written in the correct order, such as: sample1_1.fasta sample1_2.fasta sample2_1.fasta sample2_1.fasta")
@@ -39,7 +40,7 @@ parser.add_argument("-binpath", action="store_true", dest="cgetrue", default = "
 parser.add_argument("-o", action="store", dest="output_name", help="Name that you would like the output directory to be called.")
 args = parser.parse_args()
 
-def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, dcmMethylation, prune, prune_distance, bc,
+def researchPipeline(i_path, i_path_illumina, i_path_nanopore, paired_end, dcmMethylation, prune, prune_distance, bc,
                      ref_kma_database, multi_threading, reference, output_name, binpath):
     if i_path_illumina == "" and i_path_nanopore == "":
         sys.exit("You did not give any input. Run the program again with an input")
@@ -56,6 +57,9 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, dcmMethylatio
     kma_path = binpath + "kma"
 
     # Print messages
+
+
+
     startTime = time.time()
     print("# Running MINTGraft 1.0.0 with following input conditions:", file=logfile)
     mtf.logfileConditionsResearch(logfile, dcmMethylation, prune, prune_distance, bc, ref_kma_database, multi_threading, reference, output_name, paired_end)
@@ -74,12 +78,18 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, dcmMethylatio
         print("# -ref: " + reference, file=logfile)
     print ("loading input")
 
+    mtf.load_input(i_path)
+
+    sys.exit("Finished")
+
 
     illumina_files = mtf.load_illumina(i_path_illumina)
     nanopore_files = mtf.load_nanopore(i_path_nanopore)
     complete_path_illumina_files = mtf.generate_complete_path_illumina_files(illumina_files, i_path_illumina)
     complete_path_nanopore_files = mtf.generate_complete_path_nanopore_files(nanopore_files, i_path_nanopore)
     total_filenames = mtf.combine_input_files(complete_path_illumina_files, complete_path_nanopore_files)
+
+
     print ("finding best template")
 
 
@@ -141,7 +151,7 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, dcmMethylatio
     mtf.varriansfileRenamer(total_filenames)
 
 def main():
-    researchPipeline(args.i_path_illumina, args.i_path_nanopore, args.paired_end, args.dcmMethylation, args.prune,
+    researchPipeline(args.i_path, args.i_path_illumina, args.i_path_nanopore, args.paired_end, args.dcmMethylation, args.prune,
                      args.prune_distance, args.bc, args.ref_kma_database, args.multi_threading, args.reference, args.output_name, args.binpath)
 if __name__== "__main__":
   main()

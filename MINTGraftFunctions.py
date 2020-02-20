@@ -5,6 +5,7 @@
 #Import Libraries
 import sys
 import os
+import statistics
 import argparse
 import time
 import gc
@@ -194,6 +195,40 @@ def cleanUp( target_dir, illumina_input, nanopore_input, paired_end, reference):
         os.system(cmd)
         cmd = "rm " + target_dir + "temdb.ATG.seq.b"
         os.system(cmd)
+
+def load_input(inputPath):
+    allFiles = os.listdir(inputPath)
+    allFiles.sort()
+    illuminaFiles = []
+    nanoporeFiles = []
+    for i in range(len(allFiles)):
+        completeFileName = inputPath + allFiles[i]
+        infile = open(completeFileName, 'r')
+        t = 0
+        sequence = ""
+        seqLenght = []
+        for line in infile:
+            line = line.rstrip()
+            if line[0] == ">":
+                if t >= 1:
+                    seqLenght.append(len(sequence))
+                t += 1
+            else:
+                sequence += line
+            if t == 20:
+                break
+        if statistics.mean(seqLenght) > 500:
+            print("seqlenght = {}".format(statistics.mean(seqLenght)))
+            print("This is long read")
+            nanoporeFiles.append(completeFileName)
+        else:
+            print("seqlenght = {}".format(statistics.mean(seqLenght)))
+            print("This is short read")
+            illuminaFiles.append(completeFileName)
+    print (illuminaFiles)
+    print (nanoporeFiles)
+
+
 
 def load_illumina(illumina_path_input):
     if illumina_path_input != "":
