@@ -6,6 +6,7 @@
 import sys
 import os
 import statistics
+import gzip
 import argparse
 import time
 import gc
@@ -203,64 +204,33 @@ def load_input(inputPath):
     nanoporeFiles = []
     for i in range(len(allFiles)):
         completeFileName = inputPath + allFiles[i]
-        infile = open(completeFileName, 'r')
+        #Check gzzip
+
+        try:
+            infile = gzip.open(completeFileName, 'rt')
+        except IOError as error:
+            infile = open(completeFileName, 'r')
         t = 0
-        sequence = ""
         seqLenght = []
         for line in infile:
             line = line.rstrip()
-            if line[0] == ">":
-                if t >= 1:
-                    seqLenght.append(len(sequence))
+            if line[0] == "G" or line[0] == "C" or line[0] == "T" or line[0] == "A":
+                seqLenght.append(len(line))
                 t += 1
-            else:
-                sequence += line
-            if t == 20:
+            if t == 50:
                 break
         if statistics.mean(seqLenght) > 500:
-            print("seqlenght = {}".format(statistics.mean(seqLenght)))
-            print("This is long read")
             nanoporeFiles.append(completeFileName)
         else:
-            print("seqlenght = {}".format(statistics.mean(seqLenght)))
-            print("This is short read")
             illuminaFiles.append(completeFileName)
-    print (illuminaFiles)
-    print (nanoporeFiles)
-
-
-
-def load_illumina(illumina_path_input):
-    if illumina_path_input != "":
-        path = illumina_path_input
-        illumina_files = os.listdir(path)
-        illumina_files.sort()
-    else:
-        illumina_files = ""
-    return illumina_files
-
-def load_nanopore(nanopore_path_input):
-    if nanopore_path_input != "":
-        path = nanopore_path_input
-        nanopore_files = os.listdir(path)
-        nanopore_files.sort()
-    else:
-        nanopore_files = ""
-    return nanopore_files
-
-def generate_complete_path_illumina_files(illumina_files, illumina_path_input):
-    path = illumina_path_input
-    complete_path_illumina_files = []
-    for i in range(len(illumina_files)):
-        complete_path_illumina_files.append(path + illumina_files[i])
-    return complete_path_illumina_files
-
-def generate_complete_path_nanopore_files(nanopore_files, nanopore_path_input):
-    path = nanopore_path_input
-    complete_path_nanopore_files = []
-    for i in range(len(nanopore_files)):
-        complete_path_nanopore_files.append(path + nanopore_files[i])
-    return complete_path_nanopore_files
+        infile.close()
+    illuminaFiles.sort()
+    nanoporeFiles.sort()
+    if illuminaFiles == []:
+        illuminaFiles = ""
+    if nanoporeFiles == []:
+        nanoporeFiles = ""
+    return illuminaFiles, nanoporeFiles
 
 def combine_input_files(illumina_files, nanopore_files):
     if illumina_files == "":
