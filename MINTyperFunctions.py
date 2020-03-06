@@ -53,6 +53,7 @@ def findTemplateResearch(total_filenames, target_dir, kma_database_path, logfile
     else:
         print("# Finding best template", file=logfile)
         cmd = "{} -i {} -o {}template_kma_results -ID 50 -t_db {} -Sparse -mp 20".format(kma_path, total_filenames, target_dir, kma_database_path)
+        print(cmd)
         os.system(cmd)
         try:
             infile_template = open(target_dir + "template_kma_results.spa", 'r')
@@ -70,8 +71,11 @@ def findTemplateResearch(total_filenames, target_dir, kma_database_path, logfile
         return best_template, templatename
 
 #Mapping
-def illuminaMappingForward(complete_path_illumina_input, illumina_input, best_template, target_dir, kma_database_path, logfile, multi_threading, reference, kma_path):
-
+def illuminaMappingForward(illumina_input, best_template, target_dir, kma_database_path, logfile, multi_threading, reference, kma_path):
+    complete_path_illumina_input = illumina_input
+    illumina_input = []
+    for item in complete_path_illumina_input:
+        illumina_input.append(item.split("/")[-1])
     if reference != "":
         kma_database_path = target_dir + "temdb.ATG"
 
@@ -82,7 +86,12 @@ def illuminaMappingForward(complete_path_illumina_input, illumina_input, best_te
             os.system(cmd)
         print ("# Illumina mapping completed succesfully", file=logfile)
 
-def illuminaMappingPE(complete_path_illumina_input, illumina_input, best_template, target_dir, kma_database_path, logfile, multi_threading, reference, kma_path):
+def illuminaMappingPE(illumina_input, best_template, target_dir, kma_database_path, logfile, multi_threading, reference, kma_path):
+    complete_path_illumina_input = illumina_input
+    illumina_input = []
+    for item in complete_path_illumina_input:
+        illumina_input.append(item.split("/")[-1])
+
     if reference != "":
         kma_database_path = target_dir + "temdb.ATG"
 
@@ -94,8 +103,13 @@ def illuminaMappingPE(complete_path_illumina_input, illumina_input, best_templat
         print ("# Illumina mapping completed succesfully", file=logfile)
 
 
-def nanoporeMapping(complete_path_nanopore_input, nanopore_input, best_template, target_dir, kma_database_path, logfile, multi_threading, bc, reference, kma_path):
+def nanoporeMapping(nanopore_input, best_template, target_dir, kma_database_path, logfile, multi_threading, bc, reference, kma_path):
     # Nanopore input
+    complete_path_nanopore_input = nanopore_input
+    nanopore_input = []
+    for item in complete_path_nanopore_input:
+        nanopore_input.append(item.split("/")[-1])
+
 
     if reference != "":
         kma_database_path = target_dir + "temdb.ATG"
@@ -109,6 +123,16 @@ def nanoporeMapping(complete_path_nanopore_input, nanopore_input, best_template,
         print ("# Nanopore mapping completed succesfully", file=logfile)
 
 def cleanUp( target_dir, illumina_input, nanopore_input, paired_end, reference):
+    complete_path_nanopore_input = nanopore_input
+    nanopore_input = []
+    for item in complete_path_nanopore_input:
+        nanopore_input.append(item.split("/")[-1])
+
+    complete_path_illumina_input = illumina_input
+    illumina_input = []
+    for item in complete_path_illumina_input:
+        illumina_input.append(item.split("/")[-1])
+
     save_files_bool = True
     if save_files_bool == False:
         if illumina_input != "" and paired_end == False:
@@ -242,12 +266,12 @@ def combine_input_files(illumina_files, nanopore_files):
     total_input_files = " ".join(total_input_files)
     return total_input_files
 
-def logfileConditionsResearch(logfile, dcmMethylation, prune, prune_distance, bc, ref_kma_database, multi_threading, reference, output_name, paired_end):
+def logfileConditionsResearch(logfile, masking_scheme, prune, prune_distance, bc, ref_kma_database, multi_threading, reference, output_name, paired_end):
     logdict = {}
-    if dcmMethylation != "":
-        logdict['dcmMethylation'] = dcmMethylation
+    if masking_scheme != "":
+        logdict['masking_scheme'] = masking_scheme
     else:
-        logdict['dcmMethylation'] = ""
+        logdict['masking_scheme'] = ""
     if prune != False:
         logdict['prune'] = str(prune)
     else:

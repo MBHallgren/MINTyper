@@ -1,11 +1,11 @@
 import  os
-cmd = "chmod a+x MINTGraft"
+cmd = "chmod a+x MINTyper"
 os.system(cmd)
-cmd = "mv MINTGraft ~/bin/"
+cmd = "mv MINTyper ~/bin/"
 os.system(cmd)
-cmd = "chmod a+x MINTGraftFunctions.py"
+cmd = "chmod a+x MINTyperFunctions.py"
 os.system(cmd)
-cmd = "mv MINTGraftFunctions.py ~/bin/"
+cmd = "mv MINTyperFunctions.py ~/bin/"
 os.system(cmd)
 #Kma
 cmd = "git clone https://bitbucket.org/genomicepidemiology/kma.git"

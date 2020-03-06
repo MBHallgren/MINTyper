@@ -1,4 +1,4 @@
-Read more about MINTGraft here:
+Read more about MINTyper here:
 > PUBLICATION TBA
 
 # Table of contents
@@ -11,7 +11,7 @@ Read more about MINTGraft here:
     * [Standard usage](#standard-options)
     
 # Introduction
-MINTGraft is a tools designed to quickly a distance matrix from a set of input sequencing reads. It can take both short read Illumina sequences and long read Oxford Nanopore sequences. 
+MINTyper is a tools designed to quickly a distance matrix from a set of input sequencing reads. It can take both short read Illumina sequences and long read Oxford Nanopore sequences. 
 
 # Requirements
 
@@ -22,15 +22,15 @@ MINTGraft is a tools designed to quickly a distance matrix from a set of input s
 
 
 # Installation
-The following instructions will install the latest version of MINTGraft:
+The following instructions will install the latest version of MINTyper:
 
 First, clone the github repository:
 
-"git clone https://github.com/s153002/MINTGraft.git"
+"git clone https://github.com/s153002/MINTyper.git"
 
 Then run the  installer:
 
-"python3 MINTGraftInstall.py"
+"python3 MINTyperInstall.py"
 
 ### Standard usage
 
@@ -42,5 +42,5 @@ Make sure to move all your isolate files to an empty directory. Nanopore and Ill
 
 An example  of a standard usage could be:
 
-"MINTGraft -i_path_illumina /home/usr/illuminaDirectory/ -i_path_nanopore /home/usr/NanoporeDirectory/ -dcm /home/usr/currentDir/dcmFile -o run1 -db /home/user/databases/Bacteria.ATG -thread 6"
+"MINTyper -i_path_illumina /home/usr/illuminaDirectory/ -i_path_nanopore /home/usr/NanoporeDirectory/ -dcm /home/usr/currentDir/dcmFile -o run1 -db /home/user/databases/Bacteria.ATG -thread 6"
 
