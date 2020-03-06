@@ -29,7 +29,7 @@ def findTemplateResearch(total_filenames, target_dir, kma_database_path, logfile
         best_template = reference
         print("# The reference given by the user was: " + best_template, file=logfile)
         print("#Making articial DB", file=logfile)
-        cmd = "{}_index -i {}  -o {}temdb.ATG -Sparse ATG".format(kma_path, best_template, target_dir)
+        cmd = "{} index -i {}  -o {}temdb.ATG -Sparse ATG".format(kma_path, best_template, target_dir)
         os.system(cmd)
         print("# Mapping reads to template", file=logfile)
         cmd = "{} -i {} -o {}template_kma_results -t_db {}temdb.ATG -Sparse -mp 20".format(kma_path, total_filenames, target_dir, target_dir)
@@ -53,7 +53,6 @@ def findTemplateResearch(total_filenames, target_dir, kma_database_path, logfile
     else:
         print("# Finding best template", file=logfile)
         cmd = "{} -i {} -o {}template_kma_results -ID 50 -t_db {} -Sparse -mp 20".format(kma_path, total_filenames, target_dir, kma_database_path)
-        print(cmd)
         os.system(cmd)
         try:
             infile_template = open(target_dir + "template_kma_results.spa", 'r')
@@ -221,40 +220,37 @@ def cleanUp( target_dir, illumina_input, nanopore_input, paired_end, reference):
         cmd = "rm " + target_dir + "temdb.ATG.seq.b"
         os.system(cmd)
 
-def load_input(inputPath):
-    allFiles = os.listdir(inputPath)
-    allFiles.sort()
-    illuminaFiles = []
-    nanoporeFiles = []
-    for i in range(len(allFiles)):
-        completeFileName = inputPath + allFiles[i]
-        #Check gzzip
+def load_illumina(illumina_path_input):
+    if illumina_path_input != "":
+        path = illumina_path_input
+        illumina_files = os.listdir(path)
+        illumina_files.sort()
+    else:
+        illumina_files = ""
+    return illumina_files
 
-        try:
-            infile = gzip.open(completeFileName, 'rt')
-        except IOError as error:
-            infile = open(completeFileName, 'r')
-        t = 0
-        seqLenght = []
-        for line in infile:
-            line = line.rstrip()
-            if line[0] == "G" or line[0] == "C" or line[0] == "T" or line[0] == "A":
-                seqLenght.append(len(line))
-                t += 1
-            if t == 50:
-                break
-        if statistics.mean(seqLenght) > 500:
-            nanoporeFiles.append(completeFileName)
-        else:
-            illuminaFiles.append(completeFileName)
-        infile.close()
-    illuminaFiles.sort()
-    nanoporeFiles.sort()
-    if illuminaFiles == []:
-        illuminaFiles = ""
-    if nanoporeFiles == []:
-        nanoporeFiles = ""
-    return illuminaFiles, nanoporeFiles
+def load_nanopore(nanopore_path_input):
+    if nanopore_path_input != "":
+        path = nanopore_path_input
+        nanopore_files = os.listdir(path)
+        nanopore_files.sort()
+    else:
+        nanopore_files = ""
+    return nanopore_files
+
+def generate_complete_path_illumina_files(illumina_files, illumina_path_input):
+    path = illumina_path_input
+    complete_path_illumina_files = []
+    for i in range(len(illumina_files)):
+        complete_path_illumina_files.append(path + illumina_files[i])
+    return complete_path_illumina_files
+
+def generate_complete_path_nanopore_files(nanopore_files, nanopore_path_input):
+    path = nanopore_path_input
+    complete_path_nanopore_files = []
+    for i in range(len(nanopore_files)):
+        complete_path_nanopore_files.append(path + nanopore_files[i])
+    return complete_path_nanopore_files
 
 def combine_input_files(illumina_files, nanopore_files):
     if illumina_files == "":

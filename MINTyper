@@ -80,14 +80,15 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, masking_schem
         print("# -ref: " + reference, file=logfile)
     print ("loading input")
 
-    illumina_files = i_path_illumina
-
-    nanopore_files = i_path_nanopore
+    illumina_files = mtf.load_illumina(i_path_illumina)
+    nanopore_files = mtf.load_nanopore(i_path_nanopore)
+    illumina_files = mtf.generate_complete_path_illumina_files(illumina_files, i_path_illumina)
+    nanopore_files = mtf.generate_complete_path_nanopore_files(nanopore_files, i_path_nanopore)
+    total_filenames = mtf.combine_input_files(illumina_files, nanopore_files)
 
     if 2 > len(i_path_nanopore) + len(illumina_files):
         sys.exit("You did not supply 2 or more input files. Please run the program again with correct input")
 
-    total_filenames = mtf.combine_input_files(illumina_files, nanopore_files)
 
     best_template, templatename = mtf.findTemplateResearch(total_filenames, target_dir, kma_database_path, logfile, reference, kma_path)
 
@@ -111,12 +112,12 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, masking_schem
 
 
     if prune == True:
-        cmd = "{} dist -i {}*.fsa -o {}{} -r \"{}\" -mc 1 -nm 0 -pr {} {} -nv {}nucleotideVarriance &>> {}distance_matrix_logfile".format(ccphylo_path, target_dir, target_dir, "distmatrix", templatename, prune_distance, dcmstring, target_dir, target_dir)
+        cmd = "{} dist -i {}*.fsa -o {}{} -r \"{}\" -mc 1 -nm 0 -pr {} {} -nv {}nucleotideVarriance &>> {}distance_matrix_logfile".format(ccphylo_path, target_dir, target_dir, "distmatrix.phy", templatename, prune_distance, dcmstring, target_dir, target_dir)
 
         os.system(cmd)
 
     else:
-        cmd = "{} dist -i {}*.fsa -o {}{} -r \"{}\" -mc 1 -nm 0 {} -nv {}nucleotideVarriance &>> {}distance_matrix_logfile".format(ccphylo_path, target_dir, target_dir, "distmatrix",
+        cmd = "{} dist -i {}*.fsa -o {}{} -r \"{}\" -mc 1 -nm 0 {} -nv {}nucleotideVarriance &>> {}distance_matrix_logfile".format(ccphylo_path, target_dir, target_dir, "distmatrix.phy",
                                                                                templatename,
                                                                                dcmstring, target_dir, target_dir)
         os.system(cmd)
@@ -133,7 +134,7 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, masking_schem
 
 
 
-    cmd = "{} tree -i {}{} -o {}outtree.newick".format(ccphylo_path, target_dir, "distmatrix", target_dir)
+    cmd = "{} tree -i {}{} -o {}outtree.newick".format(ccphylo_path, target_dir, "distmatrix.phy", target_dir)
     os.system(cmd)
 
     mtf.cleanUp(target_dir, illumina_files, nanopore_files, paired_end, reference)
