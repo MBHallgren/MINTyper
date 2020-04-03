@@ -86,7 +86,7 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, masking_schem
     nanopore_files = mtf.generate_complete_path_nanopore_files(nanopore_files, i_path_nanopore)
     total_filenames = mtf.combine_input_files(illumina_files, nanopore_files)
 
-    if 2 > len(i_path_nanopore) + len(illumina_files):
+    if 3 > len(i_path_nanopore) + len(illumina_files):
         sys.exit("You did not supply 2 or more input files. Please run the program again with correct input")
 
 
@@ -151,3 +151,5 @@ def main():
                      args.prune_distance, args.bc, args.ref_kma_database, args.multi_threading, args.reference, args.output_name, args.binpath)
 if __name__== "__main__":
     main()
+
+#MINTyper -i_path_illumina /home/maha/12STA_Illumina/ -i_path_nanopore /home/maha/12STA_MinION/ -pe -db /home/maha/databasenew/bacteria.ATG -o test2_nodcmprune_newnames
