@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b673374f-91e9-4b74-bd4d-e200ee9cca6c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MINTyper" beforeDir="false" afterPath="$PROJECT_DIR$/MINTyper" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MINTyperInstall.py" beforeDir="false" afterPath="$PROJECT_DIR$/MINTyperInstall.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,8 +25,17 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MINTyper">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2118">
-              <caret line="154" column="1" selection-start-line="154" selection-start-column="1" selection-end-line="154" selection-end-column="1" />
+            <state relative-caret-position="1800">
+              <caret line="124" lean-forward="true" selection-start-line="124" selection-end-line="124" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/MINTyperInstall.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="10" column="13" lean-forward="true" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -94,6 +103,7 @@
         <option value="$PROJECT_DIR$/MINTyperFunctions.py" />
         <option value="$PROJECT_DIR$/../hpc/week5/knapsack.py" />
         <option value="$PROJECT_DIR$/../hpc/week5/ks2.py" />
+        <option value="$PROJECT_DIR$/MINTyperInstall.py" />
         <option value="$PROJECT_DIR$/MINTyper" />
       </list>
     </option>
@@ -107,6 +117,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -118,7 +129,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -150,10 +160,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="900" extended-state="6" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4744268" visible="true" weight="0.3125894" />
-      <window_info id="Structure" order="1" sideWeight="0.5255732" side_tool="true" visible="true" weight="0.3125894" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.47217235" visible="true" weight="0.31688127" />
+      <window_info id="Structure" order="1" sideWeight="0.5278276" side_tool="true" visible="true" weight="0.31688127" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.32891566" />
@@ -162,7 +172,7 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" visible="true" weight="0.31686747" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.31686747" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="10" />
@@ -248,10 +258,17 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../hpc/week5/ks2.py" />
-    <entry file="file://$PROJECT_DIR$/MINTyperFunctions.py">
+    <entry file="file://$PROJECT_DIR$/../hpc/week5/knapsack.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="45" column="20" selection-start-line="45" selection-start-column="12" selection-end-line="45" selection-end-column="20" />
+        <state relative-caret-position="615">
+          <caret line="41" column="4" selection-start-line="41" selection-start-column="4" selection-end-line="48" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MINTyperInstall.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="13" lean-forward="true" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -262,17 +279,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../hpc/week5/knapsack.py">
+    <entry file="file://$PROJECT_DIR$/MINTyperFunctions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="615">
-          <caret line="41" column="4" selection-start-line="41" selection-start-column="4" selection-end-line="48" selection-end-column="28" />
+        <state relative-caret-position="465">
+          <caret line="45" column="20" selection-start-line="45" selection-start-column="12" selection-end-line="45" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MINTyper">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2118">
-          <caret line="154" column="1" selection-start-line="154" selection-start-column="1" selection-end-line="154" selection-end-column="1" />
+        <state relative-caret-position="1800">
+          <caret line="124" lean-forward="true" selection-start-line="124" selection-end-line="124" />
         </state>
       </provider>
     </entry>

@@ -25,7 +25,7 @@ parser.add_argument("-db", action="store", type=str, default = "", dest="ref_kma
 parser.add_argument("-thread", action="store", default = 1, dest="multi_threading", help="Set this parameter to x-number of threads that you would like to use during KMA-mapping.")
 parser.add_argument("-ref", action="store", type=str, default = "", dest="reference", help="KMA will by default determine the best template against the given database. However, if you want to align your query sequences against a reference of your own choice, use this function. If this is left blank, KMA will determine the optimal reference.")
 parser.add_argument('-version', action='version', version='MINTyper 1.0.0', help = "current version of MINTyper")
-parser.add_argument("-binpath", action="store", dest="binpath", default = "", help="Path to your directory in which your files are localed. Do not use if your files are located in the bin")
+parser.add_argument("-exepath", action="store", dest="exepath", default = "", help="Complete path to the COVIDTyper repo that you cloned, in which the executables are located")
 parser.add_argument("-o", action="store", dest="output_name", help="Name that you would like the output directory to be called.")
 args = parser.parse_args()
 
@@ -60,7 +60,7 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, masking_schem
     cmd = "mkdir " + target_dir + "DataFiles"
     os.system(cmd)
 
-    kma_path = binpath + "kma"
+    kma_path = exepath + "kma/kma"
 
     # Print messages
 
@@ -108,7 +108,7 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, masking_schem
         dcmstring = ""
     print ("calculating distance matrix")
 
-    ccphylo_path = binpath + "ccphylo"
+    ccphylo_path = exepath + "ccphylo/ccphylo"
 
 
     if prune == True:
