@@ -30,7 +30,7 @@ parser.add_argument("-o", action="store", dest="output_name", help="Name that yo
 args = parser.parse_args()
 
 def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, masking_scheme, prune_distance, bc,
-                     ref_kma_database, multi_threading, reference, output_name, binpath):
+                     ref_kma_database, multi_threading, reference, output_name, exepath):
     if prune_distance > 0:
         prune = True
     else:
@@ -44,6 +44,8 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, masking_schem
         cmd = "mkdir " + target_dir
         os.system(cmd)
         cmd = "chmod 775 " + target_dir
+        os.system(cmd)
+        cmd = "chmod 775 " + target_dir + "Datafiles/"
         os.system(cmd)
         logfilename = target_dir + "logfile"
         logfile = open(logfilename, 'w')
@@ -131,7 +133,8 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, masking_schem
 
     cmd = "rm {}distance_matrix_logfile".format(target_dir)
     os.system(cmd)
-
+    #cmd = "mv {}DataFiles/* {}.".format(target_dir, target_dir)
+    #os.system(cmd)
 
 
     cmd = "{} tree -i {}{} -o {}outtree.newick".format(ccphylo_path, target_dir, "distmatrix.phy", target_dir)
@@ -144,12 +147,16 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, masking_schem
     logfile.close()
     print ("MINTyper has completed")
 
+    cmd = "cat {}DataFiles/*.vcf.gz > {}combined.vcf.gz".format(target_dir, target_dir)
+    os.system(cmd)
+
     mtf.varriansfileRenamer(total_filenames)
 
 def main():
     researchPipeline(args.i_path_illumina, args.i_path_nanopore, args.paired_end, args.masking_scheme,
-                     args.prune_distance, args.bc, args.ref_kma_database, args.multi_threading, args.reference, args.output_name, args.binpath)
+                     args.prune_distance, args.bc, args.ref_kma_database, args.multi_threading, args.reference, args.output_name, args.exepath)
 if __name__== "__main__":
     main()
-
+#moveFile(paths['serviceRoot']+'outputs/cgeout/combined.vcf.gz', paths['downloads']+'results.vcf.gz');
+#dlButton('Vcf file of mutations', 'results.vcf.gz')
 #MINTyper -i_path_illumina /home/maha/12STA_Illumina/ -i_path_nanopore /home/maha/12STA_MinION/ -pe -db /home/maha/databasenew/bacteria.ATG -o test2_nodcmprune_newnames

@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b673374f-91e9-4b74-bd4d-e200ee9cca6c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/MINTyper" beforeDir="false" afterPath="$PROJECT_DIR$/MINTyper" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MINTyperInstall.py" beforeDir="false" afterPath="$PROJECT_DIR$/MINTyperInstall.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MINTyper.py" beforeDir="false" afterPath="$PROJECT_DIR$/MINTyper.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,20 +13,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MINTyperFunctions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="465">
-              <caret line="45" column="20" selection-start-line="45" selection-start-column="12" selection-end-line="45" selection-end-column="20" />
+            <state relative-caret-position="392">
+              <caret line="70" selection-start-line="70" selection-end-line="70" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/MINTyper">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/MINTyper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1800">
-              <caret line="124" lean-forward="true" selection-start-line="124" selection-end-line="124" />
+            <state relative-caret-position="213">
+              <caret line="66" column="2" selection-start-line="66" selection-start-column="2" selection-end-line="66" selection-end-column="2" />
             </state>
           </provider>
         </entry>
@@ -34,8 +34,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MINTyperInstall.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="13" lean-forward="true" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+            <state relative-caret-position="105">
+              <caret line="7" column="14" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -76,11 +76,17 @@
       <find>bestp</find>
       <find>bestC</find>
       <find>estim</find>
+      <find>COVID</find>
+      <find>bin</find>
+      <find>binpa</find>
+      <find>path</find>
     </findStrings>
     <replaceStrings>
       <replace>masking_scheme</replace>
       <replace>MINTyper</replace>
       <replace>bestSize</replace>
+      <replace>exepath</replace>
+      <replace>MINT</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -103,8 +109,9 @@
         <option value="$PROJECT_DIR$/MINTyperFunctions.py" />
         <option value="$PROJECT_DIR$/../hpc/week5/knapsack.py" />
         <option value="$PROJECT_DIR$/../hpc/week5/ks2.py" />
-        <option value="$PROJECT_DIR$/MINTyperInstall.py" />
         <option value="$PROJECT_DIR$/MINTyper" />
+        <option value="$PROJECT_DIR$/MINTyperInstall.py" />
+        <option value="$PROJECT_DIR$/MINTyper.py" />
       </list>
     </option>
   </component>
@@ -117,7 +124,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -129,6 +135,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -161,9 +168,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.47217235" visible="true" weight="0.31688127" />
-      <window_info id="Structure" order="1" sideWeight="0.5278276" side_tool="true" visible="true" weight="0.31688127" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4698795" visible="true" weight="0.32546496" />
+      <window_info id="Structure" order="1" sideWeight="0.5301205" side_tool="true" visible="true" weight="0.32546496" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.32891566" />
@@ -258,20 +266,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../hpc/week5/ks2.py" />
-    <entry file="file://$PROJECT_DIR$/../hpc/week5/knapsack.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="615">
-          <caret line="41" column="4" selection-start-line="41" selection-start-column="4" selection-end-line="48" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MINTyperInstall.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="13" lean-forward="true" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/MINTyper" />
     <entry file="file://$PROJECT_DIR$/dcmMethylations">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -279,17 +274,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MINTyperFunctions.py">
+    <entry file="file://$PROJECT_DIR$/../hpc/week5/knapsack.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="45" column="20" selection-start-line="45" selection-start-column="12" selection-end-line="45" selection-end-column="20" />
+        <state relative-caret-position="615">
+          <caret line="41" column="4" selection-start-line="41" selection-start-column="4" selection-end-line="48" selection-end-column="28" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MINTyper">
+    <entry file="file://$PROJECT_DIR$/MINTyper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1800">
-          <caret line="124" lean-forward="true" selection-start-line="124" selection-end-line="124" />
+        <state relative-caret-position="213">
+          <caret line="66" column="2" selection-start-line="66" selection-start-column="2" selection-end-line="66" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MINTyperInstall.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="14" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MINTyperFunctions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="392">
+          <caret line="70" selection-start-line="70" selection-end-line="70" />
         </state>
       </provider>
     </entry>
