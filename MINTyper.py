@@ -14,7 +14,6 @@ import MINTyperFunctions as mtf
 
 
 parser = argparse.ArgumentParser(description='.')
-#parser.add_argument('-i_path', action="store", type=str, dest='i_path', default="", help='The path to the directory containing ONLY the input illumina files. Should be used when analyzing >5 read-files at a time.')
 parser.add_argument('-i_path_illumina', action="store", type=str, dest='i_path_illumina', default="", help='The path to the directory containing ONLY the input illumina files. Should be used when analyzing >5 read-files at a time.')
 parser.add_argument('-i_path_nanopore', action="store", type=str, dest='i_path_nanopore', default="", help='The path to the directory containing ONLY the input nanopore files. Should be used when analyzing >5 read-files at a time.')
 parser.add_argument("-pe", action="store_true", dest="paired_end", default = False, help="If paipred ends are used give input as True (-pe True). If Paired-ends are used, it is important that the files are written in the correct order, such as: sample1_1.fasta sample1_2.fasta sample2_1.fasta sample2_1.fasta")
@@ -25,7 +24,7 @@ parser.add_argument("-db", action="store", type=str, default = "", dest="ref_kma
 parser.add_argument("-thread", action="store", default = 1, dest="multi_threading", help="Set this parameter to x-number of threads that you would like to use during KMA-mapping.")
 parser.add_argument("-ref", action="store", type=str, default = "", dest="reference", help="KMA will by default determine the best template against the given database. However, if you want to align your query sequences against a reference of your own choice, use this function. If this is left blank, KMA will determine the optimal reference.")
 parser.add_argument('-version', action='version', version='MINTyper 1.0.0', help = "current version of MINTyper")
-parser.add_argument("-exepath", action="store", dest="exepath", default = "", help="Complete path to the COVIDTyper repo that you cloned, in which the executables are located")
+parser.add_argument("-exepath", action="store", dest="exepath", default = "", help="Complete path to the MINTyper repo that you cloned, in which the executables are located")
 parser.add_argument("-o", action="store", dest="output_name", help="Name that you would like the output directory to be called.")
 args = parser.parse_args()
 
