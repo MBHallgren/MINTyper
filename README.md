@@ -25,6 +25,7 @@ The following commands will install the latest version of MINTyper if python3, a
 
 ```bash
 git clone https://github.com/s153002/MINTyper.git
+cd MINTyper
 python3 MINTyperInstall.py
 ```
 
@@ -34,6 +35,8 @@ python3 MINTyperInstall.py
 MINTyper provides two options: Either the user can give a single fasta file as reference sequence by using the -ref argument, or a whole KMA indexed database can be used with the -db argument.
 
 A guide for indexing a given database correctly can be found at https://bitbucket.org/genomicepidemiology/kma/src/master/
+
+A database of complete bacterial genomes can be found at: http://www.cbs.dtu.dk/public/CGE/databases/KmerFinder/version/latest/bacteria.tar.gz 
 
 # Standard usage
 
