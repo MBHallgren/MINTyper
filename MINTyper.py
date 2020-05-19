@@ -28,6 +28,7 @@ import MINTyperFunctions as mtf
 parser = argparse.ArgumentParser(description='.')
 parser.add_argument('-i_path_illumina', action="store", type=str, dest='i_path_illumina', default="", help='The path to the directory containing ONLY the input illumina files. Should be used when analyzing >5 read-files at a time.')
 parser.add_argument('-i_path_nanopore', action="store", type=str, dest='i_path_nanopore', default="", help='The path to the directory containing ONLY the input nanopore files. Should be used when analyzing >5 read-files at a time.')
+parser.add_argument('-i_path_assemblies', action="store", type=str, dest='i_path_assemblies', default="", help='The path to the directory containing the assembly files')
 parser.add_argument("-pe", action="store_true", dest="paired_end", default = False, help="If paipred ends are used give input as True (-pe True). If Paired-ends are used, it is important that the files are written in the correct order, such as: sample1_1.fasta sample1_2.fasta sample2_1.fasta sample2_1.fasta")
 parser.add_argument("-masking_scheme", type=str, action="store", dest="masking_scheme", default="", help="Give a fasta file containing a motof that you wish to mask in the aligned concensus files.")
 parser.add_argument("-prune_distance", type=int, action="store", dest="prune_distance", default=5, help="X lenght that SNPs can be located between each other. Default is 10. If two SNPs are located within X lenght of eachother, everything between them as well as X lenght on each side of the SNPs will not be used in the alignments to calculate the distance matrix.")
@@ -40,15 +41,14 @@ parser.add_argument("-exepath", action="store", dest="exepath", default = "", he
 parser.add_argument("-o", action="store", dest="output_name", help="Name that you would like the output directory to be called.")
 args = parser.parse_args()
 
-def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, masking_scheme, prune_distance, bc,
-                     ref_kma_database, multi_threading, reference, output_name, exepath):
-    if prune_distance > 0:
-        prune = True
+def researchPipeline(i_path_illumina, i_path_nanopore, i_mfa, paired_end, bc,
+                     ref_kma_database, multi_threading, reference, output_name, exepath, assemblies):
+    if assemblies != "":
+        assembly_flag = True
+        i_path_illumina = assemblies
     else:
-        prune = False
+        assembly_flag = False
 
-    if i_path_illumina == "" and i_path_nanopore == "":
-        sys.exit("You did not give any input. Run the program again with an input")
     #if used on server and output path is provided:
     if output_name[0] == "/":
         target_dir = output_name + "cgeout/"
@@ -122,17 +122,20 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, masking_schem
 
     ccphylo_path = exepath + "ccphylo/ccphylo"
 
-
-    if prune == True:
-        cmd = "{} dist -i {}*.fsa -o {}{} -r \"{}\" -mc 1 -nm 0 -pr {} {} -nv {}nucleotideVarriance &>> {}distance_matrix_logfile".format(ccphylo_path, target_dir, target_dir, "distmatrix.phy", templatename, prune_distance, dcmstring, target_dir, target_dir)
-
+    if assembly_flag == True:
+        cmd = "{} dist -i {}*.fsa -o {}{} -r \"{}\" -f 9 -mc 1 -nm 0 -nv {}nucleotideVarriance.gz &>> {}distance_matrix_logfile".format(ccphylo_path, target_dir, target_dir, "distmatrix.phy", templatename, target_dir, target_dir)
         os.system(cmd)
-
     else:
-        cmd = "{} dist -i {}*.fsa -o {}{} -r \"{}\" -mc 1 -nm 0 {} -nv {}nucleotideVarriance &>> {}distance_matrix_logfile".format(ccphylo_path, target_dir, target_dir, "distmatrix.phy",
-                                                                               templatename,
-                                                                               dcmstring, target_dir, target_dir)
-        os.system(cmd)
+        if prune == True:
+            cmd = "{} dist -i {}*.fsa -o {}{} -r \"{}\" -mc 1 -nm 0 -pr {} {} -nv {}nucleotideVarriance &>> {}distance_matrix_logfile".format(ccphylo_path, target_dir, target_dir, "distmatrix.phy", templatename, prune_distance, dcmstring, target_dir, target_dir)
+
+            os.system(cmd)
+
+        else:
+            cmd = "{} dist -i {}*.fsa -o {}{} -r \"{}\" -mc 1 -nm 0 {} -nv {}nucleotideVarriance &>> {}distance_matrix_logfile".format(ccphylo_path, target_dir, target_dir, "distmatrix.phy",
+                                                                                   templatename,
+                                                                                   dcmstring, target_dir, target_dir)
+            os.system(cmd)
 
 
     infile = open("{}distance_matrix_logfile".format(target_dir),'r')
@@ -161,7 +164,11 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, masking_schem
     mtf.varriansfileRenamer(total_filenames)
 
 def main():
+    inputCheck = args.i_path_illumina + args.i_path_nanopore + args.i_mfa + args.i_path_assemblies
+    if inputCheck == "":
+        sys.exit("No input was given.")
     researchPipeline(args.i_path_illumina, args.i_path_nanopore, args.paired_end, args.masking_scheme,
-                     args.prune_distance, args.bc, args.ref_kma_database, args.multi_threading, args.reference, args.output_name, args.exepath)
+                     args.prune_distance, args.bc, args.ref_kma_database, args.multi_threading, args.reference, args.output_name, args.exepath, args.i_path_assemblies)
 if __name__== "__main__":
+
     main()
