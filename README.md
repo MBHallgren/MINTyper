@@ -43,7 +43,7 @@ A database of complete bacterial genomes can be found at: http://www.cbs.dtu.dk/
 
 To make sure the installation has been completed succesfully, run MINTyper on the assembled MinION data found in the testrun folder:
 ```bash
-"python3 MINTyper.py -i_path_nanopore /pwd/testrun/data/ -ref /pwd/testrun/template_sequence -o output"
+"python3 MINTyper.py -i_path_assemblies /pwd/testrun/data/ -ref /pwd/testrun/template_sequence -o output"
 ```
 
 
