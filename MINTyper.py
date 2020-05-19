@@ -1,8 +1,20 @@
 #!/usr/bin/env python3
+#Malte Hallgren, May 2020, malte@hallgren.com
 
-# Copyright (c) 2019, Malte Bjørn Hallgren Technical University of Denmark
-# All rights reserved.
-#
+#Copyright (c) 2020, Malte Hallgren, Technical University of Denmark
+#All rights reserved.
+
+#Licensed under the Apache License, Version 2.0 (the "License");
+#you may not use this file except in compliance with the License.
+#You may obtain a copy of the License at
+
+#		http://www.apache.org/licenses/LICENSE-2.0
+
+#Unless required by applicable law or agreed to in writing, software
+#distributed under the License is distributed on an "AS IS" BASIS,
+#WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#See the License for the specific language governing permissions and
+#limitations under the License.
 
 #Import Libraries
 
@@ -63,7 +75,6 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, masking_schem
 
     kma_path = exepath + "kma/kma"
 
-    # Print messages
 
     startTime = time.time()
     print("# Running MINTyper 1.0.0 with following input conditions:", file=logfile)
@@ -132,8 +143,6 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, masking_schem
 
     cmd = "rm {}distance_matrix_logfile".format(target_dir)
     os.system(cmd)
-    #cmd = "mv {}DataFiles/* {}.".format(target_dir, target_dir)
-    #os.system(cmd)
 
 
     cmd = "{} tree -i {}{} -o {}outtree.newick".format(ccphylo_path, target_dir, "distmatrix.phy", target_dir)
@@ -156,6 +165,3 @@ def main():
                      args.prune_distance, args.bc, args.ref_kma_database, args.multi_threading, args.reference, args.output_name, args.exepath)
 if __name__== "__main__":
     main()
-#moveFile(paths['serviceRoot']+'outputs/cgeout/combined.vcf.gz', paths['downloads']+'results.vcf.gz');
-#dlButton('Vcf file of mutations', 'results.vcf.gz')
-#MINTyper -i_path_illumina /home/maha/12STA_Illumina/ -i_path_nanopore /home/maha/12STA_MinION/ -pe -db /home/maha/databasenew/bacteria.ATG -o test2_nodcmprune_newnames

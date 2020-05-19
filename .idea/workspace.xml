@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b673374f-91e9-4b74-bd4d-e200ee9cca6c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/MINTyper.py" beforeDir="false" afterPath="$PROJECT_DIR$/MINTyper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MINTyperFunctions.py" beforeDir="false" afterPath="$PROJECT_DIR$/MINTyperFunctions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MINTyperInstall.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,8 +18,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MINTyper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="119" column="9" lean-forward="true" selection-start-line="119" selection-start-column="9" selection-end-line="119" selection-end-column="9" />
+            <state relative-caret-position="2430">
+              <caret line="166" column="10" selection-start-line="166" selection-start-column="10" selection-end-line="166" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -24,26 +27,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MINTyperFunctions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="85" column="71" selection-start-line="85" selection-start-column="64" selection-end-line="85" selection-end-column="71" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../manu_sup">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="39" lean-forward="true" selection-start-line="4" selection-start-column="39" selection-end-line="4" selection-end-column="39" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/MINTyperInstall.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="14" lean-forward="true" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="14" />
+            <state relative-caret-position="1515">
+              <caret line="115" selection-start-line="115" selection-end-line="115" />
             </state>
           </provider>
         </entry>
@@ -52,10 +37,19 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="437">
-                <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
+              <first_editor relative-caret-position="221">
+                <caret line="43" column="99" selection-start-line="43" selection-start-column="99" selection-end-line="43" selection-end-column="99" />
               </first_editor>
               <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/setup.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="34" selection-start-column="34" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -87,9 +81,11 @@
       <find>mappi</find>
       <find>print (</find>
       <find>completed</find>
-      <find>logfile</find>
       <find>Ec2_</find>
       <find>Ec11_</find>
+      <find>MINTyperInstall.py</find>
+      <find>/*</find>
+      <find>logfile</find>
     </findStrings>
     <replaceStrings>
       <replace>masking_scheme</replace>
@@ -98,6 +94,7 @@
       <replace>exepath</replace>
       <replace>MINT</replace>
       <replace>Ec11_</replace>
+      <replace>setup.py</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -116,15 +113,16 @@
         <option value="$PROJECT_DIR$/MINTGraftFunctions.py" />
         <option value="$PROJECT_DIR$/MINTGraftInstall.py" />
         <option value="$PROJECT_DIR$/MINTGraft" />
-        <option value="$PROJECT_DIR$/MINTyperFunctions.py" />
         <option value="$PROJECT_DIR$/../hpc/week5/knapsack.py" />
         <option value="$PROJECT_DIR$/../hpc/week5/ks2.py" />
         <option value="$PROJECT_DIR$/MINTyper" />
         <option value="$PROJECT_DIR$/MINTyperInstall.py" />
         <option value="$PROJECT_DIR$/../autoUnicycler/tmp/autoUnicycler.py" />
         <option value="$PROJECT_DIR$/../hpc/week12/week12.py" />
-        <option value="$PROJECT_DIR$/MINTyper.py" />
         <option value="$PROJECT_DIR$/../manu_sup" />
+        <option value="$PROJECT_DIR$/setup.py" />
+        <option value="$PROJECT_DIR$/MINTyper.py" />
+        <option value="$PROJECT_DIR$/MINTyperFunctions.py" />
         <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
@@ -333,20 +331,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MINTyper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="119" column="9" lean-forward="true" selection-start-line="119" selection-start-column="9" selection-end-line="119" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MINTyperFunctions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="85" column="71" selection-start-line="85" selection-start-column="64" selection-end-line="85" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../manu_sup">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -354,11 +338,32 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/setup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="34" selection-start-column="34" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MINTyper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2430">
+          <caret line="166" column="10" selection-start-line="166" selection-start-column="10" selection-end-line="166" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MINTyperFunctions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1515">
+          <caret line="115" selection-start-line="115" selection-end-line="115" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="437">
-            <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
+          <first_editor relative-caret-position="221">
+            <caret line="43" column="99" selection-start-line="43" selection-start-column="99" selection-end-line="43" selection-end-column="99" />
           </first_editor>
           <second_editor />
         </state>

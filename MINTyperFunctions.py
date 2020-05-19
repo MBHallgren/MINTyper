@@ -1,5 +1,19 @@
-# Copyright (c) 2019, Malte Bjørn Hallgren Technical University of Denmark
-# All rights reserved.
+#Malte Hallgren, May 2020, malte@hallgren.com
+
+#Copyright (c) 2020, Malte Hallgren, Technical University of Denmark
+#All rights reserved.
+
+#Licensed under the Apache License, Version 2.0 (the "License");
+#you may not use this file except in compliance with the License.
+#You may obtain a copy of the License at
+
+#		http://www.apache.org/licenses/LICENSE-2.0
+
+#Unless required by applicable law or agreed to in writing, software
+#distributed under the License is distributed on an "AS IS" BASIS,
+#WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#See the License for the specific language governing permissions and
+#limitations under the License.
 #
 
 #Import Libraries
@@ -20,7 +34,6 @@ import sqlite3
 import json
 
 def findTemplateResearch(total_filenames, target_dir, kma_database_path, logfile, reference, kma_path):
-    #NON-LEAN
     no_template_found = False
     best_template = ""
     best_template_score = 0.0
@@ -69,7 +82,6 @@ def findTemplateResearch(total_filenames, target_dir, kma_database_path, logfile
         print("# Mapping reads to template", file=logfile)
         return best_template, templatename
 
-#Mapping
 def illuminaMappingForward(illumina_input, best_template, target_dir, kma_database_path, logfile, multi_threading, reference, kma_path):
     complete_path_illumina_input = illumina_input
     illumina_input = []
@@ -78,7 +90,6 @@ def illuminaMappingForward(illumina_input, best_template, target_dir, kma_databa
     if reference != "":
         kma_database_path = target_dir + "temdb.ATG"
 
-    # Illumina input
     if illumina_input != "":
         for i in range(len(illumina_input)):
             cmd = "{} -i {} -o {}{}_mapping_results -t_db {} -ref_fsa -ca -dense -cge -vcf -bc90 -Mt1 {} -t {}".format(kma_path, complete_path_illumina_input[i], target_dir, illumina_input[i], kma_database_path, str(best_template), str(multi_threading))
@@ -94,7 +105,6 @@ def illuminaMappingPE(illumina_input, best_template, target_dir, kma_database_pa
     if reference != "":
         kma_database_path = target_dir + "temdb.ATG"
 
-    # Illumina input
     if illumina_input != "":
         for i in range(0, len(illumina_input), 2):
             cmd = "{} -ipe {} {} -o {}{}_mapping_results -t_db {} -ref_fsa -ca -dense -cge -vcf -bc90 -Mt1 {} -t {}".format(kma_path, complete_path_illumina_input[i], complete_path_illumina_input[i+1], target_dir, illumina_input[i], kma_database_path, str(best_template), str(multi_threading))
@@ -103,7 +113,6 @@ def illuminaMappingPE(illumina_input, best_template, target_dir, kma_database_pa
 
 
 def nanoporeMapping(nanopore_input, best_template, target_dir, kma_database_path, logfile, multi_threading, bc, reference, kma_path):
-    # Nanopore input
     complete_path_nanopore_input = nanopore_input
     nanopore_input = []
     for item in complete_path_nanopore_input:

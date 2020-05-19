@@ -8,13 +8,14 @@ Read more about MINTyper here:
 * [Installation](#installation)
 * [Database](#database)
 * [Standard usage](#standard-options)
+* [Licens](#licens)
     
 # Introduction
 MINTyper is a tools designed to quickly a distance matrix from a set of input sequencing reads. It can take both short read from Illumina's sequencing platforms and long reads from Oxford Nanopore's platform. 
 
 # Requirements
 
-* Linux or macOS
+* Unix based system
 * [Python3](https://www.python.org/) Any version of python3
 * [KMA](https://bitbucket.org/genomicepidemiology/kma) Installation requirements for KMA installation can be found at the bitbucket page.
 * [ccphylo](https://bitbucket.org/genomicepidemiology/ccphylo/src/master/) Installation requirements for ccphylo installation can be found at the bitbucket page.
@@ -26,7 +27,7 @@ The following commands will install the latest version of MINTyper if python3, a
 ```bash
 git clone https://github.com/s153002/MINTyper.git
 cd MINTyper
-python3 MINTyperInstall.py
+python3 setup.py
 ```
 
 
@@ -38,7 +39,14 @@ A guide for indexing a given database correctly can be found at https://bitbucke
 
 A database of complete bacterial genomes can be found at: http://www.cbs.dtu.dk/public/CGE/databases/KmerFinder/version/latest/bacteria.tar.gz 
 
-# Standard usage
+# Standard usage and testrun
+
+To make sure the installation has been completed succesfully, run MINTyper on the assembled MinION data found in the testrun folder:
+```bash
+"python3 MINTyper.py -i_path_nanopore /pwd/testrun/data/ -ref /pwd/testrun/template_sequence -o output"
+```
+
+
 
 Make sure to index your reference database with "kma index -Sparse ATG" to make the reference finding faster! (See https://bitbucket.org/genomicepidemiology/kma)
 
@@ -113,3 +121,11 @@ optional arguments:
   -o OUTPUT_NAME        Name that you would like the output directory to be
                         called.
 ```
+# Licens
+Copyright (c) 2020, Malte Hallgren, Technical University of Denmark All rights reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+```
+http://www.apache.org/licenses/LICENSE-2.0
+```
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
