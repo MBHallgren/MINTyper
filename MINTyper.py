@@ -41,8 +41,8 @@ parser.add_argument("-exepath", action="store", dest="exepath", default = "", he
 parser.add_argument("-o", action="store", dest="output_name", help="Name that you would like the output directory to be called.")
 args = parser.parse_args()
 
-def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, bc,
-                     ref_kma_database, multi_threading, reference, output_name, exepath, assemblies):
+
+def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, masking_scheme, prune_distance, bc, ref_kma_database, multi_threading, reference, output_name, exepath, assemblies):
     if assemblies != "":
         assembly_flag = True
         i_path_illumina = assemblies
