@@ -126,7 +126,7 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, masking_schem
         cmd = "{} dist -i {}*.fsa -o {}{} -r \"{}\" -f 9 -mc 1 -nm 0 -nv {}nucleotideVarriance.gz &>> {}distance_matrix_logfile".format(ccphylo_path, target_dir, target_dir, "distmatrix.phy", templatename, target_dir, target_dir)
         os.system(cmd)
     else:
-        if prune == True:
+        if prune_distance != 0:
             cmd = "{} dist -i {}*.fsa -o {}{} -r \"{}\" -mc 1 -nm 0 -pr {} {} -nv {}nucleotideVarriance &>> {}distance_matrix_logfile".format(ccphylo_path, target_dir, target_dir, "distmatrix.phy", templatename, prune_distance, dcmstring, target_dir, target_dir)
 
             os.system(cmd)
