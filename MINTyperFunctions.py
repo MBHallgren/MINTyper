@@ -271,16 +271,12 @@ def combine_input_files(illumina_files, nanopore_files):
     total_input_files = " ".join(total_input_files)
     return total_input_files
 
-def logfileConditionsResearch(logfile, masking_scheme, prune, prune_distance, bc, ref_kma_database, multi_threading, reference, output_name, paired_end):
+def logfileConditionsResearch(logfile, masking_scheme, prune_distance, bc, ref_kma_database, multi_threading, reference, output_name, paired_end):
     logdict = {}
     if masking_scheme != "":
         logdict['masking_scheme'] = masking_scheme
     else:
         logdict['masking_scheme'] = ""
-    if prune != False:
-        logdict['prune'] = str(prune)
-    else:
-        logdict['prune'] = str(False)
     if prune_distance != 10:
         logdict['prune_distance'] = prune_distance
     else:

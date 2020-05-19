@@ -78,7 +78,7 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, masking_schem
 
     startTime = time.time()
     print("# Running MINTyper 1.0.0 with following input conditions:", file=logfile)
-    mtf.logfileConditionsResearch(logfile, masking_scheme, prune, prune_distance, bc, ref_kma_database, multi_threading, reference, output_name, paired_end)
+    mtf.logfileConditionsResearch(logfile, masking_scheme, prune_distance, bc, ref_kma_database, multi_threading, reference, output_name, paired_end)
     if paired_end == True:
         print("# -pe", file=logfile)
     print("# -prune_distance: " + str(prune_distance), file=logfile)
