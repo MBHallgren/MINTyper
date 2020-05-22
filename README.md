@@ -1,5 +1,5 @@
 Read more about MINTyper here:
-> PUBLICATION TBA
+> PUBLICATION TBAA
 
 # Table of contents
 
