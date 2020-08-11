@@ -123,8 +123,9 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, masking_schem
     ccphylo_path = exepath + "ccphylo/ccphylo"
 
     completefiles, incompletefiles = mtf.kmaResultCheck(target_dir)
-    print("following samples were not included in the distance matrix, because they mapped no output: {}".format(incompletefiles))
-    print ("following samples were not included in the distance matrix, because they mapped no output: {}".format(incompletefiles), file = logfile)
+    if len(incompletefiles) != 0:
+        print("following samples were not included in the distance matrix, because they mapped no output: {}".format(incompletefiles))
+        print ("following samples were not included in the distance matrix, because they mapped no output: {}".format(incompletefiles), file = logfile)
 
     cmd = "mkdir {}fsatmp".format(target_dir)
     os.system(cmd)

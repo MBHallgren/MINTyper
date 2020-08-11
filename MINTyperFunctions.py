@@ -145,10 +145,10 @@ def cleanUp( target_dir, illumina_input, nanopore_input, paired_end, reference):
     if save_files_bool == False:
         if illumina_input != "" and paired_end == False:
             for i in range(len(illumina_input)):
-                cmd = "rm " + target_dir + illumina_input[i] + "_mapping_results.aln"
-                os.system(cmd)
-                cmd = "rm " + target_dir + illumina_input[i] + "_mapping_results.frag.gz"
-                os.system(cmd)
+                #cmd = "rm " + target_dir + illumina_input[i] + "_mapping_results.aln"
+                #os.system(cmd)
+                #cmd = "rm " + target_dir + illumina_input[i] + "_mapping_results.frag.gz"
+                #os.system(cmd)
                 cmd = "rm " + target_dir + illumina_input[i] + "_mapping_results.res"
                 os.system(cmd)
                 cmd = "rm " + target_dir + illumina_input[i] + "_mapping_results.fsa"
@@ -157,10 +157,10 @@ def cleanUp( target_dir, illumina_input, nanopore_input, paired_end, reference):
                 os.system(cmd)
         elif illumina_input != "" and paired_end == True:
             for i in range(0, len(illumina_input), 2):
-                cmd = "rm " + target_dir + illumina_input[i] + "_mapping_results.aln"
-                os.system(cmd)
-                cmd = "rm " + target_dir + illumina_input[i] + "_mapping_results.frag.gz"
-                os.system(cmd)
+                #cmd = "rm " + target_dir + illumina_input[i] + "_mapping_results.aln"
+                #os.system(cmd)
+                #cmd = "rm " + target_dir + illumina_input[i] + "_mapping_results.frag.gz"
+                #os.system(cmd)
                 cmd = "rm " + target_dir + illumina_input[i] + "_mapping_results.res"
                 os.system(cmd)
                 cmd = "rm " + target_dir + illumina_input[i] + "_mapping_results.fsa"
@@ -169,10 +169,10 @@ def cleanUp( target_dir, illumina_input, nanopore_input, paired_end, reference):
                 os.system(cmd)
         if nanopore_input != "":
             for i in range(len(nanopore_input)):
-                cmd = "rm " + target_dir + nanopore_input[i] + "_mapping_results.aln"
-                os.system(cmd)
-                cmd = "rm " + target_dir + nanopore_input[i] + "_mapping_results.frag.gz"
-                os.system(cmd)
+                #cmd = "rm " + target_dir + nanopore_input[i] + "_mapping_results.aln"
+                #os.system(cmd)
+                #cmd = "rm " + target_dir + nanopore_input[i] + "_mapping_results.frag.gz"
+                #os.system(cmd)
                 cmd = "rm " + target_dir + nanopore_input[i] + "_mapping_results.res"
                 os.system(cmd)
                 cmd = "rm " + target_dir + nanopore_input[i] + "_mapping_results.fsa"
@@ -182,10 +182,10 @@ def cleanUp( target_dir, illumina_input, nanopore_input, paired_end, reference):
     elif save_files_bool == True:
         if illumina_input != "" and paired_end == False:
             for i in range(len(illumina_input)):
-                cmd = "mv " + target_dir + illumina_input[i] + "_mapping_results.aln" + " " + target_dir +"DataFiles"
-                os.system(cmd)
-                cmd = "mv " + target_dir + illumina_input[i] + "_mapping_results.frag.gz" + " " + target_dir +"DataFiles"
-                os.system(cmd)
+                #cmd = "mv " + target_dir + illumina_input[i] + "_mapping_results.aln" + " " + target_dir +"DataFiles"
+                #os.system(cmd)
+                #cmd = "mv " + target_dir + illumina_input[i] + "_mapping_results.frag.gz" + " " + target_dir +"DataFiles"
+                #os.system(cmd)
                 cmd = "mv " + target_dir + illumina_input[i] + "_mapping_results.res" + " " + target_dir +"DataFiles"
                 os.system(cmd)
                 cmd = "mv " + target_dir + illumina_input[i] + "_mapping_results.fsa" + " " + target_dir +"DataFiles"
@@ -194,10 +194,10 @@ def cleanUp( target_dir, illumina_input, nanopore_input, paired_end, reference):
                 os.system(cmd)
         elif illumina_input != "" and paired_end == True:
             for i in range(0, len(illumina_input), 2):
-                cmd = "mv " + target_dir + illumina_input[i] + "_mapping_results.aln" + " " + target_dir +"DataFiles"
-                os.system(cmd)
-                cmd = "mv " + target_dir + illumina_input[i] + "_mapping_results.frag.gz" + " " + target_dir +"DataFiles"
-                os.system(cmd)
+                #cmd = "mv " + target_dir + illumina_input[i] + "_mapping_results.aln" + " " + target_dir +"DataFiles"
+                #os.system(cmd)
+                #cmd = "mv " + target_dir + illumina_input[i] + "_mapping_results.frag.gz" + " " + target_dir +"DataFiles"
+                #os.system(cmd)
                 cmd = "mv " + target_dir + illumina_input[i] + "_mapping_results.res" + " " + target_dir +"DataFiles"
                 os.system(cmd)
                 cmd = "mv " + target_dir + illumina_input[i] + "_mapping_results.fsa" + " " + target_dir +"DataFiles"
@@ -206,10 +206,10 @@ def cleanUp( target_dir, illumina_input, nanopore_input, paired_end, reference):
                 os.system(cmd)
         if nanopore_input != "":
             for i in range(len(nanopore_input)):
-                cmd = "mv " + target_dir + nanopore_input[i] + "_mapping_results.aln" + " " + target_dir +"DataFiles"
-                os.system(cmd)
-                cmd = "mv " + target_dir + nanopore_input[i] + "_mapping_results.frag.gz" + " " + target_dir +"DataFiles"
-                os.system(cmd)
+                #cmd = "mv " + target_dir + nanopore_input[i] + "_mapping_results.aln" + " " + target_dir +"DataFiles"
+                #os.system(cmd)
+                #cmd = "mv " + target_dir + nanopore_input[i] + "_mapping_results.frag.gz" + " " + target_dir +"DataFiles"
+                #os.system(cmd)
                 cmd = "mv " + target_dir + nanopore_input[i] + "_mapping_results.res" + " " + target_dir +"DataFiles"
                 os.system(cmd)
                 cmd = "mv " + target_dir + nanopore_input[i] + "_mapping_results.fsa" + " " + target_dir +"DataFiles"
