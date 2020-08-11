@@ -19,6 +19,7 @@
 #Import Libraries
 import sys
 import os
+from pathlib import Path
 import statistics
 import gzip
 import argparse
@@ -313,6 +314,26 @@ def varriansfileRenamer(total_filenames):
     for i in range(len(inputs)):
         name = inputs[i].split("/")[-1]
         sorted_input.append(name)
+
+
+def kmaResultCheck(target_dir):
+    files = os.listdir(target_dir)
+    completefiles = []
+    incompletefiles = []
+    for item in files:
+        if item[-4:] == ".fsa":
+            size = Path(target_dir + item).stat().st_size
+            if 150>int(size):
+                completefiles.append(item)
+            else:
+                incompletefiles.append(item)
+
+
+    completefiles = " ".join(completefiles)
+    incompletefiles = " ".join(incompletefiles)
+
+    return completefiles, incompletefiles
+
 
 
 
