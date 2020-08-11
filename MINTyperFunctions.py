@@ -19,7 +19,6 @@
 #Import Libraries
 import sys
 import os
-from pathlib import Path
 import statistics
 import gzip
 import argparse
@@ -93,7 +92,7 @@ def illuminaMappingForward(illumina_input, best_template, target_dir, kma_databa
 
     if illumina_input != "":
         for i in range(len(illumina_input)):
-            cmd = "{} -i {} -o {}{}_mapping_results -t_db {} -ref_fsa -nf -ca -dense -cge -vcf -bc90 -Mt1 {} -t {}".format(kma_path, complete_path_illumina_input[i], target_dir, illumina_input[i], kma_database_path, str(best_template), str(multi_threading))
+            cmd = "{} -i {} -o {}{}_mapping_results -t_db {} -ref_fsa -nf -na -ca -dense -cge -vcf -bc90 -Mt1 {} -t {}".format(kma_path, complete_path_illumina_input[i], target_dir, illumina_input[i], kma_database_path, str(best_template), str(multi_threading))
             os.system(cmd)
         print ("# Illumina mapping completed succesfully", file=logfile)
 
@@ -108,7 +107,7 @@ def illuminaMappingPE(illumina_input, best_template, target_dir, kma_database_pa
 
     if illumina_input != "":
         for i in range(0, len(illumina_input), 2):
-            cmd = "{} -ipe {} {} -o {}{}_mapping_results -t_db {} -ref_fsa -nf -ca -dense -cge -vcf -bc90 -Mt1 {} -t {}".format(kma_path, complete_path_illumina_input[i], complete_path_illumina_input[i+1], target_dir, illumina_input[i], kma_database_path, str(best_template), str(multi_threading))
+            cmd = "{} -ipe {} {} -o {}{}_mapping_results -t_db {} -ref_fsa -nf -ca -na -dense -cge -vcf -bc90 -Mt1 {} -t {}".format(kma_path, complete_path_illumina_input[i], complete_path_illumina_input[i+1], target_dir, illumina_input[i], kma_database_path, str(best_template), str(multi_threading))
             os.system(cmd)
         print ("# Illumina mapping completed succesfully", file=logfile)
 
@@ -126,7 +125,7 @@ def nanoporeMapping(nanopore_input, best_template, target_dir, kma_database_path
     if nanopore_input != "":
         for i in range(0, len(nanopore_input)):
             cmd = "{} -i ".format(kma_path) + complete_path_nanopore_input[i] + " -o " + target_dir + nanopore_input[
-                i] + "_mapping_results" + " -t_db " + kma_database_path + " -mp 20 -1t1 -nf -dense -vcf -ref_fsa -ca -bcNano -Mt1 " + str(
+                i] + "_mapping_results" + " -t_db " + kma_database_path + " -mp 20 -1t1 -nf -dense -vcf -na -ref_fsa -ca -bcNano -Mt1 " + str(
                 best_template) + " -t " + str(multi_threading) + " -bc " + str(bc)
             os.system(cmd)
         print ("# Nanopore mapping completed succesfully", file=logfile)
@@ -322,15 +321,15 @@ def kmaResultCheck(target_dir):
     incompletefiles = []
     for item in files:
         if item[-4:] == ".fsa":
-            size = Path(target_dir + item).stat().st_size
-            if 150>int(size):
+            size = os.stat(target_dir + item).st_size
+            if int(size)>150:
                 completefiles.append(item)
             else:
                 incompletefiles.append(item)
 
 
-    completefiles = " ".join(completefiles)
-    incompletefiles = " ".join(incompletefiles)
+    #completefiles = " ".join(completefiles)
+    #incompletefiles = " ".join(incompletefiles)
 
     return completefiles, incompletefiles
 

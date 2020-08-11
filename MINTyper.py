@@ -123,24 +123,31 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, masking_schem
     ccphylo_path = exepath + "ccphylo/ccphylo"
 
     completefiles, incompletefiles = mtf.kmaResultCheck(target_dir)
+    print("following samples were not included in the distance matrix, because they mapped no output: {}".format(incompletefiles))
+    print ("following samples were not included in the distance matrix, because they mapped no output: {}".format(incompletefiles), file = logfile)
 
-    print ("complete files: ".format(completefiles))
-    print("incomplete files: ".format(incompletefiles))
+    cmd = "mkdir {}fsatmp".format(target_dir)
+    os.system(cmd)
+
+    for item in completefiles:
+        cmd = "cp {}{} {}/fsatmp/{}".format(target_dir, item, target_dir, item)
+        os.system(cmd)
 
     if assembly_flag == True:
-        cmd = "{} dist -i {} -o {}{} -r \"{}\" -f 9 -mc 1 -nm 0 -nv {}nucleotideVarriance.gz &>> {}distance_matrix_logfile".format(ccphylo_path, completefiles, target_dir, "distmatrix.phy", templatename, target_dir, target_dir)
+        cmd = "{} dist -i {}/fsatmp/*.fsa -o {}{} -r \"{}\" -f 9 -mc 1 -nm 0 -nv {}nucleotideVarriance.gz &>> {}distance_matrix_logfile".format(ccphylo_path, target_dir, target_dir, "distmatrix.phy", templatename, target_dir, target_dir)
         os.system(cmd)
     else:
         if prune_distance != 0:
-            cmd = "{} dist -i {} -o {}{} -r \"{}\" -mc 1 -nm 0 -pr {} {} -nv {}nucleotideVarriance &>> {}distance_matrix_logfile".format(ccphylo_path, completefiles, target_dir, "distmatrix.phy", templatename, prune_distance, dcmstring, target_dir, target_dir)
+            cmd = "{} dist -i {}/fsatmp/*.fsa -o {}{} -r \"{}\" -mc 1 -nm 0 -pr {} {} -nv {}nucleotideVarriance &>> {}distance_matrix_logfile".format(ccphylo_path, target_dir, target_dir, "distmatrix.phy", templatename, prune_distance, dcmstring, target_dir, target_dir)
 
             os.system(cmd)
 
         else:
-            cmd = "{} dist -i {} -o {}{} -r \"{}\" -mc 1 -nm 0 {} -nv {}nucleotideVarriance &>> {}distance_matrix_logfile".format(ccphylo_path, completefiles, target_dir, "distmatrix.phy",
-                                                                                   templatename,
-                                                                                   dcmstring, target_dir, target_dir)
+            cmd = "{} dist -i {}/fsatmp/*.fsa -o {}{} -r \"{}\" -mc 1 -nm 0 {} -nv {}nucleotideVarriance &>> {}distance_matrix_logfile".format(ccphylo_path, target_dir, target_dir, "distmatrix.phy",templatename,dcmstring, target_dir, target_dir)
             os.system(cmd)
+
+    cmd = "rm -r {}fsatmp".format(target_dir)
+    os.system(cmd)
 
 
     infile = open("{}distance_matrix_logfile".format(target_dir),'r')

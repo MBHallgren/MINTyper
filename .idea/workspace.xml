@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b673374f-91e9-4b74-bd4d-e200ee9cca6c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MINTyper.py" beforeDir="false" afterPath="$PROJECT_DIR$/MINTyper.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MINTyperFunctions.py" beforeDir="false" afterPath="$PROJECT_DIR$/MINTyperFunctions.py" afterDir="false" />
     </list>
@@ -14,11 +13,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MINTyper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="129" column="29" lean-forward="true" selection-start-line="129" selection-start-column="29" selection-end-line="129" selection-end-column="29" />
+            <state relative-caret-position="298">
+              <caret line="133" column="22" lean-forward="true" selection-start-line="133" selection-start-column="22" selection-end-line="133" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -32,11 +31,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MINTyperFunctions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="328" column="44" lean-forward="true" selection-start-line="328" selection-start-column="44" selection-end-line="328" selection-end-column="44" />
+            <state relative-caret-position="1771">
+              <caret line="209" column="30" lean-forward="true" selection-start-line="209" selection-start-column="30" selection-end-line="209" selection-end-column="30" />
               <folding>
                 <element signature="e#691#701#0" expanded="true" />
               </folding>
@@ -97,8 +96,8 @@
       <find>logfilec</find>
       <find>i_mfa</find>
       <find>prune</find>
-      <find>target_dir</find>
       <find>mapping</find>
+      <find>target_dir</find>
     </findStrings>
     <replaceStrings>
       <replace>masking_scheme</replace>
@@ -345,13 +344,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MINTyperInstall.py" />
     <entry file="file://$PROJECT_DIR$/../manu_sup" />
-    <entry file="file://$PROJECT_DIR$/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="34" selection-start-column="34" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -369,20 +361,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MINTyperFunctions.py">
+    <entry file="file://$PROJECT_DIR$/setup.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="328" column="44" lean-forward="true" selection-start-line="328" selection-start-column="44" selection-end-line="328" selection-end-column="44" />
-          <folding>
-            <element signature="e#691#701#0" expanded="true" />
-          </folding>
+        <state>
+          <caret column="34" selection-start-column="34" selection-end-column="34" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MINTyper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="129" column="29" lean-forward="true" selection-start-line="129" selection-start-column="29" selection-end-line="129" selection-end-column="29" />
+        <state relative-caret-position="298">
+          <caret line="133" column="22" lean-forward="true" selection-start-line="133" selection-start-column="22" selection-end-line="133" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MINTyperFunctions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1771">
+          <caret line="209" column="30" lean-forward="true" selection-start-line="209" selection-start-column="30" selection-end-line="209" selection-end-column="30" />
+          <folding>
+            <element signature="e#691#701#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
