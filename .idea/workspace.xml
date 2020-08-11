@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b673374f-91e9-4b74-bd4d-e200ee9cca6c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/MINTyper.py" beforeDir="false" afterPath="$PROJECT_DIR$/MINTyper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MINTyperFunctions.py" beforeDir="false" afterPath="$PROJECT_DIR$/MINTyperFunctions.py" afterDir="false" />
-    </list>
+    <list default="true" id="b673374f-91e9-4b74-bd4d-e200ee9cca6c" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,8 +31,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MINTyperFunctions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1771">
-              <caret line="209" column="30" lean-forward="true" selection-start-line="209" selection-start-column="30" selection-end-line="209" selection-end-column="30" />
+            <state relative-caret-position="514">
+              <caret line="106" lean-forward="true" selection-start-line="106" selection-end-line="106" />
               <folding>
                 <element signature="e#691#701#0" expanded="true" />
               </folding>
@@ -377,8 +374,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MINTyperFunctions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1771">
-          <caret line="209" column="30" lean-forward="true" selection-start-line="209" selection-start-column="30" selection-end-line="209" selection-end-column="30" />
+        <state relative-caret-position="514">
+          <caret line="106" lean-forward="true" selection-start-line="106" selection-end-line="106" />
           <folding>
             <element signature="e#691#701#0" expanded="true" />
           </folding>
