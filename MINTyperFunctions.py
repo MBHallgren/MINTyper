@@ -218,15 +218,7 @@ def cleanUp( target_dir, illumina_input, nanopore_input, paired_end, reference):
                 os.system(cmd)
 
     if reference != "":
-        cmd = "rm " + target_dir + "temdb.ATG.comp.b"
-        os.system(cmd)
-        cmd = "rm " + target_dir + "temdb.ATG.index.b"
-        os.system(cmd)
-        cmd = "rm " + target_dir + "temdb.ATG.length.b"
-        os.system(cmd)
-        cmd = "rm " + target_dir + "temdb.ATG.name"
-        os.system(cmd)
-        cmd = "rm " + target_dir + "temdb.ATG.seq.b"
+        cmd = "rm " + target_dir + "temdb.*"
         os.system(cmd)
 
 def load_illumina(illumina_path_input):
@@ -334,7 +326,26 @@ def kmaResultCheck(target_dir):
     return completefiles, incompletefiles
 
 
-
+def draftgenomecheck(ref, target_dir):
+    sequence = ""
+    infile = open(ref, 'r')
+    headercount = 0
+    for line in infile:
+        line = line.rstrip()
+        if line[0] == ">":
+            headercount =+ 1
+        if sequence == "" and line[0] == ">":
+            header = line
+        elif line[0] != ">":
+            sequence += line
+    infile.close()
+    if headercount > 1:
+        outfile = open(target_dir + "draftref")
+        print (header, file=outfile)
+        print (sequence, file=outfile)
+        outfile.close()
+        return target_dir + "draftref"
+    return ref
 
 
 

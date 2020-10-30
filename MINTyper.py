@@ -102,6 +102,8 @@ def researchPipeline(i_path_illumina, i_path_nanopore, paired_end, masking_schem
         sys.exit("You did not supply 2 or more input files. Please run the program again with correct input")
 
 
+    reference = mtf.draftgenomecheck(reference, target_dir)
+
     best_template, templatename = mtf.findTemplateResearch(total_filenames, target_dir, kma_database_path, logfile, reference, kma_path)
 
     print ("performing KMA mapping")
