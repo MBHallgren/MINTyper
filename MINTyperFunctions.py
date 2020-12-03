@@ -92,7 +92,7 @@ def illuminaMappingForward(illumina_input, best_template, target_dir, kma_databa
 
     if illumina_input != "":
         for i in range(len(illumina_input)):
-            cmd = "{} -i {} -o {}{}_mapping_results -t_db {} -ref_fsa -nf -na -ca -dense -cge -vcf -bc90 -Mt1 {} -t {}".format(kma_path, complete_path_illumina_input[i], target_dir, illumina_input[i], kma_database_path, str(best_template), str(multi_threading))
+            cmd = "{} -i {} -o {}{}_mapping_results -t_db {} -ref_fsa -ca -dense -cge -vcf -bc90 -Mt1 {} -t {}".format(kma_path, complete_path_illumina_input[i], target_dir, illumina_input[i], kma_database_path, str(best_template), str(multi_threading))
             os.system(cmd)
         print ("# Illumina mapping completed succesfully", file=logfile)
 
@@ -107,7 +107,7 @@ def illuminaMappingPE(illumina_input, best_template, target_dir, kma_database_pa
 
     if illumina_input != "":
         for i in range(0, len(illumina_input), 2):
-            cmd = "{} -ipe {} {} -o {}{}_mapping_results -t_db {} -ref_fsa -nf -ca -na -dense -cge -vcf -bc90 -Mt1 {} -t {}".format(kma_path, complete_path_illumina_input[i], complete_path_illumina_input[i+1], target_dir, illumina_input[i], kma_database_path, str(best_template), str(multi_threading))
+            cmd = "{} -ipe {} {} -o {}{}_mapping_results -t_db {} -ref_fsa -ca -dense -cge -vcf -bc90 -Mt1 {} -t {}".format(kma_path, complete_path_illumina_input[i], complete_path_illumina_input[i+1], target_dir, illumina_input[i], kma_database_path, str(best_template), str(multi_threading))
             os.system(cmd)
         print ("# Illumina mapping completed succesfully", file=logfile)
 
@@ -125,7 +125,7 @@ def nanoporeMapping(nanopore_input, best_template, target_dir, kma_database_path
     if nanopore_input != "":
         for i in range(0, len(nanopore_input)):
             cmd = "{} -i ".format(kma_path) + complete_path_nanopore_input[i] + " -o " + target_dir + nanopore_input[
-                i] + "_mapping_results" + " -t_db " + kma_database_path + " -mp 20 -1t1 -nf -dense -vcf -na -ref_fsa -ca -bcNano -Mt1 " + str(
+                i] + "_mapping_results" + " -t_db " + kma_database_path + " -mp 20 -1t1 -dense -vcf -ref_fsa -ca -bcNano -Mt1 " + str(
                 best_template) + " -t " + str(multi_threading) + " -bc " + str(bc)
             os.system(cmd)
         print ("# Nanopore mapping completed succesfully", file=logfile)
@@ -145,10 +145,10 @@ def cleanUp( target_dir, illumina_input, nanopore_input, paired_end, reference):
     if save_files_bool == False:
         if illumina_input != "" and paired_end == False:
             for i in range(len(illumina_input)):
-                #cmd = "rm " + target_dir + illumina_input[i] + "_mapping_results.aln"
-                #os.system(cmd)
-                #cmd = "rm " + target_dir + illumina_input[i] + "_mapping_results.frag.gz"
-                #os.system(cmd)
+                cmd = "rm " + target_dir + illumina_input[i] + "_mapping_results.aln"
+                os.system(cmd)
+                cmd = "rm " + target_dir + illumina_input[i] + "_mapping_results.frag.gz"
+                os.system(cmd)
                 cmd = "rm " + target_dir + illumina_input[i] + "_mapping_results.res"
                 os.system(cmd)
                 cmd = "rm " + target_dir + illumina_input[i] + "_mapping_results.fsa"
@@ -157,10 +157,10 @@ def cleanUp( target_dir, illumina_input, nanopore_input, paired_end, reference):
                 os.system(cmd)
         elif illumina_input != "" and paired_end == True:
             for i in range(0, len(illumina_input), 2):
-                #cmd = "rm " + target_dir + illumina_input[i] + "_mapping_results.aln"
-                #os.system(cmd)
-                #cmd = "rm " + target_dir + illumina_input[i] + "_mapping_results.frag.gz"
-                #os.system(cmd)
+                cmd = "rm " + target_dir + illumina_input[i] + "_mapping_results.aln"
+                os.system(cmd)
+                cmd = "rm " + target_dir + illumina_input[i] + "_mapping_results.frag.gz"
+                os.system(cmd)
                 cmd = "rm " + target_dir + illumina_input[i] + "_mapping_results.res"
                 os.system(cmd)
                 cmd = "rm " + target_dir + illumina_input[i] + "_mapping_results.fsa"
@@ -169,10 +169,10 @@ def cleanUp( target_dir, illumina_input, nanopore_input, paired_end, reference):
                 os.system(cmd)
         if nanopore_input != "":
             for i in range(len(nanopore_input)):
-                #cmd = "rm " + target_dir + nanopore_input[i] + "_mapping_results.aln"
-                #os.system(cmd)
-                #cmd = "rm " + target_dir + nanopore_input[i] + "_mapping_results.frag.gz"
-                #os.system(cmd)
+                cmd = "rm " + target_dir + nanopore_input[i] + "_mapping_results.aln"
+                os.system(cmd)
+                cmd = "rm " + target_dir + nanopore_input[i] + "_mapping_results.frag.gz"
+                os.system(cmd)
                 cmd = "rm " + target_dir + nanopore_input[i] + "_mapping_results.res"
                 os.system(cmd)
                 cmd = "rm " + target_dir + nanopore_input[i] + "_mapping_results.fsa"
@@ -182,10 +182,10 @@ def cleanUp( target_dir, illumina_input, nanopore_input, paired_end, reference):
     elif save_files_bool == True:
         if illumina_input != "" and paired_end == False:
             for i in range(len(illumina_input)):
-                #cmd = "mv " + target_dir + illumina_input[i] + "_mapping_results.aln" + " " + target_dir +"DataFiles"
-                #os.system(cmd)
-                #cmd = "mv " + target_dir + illumina_input[i] + "_mapping_results.frag.gz" + " " + target_dir +"DataFiles"
-                #os.system(cmd)
+                cmd = "mv " + target_dir + illumina_input[i] + "_mapping_results.aln" + " " + target_dir +"DataFiles"
+                os.system(cmd)
+                cmd = "mv " + target_dir + illumina_input[i] + "_mapping_results.frag.gz" + " " + target_dir +"DataFiles"
+                os.system(cmd)
                 cmd = "mv " + target_dir + illumina_input[i] + "_mapping_results.res" + " " + target_dir +"DataFiles"
                 os.system(cmd)
                 cmd = "mv " + target_dir + illumina_input[i] + "_mapping_results.fsa" + " " + target_dir +"DataFiles"
@@ -194,10 +194,10 @@ def cleanUp( target_dir, illumina_input, nanopore_input, paired_end, reference):
                 os.system(cmd)
         elif illumina_input != "" and paired_end == True:
             for i in range(0, len(illumina_input), 2):
-                #cmd = "mv " + target_dir + illumina_input[i] + "_mapping_results.aln" + " " + target_dir +"DataFiles"
-                #os.system(cmd)
-                #cmd = "mv " + target_dir + illumina_input[i] + "_mapping_results.frag.gz" + " " + target_dir +"DataFiles"
-                #os.system(cmd)
+                cmd = "mv " + target_dir + illumina_input[i] + "_mapping_results.aln" + " " + target_dir +"DataFiles"
+                os.system(cmd)
+                cmd = "mv " + target_dir + illumina_input[i] + "_mapping_results.frag.gz" + " " + target_dir +"DataFiles"
+                os.system(cmd)
                 cmd = "mv " + target_dir + illumina_input[i] + "_mapping_results.res" + " " + target_dir +"DataFiles"
                 os.system(cmd)
                 cmd = "mv " + target_dir + illumina_input[i] + "_mapping_results.fsa" + " " + target_dir +"DataFiles"
@@ -206,10 +206,10 @@ def cleanUp( target_dir, illumina_input, nanopore_input, paired_end, reference):
                 os.system(cmd)
         if nanopore_input != "":
             for i in range(len(nanopore_input)):
-                #cmd = "mv " + target_dir + nanopore_input[i] + "_mapping_results.aln" + " " + target_dir +"DataFiles"
-                #os.system(cmd)
-                #cmd = "mv " + target_dir + nanopore_input[i] + "_mapping_results.frag.gz" + " " + target_dir +"DataFiles"
-                #os.system(cmd)
+                cmd = "mv " + target_dir + nanopore_input[i] + "_mapping_results.aln" + " " + target_dir +"DataFiles"
+                os.system(cmd)
+                cmd = "mv " + target_dir + nanopore_input[i] + "_mapping_results.frag.gz" + " " + target_dir +"DataFiles"
+                os.system(cmd)
                 cmd = "mv " + target_dir + nanopore_input[i] + "_mapping_results.res" + " " + target_dir +"DataFiles"
                 os.system(cmd)
                 cmd = "mv " + target_dir + nanopore_input[i] + "_mapping_results.fsa" + " " + target_dir +"DataFiles"
@@ -218,7 +218,15 @@ def cleanUp( target_dir, illumina_input, nanopore_input, paired_end, reference):
                 os.system(cmd)
 
     if reference != "":
-        cmd = "rm " + target_dir + "temdb.*"
+        cmd = "rm " + target_dir + "temdb.ATG.comp.b"
+        os.system(cmd)
+        cmd = "rm " + target_dir + "temdb.ATG.index.b"
+        os.system(cmd)
+        cmd = "rm " + target_dir + "temdb.ATG.length.b"
+        os.system(cmd)
+        cmd = "rm " + target_dir + "temdb.ATG.name"
+        os.system(cmd)
+        cmd = "rm " + target_dir + "temdb.ATG.seq.b"
         os.system(cmd)
 
 def load_illumina(illumina_path_input):
@@ -307,46 +315,14 @@ def varriansfileRenamer(total_filenames):
         sorted_input.append(name)
 
 
-def kmaResultCheck(target_dir):
-    files = os.listdir(target_dir)
-    completefiles = []
-    incompletefiles = []
-    for item in files:
-        if item[-4:] == ".fsa":
-            size = os.stat(target_dir + item).st_size
-            if int(size)>150:
-                completefiles.append(item)
-            else:
-                incompletefiles.append(item)
-
-
-    #completefiles = " ".join(completefiles)
-    #incompletefiles = " ".join(incompletefiles)
-
-    return completefiles, incompletefiles
-
-
-def draftgenomecheck(ref, target_dir):
-    sequence = ""
-    infile = open(ref, 'r')
-    headercount = 0
-    for line in infile:
-        line = line.rstrip()
-        if line[0] == ">":
-            headercount =+ 1
-        if sequence == "" and line[0] == ">":
-            header = line
-        elif line[0] != ">":
-            sequence += line
-    infile.close()
-    if headercount > 1:
-        outfile = open(target_dir + "draftref")
-        print (header, file=outfile)
-        print (sequence, file=outfile)
-        outfile.close()
-        return target_dir + "draftref"
-    return ref
-
+def correctPathCheck(pathName):
+    if pathName == "":
+        pass
+    elif pathName[-1] == "/":
+        pass
+    else:
+        pathName = pathName + "/"
+    return pathName
 
 
 
