@@ -312,7 +312,7 @@ def run_ccphylo(mintyper_input):
     fsa_list = os.listdir(mintyper_input.target_dir)
     for item in fsa_list:
         if item.endswith(".fsa"):
-            if  os.path.getsize(mintyper_input.target_dir + item > 0):
+            if  path.getsize(mintyper_input.target_dir + item) > 0:
                 run_list.append(mintyper_input.target_dir + item)
             else:
                 print ("Could not produce an alignment with {} and therefore it was excluded from the analysis".format(item))
