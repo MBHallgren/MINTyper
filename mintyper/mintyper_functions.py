@@ -17,6 +17,7 @@ def eval_pe(mintyper_input):
     rate = (hits*2)/len(sorted_illumina)
     if rate >= 0.5: #At least 50% are paired-end, consider all as paired-end
         mintyper_input.paired_end = True
+        print ("# Paired-end illumina input not given but determined by the eval_pe function", file=mintyper_input.logfile)
     return mintyper_input
 
 def mintyper(args):
@@ -40,6 +41,7 @@ def mintyper(args):
 
     if mintyper_input.i_illumina != []:
         mintyper_input = eval_pe(mintyper_input)
+
         if mintyper_input.paired_end == True:
             illumina_alignment_pe(mintyper_input)
         else:
