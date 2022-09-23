@@ -41,15 +41,16 @@ def mintyper(args):
         assembly_list = []
         illumina_list = []
         with open(mintyper_input.target_dir + "fingerReport.tsv", 'r') as infile:
-            if line[0] != "#":
-                line = line.rstrip().split("\t")
-                if line[0] in joined_list:
-                    if line[1] == "illumina":
-                        illumina_list.append(line[0])
-                    elif line[1] == "nanopore":
-                        nanopore_list.append(line[0])
-                    elif line[1] == "assembly":
-                        assembly_list.append(line[0])
+            for line in infile:
+                if line[0] != "#":
+                    line = line.rstrip().split("\t")
+                    if line[0] in joined_list:
+                        if line[1] == "illumina":
+                            illumina_list.append(line[0])
+                        elif line[1] == "nanopore":
+                            nanopore_list.append(line[0])
+                        elif line[1] == "assembly":
+                            assembly_list.append(line[0])
         mintyper_input.i_illumina = illumina_list
         mintyper_input.i_nanopore = nanopore_list
         mintyper_input.assemblies = assembly_list
