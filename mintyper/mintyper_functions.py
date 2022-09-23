@@ -38,6 +38,7 @@ def mintyper(args):
         assembly_alignment(mintyper_input)
 
     print ("calculating distance matrix")
+    sys.exit()
 
     run_ccphylo(mintyper_input)
 
