@@ -35,7 +35,9 @@ def mintyper(args):
     if mintyper_input.i_nanopore != []:
         nanopore_alignment(mintyper_input)
     if mintyper_input.assemblies != []:
-        assembly_alignment(mintyper_input)
+        print ("Assemblies are currently not supported", file=mintyper_input.logfile)
+        print ("Assemblies are currently not supported")
+        #assembly_alignment(mintyper_input)
 
     print ("calculating distance matrix")
 
