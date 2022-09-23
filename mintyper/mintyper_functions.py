@@ -315,6 +315,13 @@ def run_ccphylo(mintyper_input):
         if item.endswith(".fsa") and (os.path.getsize(mintyper_input.target_dir + item) > 0):
             run_list.append(item)
     fsa_string = " ".join(run_list)
+    print (fsa_string)
+    print (fsa_string)
+
+    print (fsa_string)
+
+    print (fsa_string)
+
     if mintyper_input.iqtree:
         ccphyloflag = 1
         cmd = "{} trim --input {} --reference \"{}\" > {}trimmedalign.fsa"\
@@ -361,6 +368,7 @@ def run_ccphylo(mintyper_input):
               " --min_cov 1 --normalization_weight 0 2>&1"\
             .format(mintyper_input.exe_path + "ccphylo/ccphylo", fsa_string,
                     mintyper_input.target_dir, "distmatrix.txt", mintyper_input.template_name)
+        print (cmd)
         proc = subprocess.Popen(cmd, shell=True,
                                 stdout=subprocess.PIPE, )
         output = proc.communicate()[0].decode()
