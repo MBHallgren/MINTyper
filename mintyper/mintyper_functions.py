@@ -8,6 +8,17 @@ import os
 import time
 import subprocess
 
+def eval_pe(mintyper_input):
+    sorted_illumina = mintyper_input.i_illumina.sort()
+    hits = 0
+    for i in range(0, len(sorted_illumina), 2):
+        if sorted_illumina[i] == sorted_illumina[i+1]:
+            hits += 1
+    rate = (hits*2)/len(sorted_illumina)
+    if rate >= 0.5: #At least 50% are paired-end, consider all as paired-end
+        mintyper_input.paired_end = True
+    return mintyper_input
+
 def mintyper(args):
     """
     Pipeline for mintyper. This is the main func which is called my __main__.py or mintyper_local.py
@@ -28,6 +39,7 @@ def mintyper(args):
     mintyper_input.template_name = str(template_name)
 
     if mintyper_input.i_illumina != []:
+        mintyper_input = eval_pe(mintyper_input)
         if mintyper_input.paired_end == True:
             illumina_alignment_pe(mintyper_input)
         else:
@@ -410,3 +422,4 @@ def cge_server_input(args):
                 assemblies_list.append(args.i_assemblies[0] + item)
             args.i_assemblies = assemblies_list
     return args
+
