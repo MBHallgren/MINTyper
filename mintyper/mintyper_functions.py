@@ -49,7 +49,6 @@ def mintyper(args):
     print("mintyper total runtime: " + str(delta_time) + " seconds", file=mintyper_input.logfile)
     mintyper_input.logfile.close()
     print ("mintyper has completed")
-    sys.exit()
 
     cleanUp(mintyper_input)
 
@@ -320,12 +319,6 @@ def run_ccphylo(mintyper_input):
             else:
                 print ("Could not produce an alignment with {} and therefore it was excluded from the analysis".format(item))
     fsa_string = " ".join(run_list)
-    print (fsa_string)
-    print (fsa_string)
-
-    print (fsa_string)
-
-    print (fsa_string)
 
     if mintyper_input.iqtree:
         ccphyloflag = 1
