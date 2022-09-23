@@ -381,6 +381,8 @@ def run_ccphylo(mintyper_input):
         print(output, file=mintyper_input.logfile)
 
         time.sleep(2)
+        if os.path.getsize(mintyper_input.target_dir + "distmatrix.txt") == 0:
+            sys.exit("Error: Could not produce a distance matrix with ccphylo. Please check your input files.")
 
         if mintyper_input.cluster_length > 0:
             cmd = "{} dbscan --max_distance {} --input {}{} --output {}{}"\
