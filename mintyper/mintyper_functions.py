@@ -35,9 +35,13 @@ def mintyper(args):
     if mintyper_input.i_nanopore != []:
         nanopore_alignment(mintyper_input)
     if mintyper_input.assemblies != []:
-        illumina_alignment_se(mintyper_input)
+        print ("Assemblies are currently not supported", file=mintyper_input.logfile)
+        print ("Assemblies are currently not supported")
+        #assembly_alignment(mintyper_input)
 
     print ("calculating distance matrix")
+
+    time.sleep(3)
 
     run_ccphylo(mintyper_input)
 
@@ -216,6 +220,19 @@ def find_template(mintyper_input):
         print("# Mapping reads to template", file=mintyper_input.logfile)
         return best_template, template_name
 
+def assembly_alignment(mintyper_input):
+    print("Assembly input was given")
+    for item in mintyper_input.assemblies:
+        cmd = "{} -i {} -o {}{}_alignment -ref_fsa -ca -dense -cge -vcf -bc90 -Mt1 {} -t {}"\
+            .format(mintyper_input.exe_path + "kma/kma", item, mintyper_input.target_dir,
+                    item.split("/")[-1], mintyper_input.best_template, mintyper_input.tempalte_name)
+        if mintyper_input.reference != "":
+            cmd += " -t_db {}tmp_db.ATG".format(mintyper_input.target_dir)
+        else:
+            cmd += " -t_db {}".format(mintyper_input.ref_kma_database)
+        os.system(cmd)
+    print ("# Alignment completed succesfully", file=mintyper_input.logfile)
+
 def illumina_alignment_se(mintyper_input):
     print("Single end illumina input was given")
     for item in mintyper_input.i_illumina:
@@ -295,11 +312,21 @@ def checkOutputName(mintyper_input):
     return mintyper_input.target_dir, logfile
 
 def run_ccphylo(mintyper_input):
+    run_list = []
+    fsa_list = os.listdir(mintyper_input.target_dir)
+    for item in fsa_list:
+        if item.endswith(".fsa"):
+            if os.path.getsize(mintyper_input.target_dir + item) > 0:
+                run_list.append(mintyper_input.target_dir + item)
+            else:
+                print ("Could not produce an alignment with {} and therefore it was excluded from the analysis".format(item))
+    fsa_string = " ".join(run_list)
+
     if mintyper_input.iqtree:
         ccphyloflag = 1
-        cmd = "{} trim --input {}*alignment.fsa --reference \"{}\" > {}trimmedalign.fsa"\
+        cmd = "{} trim --input {} --reference \"{}\" > {}trimmedalign.fsa"\
             .format(mintyper_input.exe_path + "ccphylo/ccphylo",
-                    mintyper_input.target_dir, mintyper_input.template_name,
+                    fsa_string, mintyper_input.template_name,
                     intyper_input.target_dir)
         if mintyper_input.assemblies != []:
             ccphyloflag += 8
@@ -318,8 +345,8 @@ def run_ccphylo(mintyper_input):
         os.system(cmd)
     elif mintyper_input.fast_tree:
         ccphyloflag = 1
-        cmd = "{} trim --input {}*.fsa --reference \"{}\" > {}trimmedalign.fsa"\
-            .format(mintyper_input.exe_path + "ccphylo/ccphylo",mintyper_input.target_dir,
+        cmd = "{} trim --input {} --reference \"{}\" > {}trimmedalign.fsa"\
+            .format(mintyper_input.exe_path + "ccphylo/ccphylo", fsa_string,
                     mintyper_input.template_name, mintyper_input.target_dir)
         if mintyper_input.assemblies != []:
             ccphyloflag += 8
@@ -337,10 +364,11 @@ def run_ccphylo(mintyper_input):
             .format(mintyper_input.target_dir, mintyper_input.target_dir)
         os.system(cmd)
     else:
-        cmd = "{} dist --input {}*alignment.fsa --output {}{} --reference \"{}\"" \
+        cmd = "{} dist --input {} --output {}{} --reference \"{}\"" \
               " --min_cov 1 --normalization_weight 0 2>&1"\
-            .format(mintyper_input.exe_path + "ccphylo/ccphylo", mintyper_input.target_dir,
+            .format(mintyper_input.exe_path + "ccphylo/ccphylo", fsa_string,
                     mintyper_input.target_dir, "distmatrix.txt", mintyper_input.template_name)
+        print (cmd)
         proc = subprocess.Popen(cmd, shell=True,
                                 stdout=subprocess.PIPE, )
         output = proc.communicate()[0].decode()
@@ -348,6 +376,8 @@ def run_ccphylo(mintyper_input):
         print(output, file=mintyper_input.logfile)
 
         time.sleep(2)
+        if os.path.getsize(mintyper_input.target_dir + "distmatrix.txt") == 0:
+            sys.exit("Error: Could not produce a distance matrix with ccphylo. Please check your input files. Check the logfile for Errors.")
 
         if mintyper_input.cluster_length > 0:
             cmd = "{} dbscan --max_distance {} --input {}{} --output {}{}"\
