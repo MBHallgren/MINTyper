@@ -308,11 +308,17 @@ def checkOutputName(mintyper_input):
     return mintyper_input.target_dir, logfile
 
 def run_ccphylo(mintyper_input):
+    run_list = []
+    fsa_list = os.listdir(mintyper_input.target_dir)
+    for item in fsa_list:
+        if item.endswith(".fsa") and (os.path.getsize(mintyper_input.target_dir + item) > 0):
+            run_list.append(item)
+    fsa_string = " ".join(run_list)
     if mintyper_input.iqtree:
         ccphyloflag = 1
-        cmd = "{} trim --input {}*alignment.fsa --reference \"{}\" > {}trimmedalign.fsa"\
+        cmd = "{} trim --input {} --reference \"{}\" > {}trimmedalign.fsa"\
             .format(mintyper_input.exe_path + "ccphylo/ccphylo",
-                    mintyper_input.target_dir, mintyper_input.template_name,
+                    fsa_string, mintyper_input.template_name,
                     intyper_input.target_dir)
         if mintyper_input.assemblies != []:
             ccphyloflag += 8
@@ -331,8 +337,8 @@ def run_ccphylo(mintyper_input):
         os.system(cmd)
     elif mintyper_input.fast_tree:
         ccphyloflag = 1
-        cmd = "{} trim --input {}*.fsa --reference \"{}\" > {}trimmedalign.fsa"\
-            .format(mintyper_input.exe_path + "ccphylo/ccphylo",mintyper_input.target_dir,
+        cmd = "{} trim --input {} --reference \"{}\" > {}trimmedalign.fsa"\
+            .format(mintyper_input.exe_path + "ccphylo/ccphylo", fsa_string,
                     mintyper_input.template_name, mintyper_input.target_dir)
         if mintyper_input.assemblies != []:
             ccphyloflag += 8
@@ -350,9 +356,9 @@ def run_ccphylo(mintyper_input):
             .format(mintyper_input.target_dir, mintyper_input.target_dir)
         os.system(cmd)
     else:
-        cmd = "{} dist --input {}*alignment.fsa --output {}{} --reference \"{}\"" \
+        cmd = "{} dist --input {} --output {}{} --reference \"{}\"" \
               " --min_cov 1 --normalization_weight 0 2>&1"\
-            .format(mintyper_input.exe_path + "ccphylo/ccphylo", mintyper_input.target_dir,
+            .format(mintyper_input.exe_path + "ccphylo/ccphylo", fsa_string,
                     mintyper_input.target_dir, "distmatrix.txt", mintyper_input.template_name)
         proc = subprocess.Popen(cmd, shell=True,
                                 stdout=subprocess.PIPE, )
