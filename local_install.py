@@ -15,5 +15,3 @@ cmd = "cd ccphylo && make"
 os.system(cmd)
 cmd = "cd .."
 os.system(cmd)
-
-setup()
