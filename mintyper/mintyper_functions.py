@@ -9,12 +9,12 @@ import time
 import subprocess
 
 def eval_pe(mintyper_input):
-    sorted_illumina = mintyper_input.i_illumina.sort()
+    mintyper_input.i_illumina.sort()
     hits = 0
-    for i in range(0, len(sorted_illumina), 2):
-        if sorted_illumina[i].split("/")[-1][0:10] == sorted_illumina[i+1].split("/")[-1][0:10] : #Assumes that the first 10 characters are the same for paired ends
+    for i in range(0, len(mintyper_input.i_illumina), 2):
+        if mintyper_input.i_illumina[i].split("/")[-1][0:10] == mintyper_input.i_illumina[i+1].split("/")[-1][0:10] : #Assumes that the first 10 characters are the same for paired ends
             hits += 1
-    rate = (hits*2)/len(sorted_illumina)
+    rate = (hits*2)/len(mintyper_input.i_illumina)
     if rate >= 0.5: #At least 50% are paired-end, consider all as paired-end
         mintyper_input.paired_end = True
         print ("# Paired-end illumina input not given but determined by the eval_pe function", file=mintyper_input.logfile)
