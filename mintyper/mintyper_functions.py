@@ -27,6 +27,9 @@ def mintyper(args):
     mintyper_input.best_template = str(best_template)
     mintyper_input.template_name = str(template_name)
 
+    print (mintyper_input.assemblies)
+    print (mintyper_input.i_illumina)
+    sys.exit()
     if mintyper_input.i_illumina != []:
         if mintyper_input.paired_end == True:
             illumina_alignment_pe(mintyper_input)
@@ -35,7 +38,7 @@ def mintyper(args):
     if mintyper_input.i_nanopore != []:
         nanopore_alignment(mintyper_input)
     if mintyper_input.assemblies != []:
-        illumina_alignment_se(mintyper_input)
+        assembly_alignment(mintyper_input)
 
     print ("calculating distance matrix")
 
@@ -215,6 +218,19 @@ def find_template(mintyper_input):
         os.system(cmd)
         print("# Mapping reads to template", file=mintyper_input.logfile)
         return best_template, template_name
+
+def assembly_alignment(mintyper_input):
+    print("Assembly input was given")
+    for item in mintyper_input.assemblies:
+        cmd = "{} -i {} -o {}{}_alignment -ref_fsa -ca -dense -cge -vcf -bc90 -Mt1 {} -t {}"\
+            .format(mintyper_input.exe_path + "kma/kma", item, mintyper_input.target_dir,
+                    item.split("/")[-1], mintyper_input.best_template, mintyper_input.tempalte_name)
+        if mintyper_input.reference != "":
+            cmd += " -t_db {}tmp_db.ATG".format(mintyper_input.target_dir)
+        else:
+            cmd += " -t_db {}".format(mintyper_input.ref_kma_database)
+        os.system(cmd)
+    print ("# Alignment completed succesfully", file=mintyper_input.logfile)
 
 def illumina_alignment_se(mintyper_input):
     print("Single end illumina input was given")
