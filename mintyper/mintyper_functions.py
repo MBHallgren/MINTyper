@@ -39,6 +39,8 @@ def mintyper(args):
 
     print ("calculating distance matrix")
 
+    time.sleep(3)
+
     run_ccphylo(mintyper_input)
 
     end_time = time.time()
@@ -47,6 +49,7 @@ def mintyper(args):
     print("mintyper total runtime: " + str(delta_time) + " seconds", file=mintyper_input.logfile)
     mintyper_input.logfile.close()
     print ("mintyper has completed")
+    sys.exit()
 
     cleanUp(mintyper_input)
 
