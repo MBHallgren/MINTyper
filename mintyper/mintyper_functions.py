@@ -27,9 +27,6 @@ def mintyper(args):
     mintyper_input.best_template = str(best_template)
     mintyper_input.template_name = str(template_name)
 
-    print (mintyper_input.assemblies)
-    print (mintyper_input.i_illumina)
-    sys.exit()
     if mintyper_input.i_illumina != []:
         if mintyper_input.paired_end == True:
             illumina_alignment_pe(mintyper_input)
