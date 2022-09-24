@@ -44,16 +44,16 @@ def mintyper(args):
             for line in infile:
                 if line[0] != "#":
                     line = line.rstrip().split("\t")
-                    if line[0] in joined_list:
-                        if line[1] == "illumina":
-                            illumina_list.append(line[0])
-                        elif line[1] == "nanopore":
-                            nanopore_list.append(line[0])
-                        elif line[1] == "assembly":
-                            assembly_list.append(line[0])
+                    if line[1] == "Illumina":
+                        illumina_list.append(line[0])
+                    elif line[1] == "Nanopore":
+                        nanopore_list.append(line[0])
+                    elif line[1] == "fastA":
+                        assembly_list.append(line[0])
         mintyper_input.i_illumina = illumina_list
         mintyper_input.i_nanopore = nanopore_list
         mintyper_input.assemblies = assembly_list
+
 
 
     start_time = time.time()
@@ -403,11 +403,19 @@ def run_ccphylo(mintyper_input):
             .format(mintyper_input.target_dir, mintyper_input.target_dir)
         os.system(cmd)
     else:
+        ccphyloflag = 1
         cmd = "{} dist --input {} --output {}{} --reference \"{}\"" \
-              " --min_cov 1 --normalization_weight 0 2>&1"\
+              " --min_cov 1 --normalization_weight 0 2>&1" \
             .format(mintyper_input.exe_path + "ccphylo/ccphylo", fsa_string,
                     mintyper_input.target_dir, "distmatrix.txt", mintyper_input.template_name)
-        print (cmd)
+        if mintyper_input.assemblies != []:
+            ccphyloflag = 10
+        if mintyper_input.insig_prune == True:
+            ccphyloflag = 32
+        cmd = "{} dist --input {} --output {}{} --reference \"{}\"" \
+              " --min_cov 1 --normalization_weight 0 -f {} 2>&1"\
+            .format(mintyper_input.exe_path + "ccphylo/ccphylo", fsa_string,
+                    mintyper_input.target_dir, "distmatrix.txt", mintyper_input.template_name, ccphyloflag)
         proc = subprocess.Popen(cmd, shell=True,
                                 stdout=subprocess.PIPE, )
         output = proc.communicate()[0].decode()
@@ -416,7 +424,7 @@ def run_ccphylo(mintyper_input):
 
         time.sleep(2)
         if os.path.getsize(mintyper_input.target_dir + "distmatrix.txt") == 0:
-            sys.exit("Error: Could not produce a distance matrix with ccphylo. Please check your input files. Check the logfile for Errors.")
+            print("Error: Could not produce a distance matrix with ccphylo. Please check your input files. Check the logfile for Errors.")
 
         if mintyper_input.cluster_length > 0:
             cmd = "{} dbscan --max_distance {} --input {}{} --output {}{}"\
