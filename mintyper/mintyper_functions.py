@@ -179,31 +179,43 @@ class MintyperHandler:
 
         return target_dir, logfile
 
-def check_draft_assembly(reference):
-    proc = subprocess.Popen("grep \">\" {} | wc -l".format(reference),
-                            shell=True, stdout=subprocess.PIPE)
-    output = proc.communicate()[0]
-    id = output.decode().rstrip()
-    wc = int(id.split()[0])
-    if int(wc) >= 2:
-        return True
+def check_draft_assembly(reference_file):
+    headers = 0
+    header_text = ""
+    sequence = ""
+    if reference_file.endswith(".gz"):
+        with gzip.open(reference_file, 'rt') as reference:
+            for line in reference:
+                line = line.strip()
+                if line.startswith(">"):
+                    headers += 1
+                    header_text = line  # Save header text
+                else:
+                    sequence += line
     else:
-        return False
+        with open(reference_file, 'r') as reference:
+            for line in reference:
+                line = line.strip()
+                if line.startswith(">"):
+                    headers += 1
+                else:
+                    sequence += line
+    if headers >= 2:
+        header_text = ">template_sequence"
+        return True, header_text, sequence
+    else:
+        return False, header_text, sequence
 
 def find_template(mintyper_input):
     if mintyper_input.reference != "":
         #Check draftassembly
-        if check_draft_assembly(mintyper_input.reference):
+        draft_genome, header_text, sequence = check_draft_assembly(mintyper_input.reference)
+        if draft_genome:
             # Concatenate contigs
-            with open("{}".format(mintyper_input.reference), 'w') as draft_genome_output:
-                print(">template_sequence", file=draft_genome_output)
-                concat_string = ""
-                with open("{}".format(mintyper_input.reference), 'r') as reference_input:
-                    for line in reference_input:
-                        if line[0] != ">":
-                            line = line.rstrip()
-                            concat_string += line
-                print (concat_string, file=draft_genome_output)
+            with open("concatenated_genome_{}".format(mintyper_input.reference), 'w') as draft_genome_output:
+                print(header, file=draft_genome_output)
+                print(sequence, file=draft_genome_output)
+            mintyper_input.reference = "concatenated_genome_{}".format(mintyper_input.reference)
             print("# Input: draft genome.", file=mintyper_input.logfile)
         else:
             print ("# Input reference: %s" % mintyper_input.reference, file=mintyper_input.logfile)
