@@ -7,6 +7,23 @@ import sys
 import os
 import time
 import subprocess
+import gzip
+
+def eval_pe(mintyper_input):
+    mintyper_input.i_illumina.sort()
+    if mintyper_input.i_illumina[0].split("R1")[0] == mintyper_input.i_illumina[1].split("R2")[0]:
+        mintyper_input.paired_end = True
+        print ("# Paired-end illumina input not given but determined by the eval_pe function", file=mintyper_input.logfile)
+
+    #hits = 0
+    #for i in range(0, len(mintyper_input.i_illumina), 2):
+    #    if mintyper_input.i_illumina[i].split("R1")[0] == mintyper_input.i_illumina[i+1].split("R2")[0]:
+    #        hits += 1
+    #rate = (hits*2)/len(mintyper_input.i_illumina)
+    #if rate >= 0.5: #At least 50% are paired-end, consider all as paired-end
+    #    mintyper_input.paired_end = True
+    #    print ("# Paired-end illumina input not given but determined by the eval_pe function", file=mintyper_input.logfile)
+    return mintyper_input
 
 def mintyper(args):
     """
@@ -19,6 +36,27 @@ def mintyper(args):
 
     mintyper_input = MintyperHandler(args)
 
+    if mintyper_input.cge: #Reevaluates CGE input
+        joined_list = mintyper_input.i_illumina + mintyper_input.assemblies + mintyper_input.i_nanopore
+        nanopore_list = []
+        assembly_list = []
+        illumina_list = []
+        with open(mintyper_input.target_dir + "fingerReport.tsv", 'r') as infile:
+            for line in infile:
+                if line[0] != "#":
+                    line = line.rstrip().split("\t")
+                    if line[1] == "Illumina":
+                        illumina_list.append(line[0])
+                    elif line[1] == "Nanopore":
+                        nanopore_list.append(line[0])
+                    elif line[1] == "fastA":
+                        assembly_list.append(line[0])
+        mintyper_input.i_illumina = illumina_list
+        mintyper_input.i_nanopore = nanopore_list
+        mintyper_input.assemblies = assembly_list
+
+
+
     start_time = time.time()
     print("# Running mintyper 1.1.0 with following input conditions:", file=mintyper_input.logfile)
     print (args, file=mintyper_input.logfile)
@@ -28,6 +66,8 @@ def mintyper(args):
     mintyper_input.template_name = str(template_name)
 
     if mintyper_input.i_illumina != []:
+        mintyper_input = eval_pe(mintyper_input)
+
         if mintyper_input.paired_end == True:
             illumina_alignment_pe(mintyper_input)
         else:
@@ -130,7 +170,7 @@ class MintyperHandler:
             target_dir = self.output_name + "/"
         else:
             current_path = os.getcwd()
-            mintyper_input.target_dir = current_path + "/" + self.output_name + "/"
+            target_dir = current_path + "/" + self.output_name + "/"
         os.system("mkdir {}".format(target_dir))
         logfilename = target_dir + "logfile"
         logfile = open(logfilename, 'w')
@@ -140,31 +180,43 @@ class MintyperHandler:
 
         return target_dir, logfile
 
-def check_draft_assembly(reference):
-    proc = subprocess.Popen("grep \">\" {} | wc -l".format(reference),
-                            shell=True, stdout=subprocess.PIPE)
-    output = proc.communicate()[0]
-    id = output.decode().rstrip()
-    wc = int(id.split()[0])
-    if int(wc) >= 2:
-        return True
+def check_draft_assembly(reference_file):
+    headers = 0
+    header_text = ""
+    sequence = ""
+    if reference_file.endswith(".gz"):
+        with gzip.open(reference_file, 'rt') as reference:
+            for line in reference:
+                line = line.strip()
+                if line.startswith(">"):
+                    headers += 1
+                    header_text = line  # Save header text
+                else:
+                    sequence += line
     else:
-        return False
+        with open(reference_file, 'r') as reference:
+            for line in reference:
+                line = line.strip()
+                if line.startswith(">"):
+                    headers += 1
+                else:
+                    sequence += line
+    if headers >= 2:
+        header_text = ">template_sequence"
+        return True, header_text, sequence
+    else:
+        return False, header_text, sequence
 
 def find_template(mintyper_input):
     if mintyper_input.reference != "":
         #Check draftassembly
-        if check_draft_assembly(mintyper_input.reference):
+        draft_genome, header_text, sequence = check_draft_assembly(mintyper_input.reference)
+        if draft_genome:
             # Concatenate contigs
-            with open("{}".format(mintyper_input.reference), 'w') as draft_genome_output:
-                print(">template_sequence", file=draft_genome_output)
-                concat_string = ""
-                with open("{}".format(mintyper_input.reference), 'r') as reference_input:
-                    for line in reference_input:
-                        if line[0] != ">":
-                            line = line.rstrip()
-                            concat_string += line
-                print (concat_string, file=draft_genome_output)
+            with open("{}/concatenated_draft_genome.fasta".format(mintyper_input.target_dir), 'w') as draft_genome_output:
+                print(header_text, file=draft_genome_output)
+                print(sequence, file=draft_genome_output)
+            mintyper_input.reference = "{}/concatenated_draft_genome.fasta".format(mintyper_input.target_dir)
             print("# Input: draft genome.", file=mintyper_input.logfile)
         else:
             print ("# Input reference: %s" % mintyper_input.reference, file=mintyper_input.logfile)
@@ -364,11 +416,19 @@ def run_ccphylo(mintyper_input):
             .format(mintyper_input.target_dir, mintyper_input.target_dir)
         os.system(cmd)
     else:
+        ccphyloflag = 1
         cmd = "{} dist --input {} --output {}{} --reference \"{}\"" \
-              " --min_cov 1 --normalization_weight 0 2>&1"\
+              " --min_cov 1 --normalization_weight 0 2>&1" \
             .format(mintyper_input.exe_path + "ccphylo/ccphylo", fsa_string,
                     mintyper_input.target_dir, "distmatrix.txt", mintyper_input.template_name)
-        print (cmd)
+        if mintyper_input.assemblies != []:
+            ccphyloflag = 10
+        if mintyper_input.insig_prune == True:
+            ccphyloflag = 32
+        cmd = "{} dist --input {} --output {}{} --reference \"{}\"" \
+              " --min_cov 1 --normalization_weight 0 -f {} 2>&1"\
+            .format(mintyper_input.exe_path + "ccphylo/ccphylo", fsa_string,
+                    mintyper_input.target_dir, "distmatrix.txt", mintyper_input.template_name, ccphyloflag)
         proc = subprocess.Popen(cmd, shell=True,
                                 stdout=subprocess.PIPE, )
         output = proc.communicate()[0].decode()
@@ -377,7 +437,7 @@ def run_ccphylo(mintyper_input):
 
         time.sleep(2)
         if os.path.getsize(mintyper_input.target_dir + "distmatrix.txt") == 0:
-            sys.exit("Error: Could not produce a distance matrix with ccphylo. Please check your input files. Check the logfile for Errors.")
+            print("Error: Could not produce a distance matrix with ccphylo. Please check your input files. Check the logfile for Errors.")
 
         if mintyper_input.cluster_length > 0:
             cmd = "{} dbscan --max_distance {} --input {}{} --output {}{}"\
@@ -410,3 +470,4 @@ def cge_server_input(args):
                 assemblies_list.append(args.i_assemblies[0] + item)
             args.i_assemblies = assemblies_list
     return args
+
