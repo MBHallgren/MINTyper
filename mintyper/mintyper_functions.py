@@ -7,6 +7,7 @@ import sys
 import os
 import time
 import subprocess
+import gzip
 
 def eval_pe(mintyper_input):
     mintyper_input.i_illumina.sort()
