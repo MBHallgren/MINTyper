@@ -169,7 +169,7 @@ class MintyperHandler:
             target_dir = self.output_name + "/"
         else:
             current_path = os.getcwd()
-            mintyper_input.target_dir = current_path + "/" + self.output_name + "/"
+            target_dir = current_path + "/" + self.output_name + "/"
         os.system("mkdir {}".format(target_dir))
         logfilename = target_dir + "logfile"
         logfile = open(logfilename, 'w')
