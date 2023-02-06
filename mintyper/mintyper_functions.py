@@ -213,7 +213,7 @@ def find_template(mintyper_input):
         if draft_genome:
             # Concatenate contigs
             with open("{}/concatenated_draft_genome.fasta".format(mintyper_input.target_dir), 'w') as draft_genome_output:
-                print(header, file=draft_genome_output)
+                print(header_text, file=draft_genome_output)
                 print(sequence, file=draft_genome_output)
             mintyper_input.reference = "{}/concatenated_draft_genome.fasta".format(mintyper_input.target_dir)
             print("# Input: draft genome.", file=mintyper_input.logfile)
