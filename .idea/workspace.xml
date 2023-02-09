@@ -4,10 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="b673374f-91e9-4b74-bd4d-e200ee9cca6c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
+=======
+    <list default="true" id="b673374f-91e9-4b74-bd4d-e200ee9cca6c" name="Default Changelist" comment="" />
+>>>>>>> 5b23555df9a0a2592227ffd0942f6a928d9adbb8
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -97,7 +101,11 @@
     <option name="width" value="1440" />
     <option name="height" value="850" />
   </component>
+<<<<<<< HEAD
   <component name="ProjectId" id="2LVEVIm24Ide4J8pcREGBaZC4D2" />
+=======
+  <component name="ProjectId" id="2FA9jQG9k7aYPsr2zTINUD3iwMf" />
+>>>>>>> 5b23555df9a0a2592227ffd0942f6a928d9adbb8
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -128,12 +136,21 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+<<<<<<< HEAD
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "last_opened_file_path": "/Users/malhal/dev/github_mintyper",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+=======
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/malhal/dev/github_mintyper",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+>>>>>>> 5b23555df9a0a2592227ffd0942f6a928d9adbb8
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -148,7 +165,11 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1578665304233</updated>
+<<<<<<< HEAD
       <workItem from="1675947872938" duration="88000" />
+=======
+      <workItem from="1675342833579" duration="2095000" />
+>>>>>>> 5b23555df9a0a2592227ffd0942f6a928d9adbb8
     </task>
     <servers />
   </component>
