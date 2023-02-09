@@ -260,6 +260,7 @@ def nanopore_alignment(mintyper_input):
             cmd += " -t_db {}tmp_db.ATG".format(mintyper_input.target_dir)
         else:
             cmd += " -t_db {}".format(mintyper_input.ref_kma_database)
+        print(cmd, file=mintyper_input.logfile)
         os.system(cmd)
 
     print ("# Alignment completed succesfully", file=mintyper_input.logfile)
