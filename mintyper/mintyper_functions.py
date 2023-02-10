@@ -320,7 +320,7 @@ def nanopore_alignment(mintyper_input):
     print("Nanopore input")
 
     for item in mintyper_input.i_nanopore:
-        cmd = "{} -i {} -o {}{}_alignment mint3 -Mt1 {} -t {} -bc {}" \
+        cmd = "{} -i {} -o {}{}_alignment -mint3 -Mt1 {} -t {} -bc {}" \
             .format(mintyper_input.exe_path + "kma/kma", item, mintyper_input.target_dir,
                     item.split("/")[-1],mintyper_input.best_template,
                     mintyper_input.tempalte_name, mintyper_input.bc)
