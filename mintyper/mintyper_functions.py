@@ -199,6 +199,7 @@ def check_draft_assembly(reference_file):
                 line = line.strip()
                 if line.startswith(">"):
                     headers += 1
+                    header_text = line  # Save header text
                 else:
                     sequence += line
     if headers >= 2:
@@ -275,7 +276,7 @@ def find_template(mintyper_input):
 def assembly_alignment(mintyper_input):
     print("Assembly input was given")
     for item in mintyper_input.assemblies:
-        cmd = "{} -i {} -o {}{}_alignment -ref_fsa -ca -dense -cge -vcf -bc90 -Mt1 {} -t {}"\
+        cmd = "{} -i {} -o {}{}_alignment -mint2 -Mt1 {} -t {}"\
             .format(mintyper_input.exe_path + "kma/kma", item, mintyper_input.target_dir,
                     item.split("/")[-1], mintyper_input.best_template, mintyper_input.tempalte_name)
         if mintyper_input.reference != "":
@@ -288,7 +289,7 @@ def assembly_alignment(mintyper_input):
 def illumina_alignment_se(mintyper_input):
     print("Single end illumina input was given")
     for item in mintyper_input.i_illumina:
-        cmd = "{} -i {} -o {}{}_alignment -ref_fsa -ca -dense -cge -vcf -bc90 -Mt1 {} -t {}"\
+        cmd = "{} -i {} -o {}{}_alignment -mint2 -Mt1 {} -t {}"\
             .format(mintyper_input.exe_path + "kma/kma", item, mintyper_input.target_dir,
                     item.split("/")[-1], mintyper_input.best_template, mintyper_input.tempalte_name)
         if mintyper_input.reference != "":
@@ -301,8 +302,7 @@ def illumina_alignment_se(mintyper_input):
 def illumina_alignment_pe(mintyper_input):
     print("Paired end illumina input was given")
     for i in range(0, len(mintyper_input.i_illumina), 2):
-        cmd = "{} -ipe {} {} -o {}{}_alignment -ref_fsa -ca -dense -cge" \
-              " -vcf -bc90 -Mt1 {} -t {}"\
+        cmd = "{} -ipe {} {} -o {}{}_alignment -mint2 -Mt1 {} -t {}"\
             .format(mintyper_input.exe_path + "kma/kma", mintyper_input.i_illumina[i],
                     mintyper_input.i_illumina[i+1],
                     mintyper_input.target_dir, mintyper_input.i_illumina[i].split("/")[-1],
@@ -320,8 +320,7 @@ def nanopore_alignment(mintyper_input):
     print("Nanopore input")
 
     for item in mintyper_input.i_nanopore:
-        cmd = "{} -i {} -o {}{}_alignment -mp 20 -1t1 -dense -vcf -ref_fsa" \
-              " -ca -bcNano -Mt1 {} -t {} -bc {}" \
+        cmd = "{} -i {} -o {}{}_alignment mint3 -Mt1 {} -t {} -bc {}" \
             .format(mintyper_input.exe_path + "kma/kma", item, mintyper_input.target_dir,
                     item.split("/")[-1],mintyper_input.best_template,
                     mintyper_input.tempalte_name, mintyper_input.bc)
