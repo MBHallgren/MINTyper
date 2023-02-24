@@ -151,8 +151,8 @@ class MintyperHandler:
             sys.exit("You selected both iqtree and fasttree."
                      " Please choose only one or neither for CCphylo.")
 
-        if 3 > (len(self.i_nanopore) + len(self.i_illumina) + len(self.assemblies)):
-            sys.exit("Less than 3 input files were given.")
+        if 2 > (len(self.i_nanopore) + len(self.i_illumina) + len(self.assemblies)):
+            sys.exit("Less than 2 input files were given.")
         return True
 
     def _input_type(self):
