@@ -15,6 +15,6 @@ def find_best_template_from_spa_file(spa_file, database):
             if item[0][0] != "#":
                 if float(item[2]) > template_score:
                     template_score = float(item[2])
-                    template_number = float[item[1]]
+                    template_number = float(item[1])
                     reference_header_text = item[0]
         return template_number, template_score, reference_header_text
