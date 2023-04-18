@@ -9,6 +9,9 @@ from mintyper.kma import KMARunner
 from mintyper.findBestTemplate import find_best_template
 
 def mintyper_pipline(arguments):
+    if not os.path.exists(arguments.output):
+        os.makedirs(arguments.output)
+
     logging.basicConfig(
         format='%(asctime)s %(message)s',
         filename=arguments.output + '/mintyper.log',
