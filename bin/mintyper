@@ -8,7 +8,7 @@ import os
 sys.path = [os.path.join(os.path.dirname(os.path.realpath(__file__)),'..')] + sys.path
 
 from mintyper import version
-from mintyper.mintyperPipeline import mintyper_pipeline
+from mintyper import mintyperPipeline
 
 __author__ = "Malte B. Hallgren"
 __version__ = version.__version__
@@ -61,7 +61,7 @@ def main():
 
     args = parser.parse_args()
 
-    mintyper_pipeline()
+    mintyperPipeline.mintyper_pipeline()
 
 
 if __name__ == '__main__':
