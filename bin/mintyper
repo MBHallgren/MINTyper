@@ -61,7 +61,7 @@ def main():
 
     args = parser.parse_args()
 
-    mintyperPipeline.mintyper_pipeline()
+    mintyperPipeline.mintyper_pipline(args)
 
 
 if __name__ == '__main__':
