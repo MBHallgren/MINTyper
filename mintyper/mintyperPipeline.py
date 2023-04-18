@@ -21,6 +21,7 @@ def mintyper_pipline(arguments):
     logging.info(arguments)
 
     all_input_files_string = ' '.join(arguments.illumina + arguments.nanopore + arguments.iontorrent)
+    print (all_input_files_string)
 
     if arguments.reference != None:
         arguments.database = arguments.output + '/tmp_db'
