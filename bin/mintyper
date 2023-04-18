@@ -39,7 +39,7 @@ def main():
                                          " to calculate the distance matrix.")
     parser.add_argument("--db", action="store", type=str, default="", dest="database",
                         help="Comeplete path to a KMA indexed reference database of whole genomes.")
-    parser.add_argument("--reference", action="store", type=str, default="", dest="reference",
+    parser.add_argument("--reference", action="store", type=str, dest="reference",
                         help="To align your query sequences against a reference"
                              " of your own choice, use this argument.")
     parser.add_argument("--cluster_length", type=int, action="store", dest="cluster_length",
