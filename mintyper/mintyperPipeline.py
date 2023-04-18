@@ -22,10 +22,10 @@ def mintyper_pipline(arguments):
 
     all_input_files_string = ' '.join(arguments.illumina + arguments.nanopore + arguments.iontorrent)
 
-    if args.reference != None:
-        args.database = arguments.output + '/tmp_db'
-        KMARunner(args.reference,
-                  args.database,
+    if arguments.reference != None:
+        arguments.database = arguments.output + '/tmp_db'
+        KMARunner(arguments.reference,
+                  arguments.database,
                   '',
                   '').index()
     else:
