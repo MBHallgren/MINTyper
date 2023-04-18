@@ -34,7 +34,7 @@ def mintyper_pipline(arguments):
                   arguments.output + '/read_mapping',
                   arguments.database,
                   '-mem_mode -Sparse -ss c').run()
-        template_number, template_score, reference_header_text, find_best_template(arguments.output + '/read_mapping.res', arguments.database)
+        template_number, template_score, reference_header_text = find_best_template(arguments.output + '/read_mapping.res', arguments.database)
         logging.info('Best template found: {}'.format(reference_header_text))
 
     sys.exit()
