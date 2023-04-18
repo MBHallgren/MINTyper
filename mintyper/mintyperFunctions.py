@@ -27,34 +27,10 @@ def eval_pe(mintyper_input):
 
 def mintyper(args):
     """
-    Pipeline for mintyper. This is the main func which is called my __main__.py or mintyper_local.py
+    Main function of mintyper
     :param args:
     :return:
     """
-
-    args = cge_server_input(args)
-
-    mintyper_input = MintyperHandler(args)
-
-    if mintyper_input.cge: #Reevaluates CGE input
-        joined_list = mintyper_input.i_illumina + mintyper_input.assemblies + mintyper_input.i_nanopore
-        nanopore_list = []
-        assembly_list = []
-        illumina_list = []
-        with open(mintyper_input.target_dir + "fingerReport.tsv", 'r') as infile:
-            for line in infile:
-                if line[0] != "#":
-                    line = line.rstrip().split("\t")
-                    if line[1] == "Illumina":
-                        illumina_list.append(line[0])
-                    elif line[1] == "Nanopore":
-                        nanopore_list.append(line[0])
-                    elif line[1] == "fastA":
-                        assembly_list.append(line[0])
-        mintyper_input.i_illumina = illumina_list
-        mintyper_input.i_nanopore = nanopore_list
-        mintyper_input.assemblies = assembly_list
-
 
 
     start_time = time.time()

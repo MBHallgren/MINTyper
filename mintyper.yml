@@ -1,0 +1,7 @@
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - kma=1.4.9
+  - ccphylo=0.8.2
