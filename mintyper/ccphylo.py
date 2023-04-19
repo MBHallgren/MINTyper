@@ -4,11 +4,14 @@ import logging
 import subprocess
 
 class CcphyloDist():
-    def __init__(self, target_dir):
+    def __init__(self, target_dir, reference_header_text, ccphylo_flag):
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
         self.check_for_ccphylo()
         self.target_dir = target_dir
+        self.reference_header_text = reference_header_text
+        self.ccphylo_flag = ccphylo_flag
+        self.prepare_list_of_alignment_files()
 
 
     def check_for_ccphylo(self):
@@ -19,7 +22,7 @@ class CcphyloDist():
             self.logger.info("ccphylo is not installed correctly directly in the PATH.")
             sys.exit(1)
 
-    def dist(self):
+    def run(self):
         """runs ccphylo"""
         cmd = "ccphylo dist --input {} --output {}/distmatrix.txt --reference \"{}\"" \
               " --min_cov 1 --normalization_weight 0" \
@@ -33,14 +36,11 @@ class CcphyloDist():
 
 
 class CcphyloTree():
-    def __init__(self, target_dir, reference_header_text, ccphylo_flag, cluster_length):
+    def __init__(self, target_dir):
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
         self.check_for_ccphylo()
         self.target_dir = target_dir
-        self.reference_header_text = reference_header_text
-        self.ccphylo_flag = ccphylo_flag
-        self.cluster_length = cluster_length
         self.prepare_list_of_alignment_files()
 
     def check_for_ccphylo(self):
@@ -64,7 +64,7 @@ class CcphyloTree():
                         'The alignment file {} is empty and therefore it was excluded from the analysis'.format(item))
         self.alignment_string = " ".join(run_list)
 
-    def tree(self):
+    def run(self):
         """runs ccphylo tree"""
         cmd = "ccphylo tree --input {}/distmatrix.txt --output {}/tree.newick" \
             .format(self.target_dir, self.target_dir)
@@ -72,13 +72,11 @@ class CcphyloTree():
         os.system(cmd)
 
 class CcphyloDBSCAN():
-    def __init__(self, target_dir, reference_header_text, ccphylo_flag, cluster_length):
+    def __init__(self, target_dir, cluster_length):
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
         self.check_for_ccphylo()
         self.target_dir = target_dir
-        self.reference_header_text = reference_header_text
-        self.ccphylo_flag = ccphylo_flag
         self.cluster_length = cluster_length
         self.prepare_list_of_alignment_files()
 
@@ -103,7 +101,7 @@ class CcphyloDBSCAN():
                         'The alignment file {} is empty and therefore it was excluded from the analysis'.format(item))
         self.alignment_string = " ".join(run_list)
 
-    def dbscan(self):
+    def run(self):
         """runs ccphylo dbscan"""
         cmd = "ccphylo dbscan --max_distance {} --input {}{} --output {}{}" \
             .format(cluster_length, self.target_dir, '/distmatrix.txt', self.target_dir, '/clusters.txt')

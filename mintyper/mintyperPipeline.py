@@ -9,8 +9,7 @@ sys.path = [os.path.join(os.path.dirname(os.path.realpath(__file__)),'..')] + sy
 from mintyper.validateInput import validate_input
 from mintyper.kma import KMARunner
 from mintyper.findBestTemplate import find_best_template_from_spa_file
-from mintyper.ccphylo import CcphyloRunner
-
+import mintyper.ccphylo as ccphylo
 def mintyper_pipline(arguments):
     if not os.path.exists(arguments.output):
         os.makedirs(arguments.output)
@@ -87,21 +86,15 @@ def mintyper_pipline(arguments):
     if arguments.insig_prune == True:
         ccphyloflag = 32
 
-    CcphyloRunner(arguments.output,
+    ccphylo.CcphyloDist(arguments.output,
                   reference_header_text,
-                  ccphylo_flag,
-                  arguments.cluster_length).dist()
+                  ccphylo_flag).run()
 
     if arguments.cluster_length > 0:
-        CcphyloRunner(arguments.output,
-                      reference_header_text,
-                      ccphylo_flag,
-                      arguments.cluster_length).dbscan()
+        ccphylo.CcphyloDBSCAN(arguments.output).run()
 
-    CcphyloRunner(arguments.output,
-                  reference_header_text,
-                  ccphylo_flag,
-                  arguments.cluster_length).tree()
+    ccphylo.CcphyloTree(arguments.output,
+                  arguments.cluster_length).run()
 
 
 
