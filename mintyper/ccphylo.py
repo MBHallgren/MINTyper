@@ -13,6 +13,18 @@ class CcphyloDist():
         self.ccphylo_flag = ccphylo_flag
         self.prepare_list_of_alignment_files()
 
+    def prepare_list_of_alignment_files(self):
+        """Returns a list of alignment files"""
+        run_list = []
+        fsa_list = os.listdir(self.target_dir + '/alignments/')
+        for item in fsa_list:
+            if item.endswith(".fsa"):
+                if os.path.getsize(self.target_dir + '/alignments/' + item) > 0:  # non empty alignment
+                    run_list.append(self.target_dir + '/alignments/' + item)
+                else:
+                    logging.info(
+                        'The alignment file {} is empty and therefore it was excluded from the analysis'.format(item))
+        self.alignment_string = " ".join(run_list)
 
     def check_for_ccphylo(self):
         """Checks if ccphylo is installed"""
