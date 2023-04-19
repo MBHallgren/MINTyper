@@ -25,6 +25,8 @@ def mintyper_pipeline(arguments):
     all_input_files_string = ' '.join(arguments.illumina + arguments.nanopore + arguments.iontorrent)
     print (all_input_files_string)
 
+    threads = int(multiprocessing.cpu_count()/2)
+
     if arguments.reference != None:
         arguments.database = arguments.output + '/tmp_db'
         template_number = 1
@@ -39,11 +41,9 @@ def mintyper_pipeline(arguments):
         KMARunner(all_input_files_string,
                   arguments.output + '/read_mapping',
                   arguments.database,
-                  '-mem_mode -Sparse -ss c').run()
+                  '-mem_mode -Sparse -ss c -t {}'.format(threads)).run()
         template_number, template_score, reference_header_text = find_best_template_from_spa_file(arguments.output + '/read_mapping.spa', arguments.database)
         logging.info('Best template found: {}'.format(reference_header_text))
-
-    threads = int(multiprocessing.cpu_count()/2)
 
     os.system('mkdir {}/alignments'.format(arguments.output))
 
@@ -86,6 +86,13 @@ def mintyper_pipeline(arguments):
     if arguments.insig_prune == True:
         ccphyloflag = 32
 
+    ccphylo.CcphyloTrim(arguments.output,
+                        reference_header_text,
+                        ccphylo_flag,
+                        arguments.prune_distance,
+                        arguments.masking_scheme).run()
+
+    sys.exit()
     ccphylo.CcphyloDist(arguments.output,
                   reference_header_text,
                   ccphylo_flag).run()
