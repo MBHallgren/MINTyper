@@ -34,7 +34,7 @@ def mintyper_pipeline(arguments):
                   '',
                   '').index()
         with open(arguments.output + '/tmp_db.name') as f:
-            reference_header_text = f.readline()
+            reference_header_text = f.readline().strip()
     else:
         KMARunner(all_input_files_string,
                   arguments.output + '/read_mapping',
