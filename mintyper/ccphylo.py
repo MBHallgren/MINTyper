@@ -29,12 +29,13 @@ class CcphyloTrim():
 
     def run(self):
         """runs ccphylo"""
-        cmd = "ccphylo trim --input {} --reference \"{}\" > {}/alignments/multiple_alignment.fsa" \
-            .format(self.alignment_string, self.reference_header_text, self.target_dir)
+        cmd = "ccphylo trim --input {} --reference \"{}\""\
+            .format(self.alignment_string, self.reference_header_text)
         if self.prune_distance != None:
             cmd += " --proximity {}".format(self.prune_distance)
         if self.masking_motif_file != None:
             cmd += " --methylation_motifs {}".format(self.masking_motif_file)
+        cmd = ' > {}/alignments/multiple_alignment.fsa".format(self.target_dir)'
         self.logger.info("Running ccphylo with the following command: {}".format(cmd))
         os.system(cmd)
 
@@ -57,7 +58,7 @@ class CcphyloDist():
             cmd += " -f {} 2>&1".format(self.ccphylo_flag)
         else:
             cmd += " 2>&1"
-        self.logger.info(cmd)
+        #self.logger.info(cmd)
         os.system(cmd)
 
 
