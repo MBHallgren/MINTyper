@@ -70,8 +70,8 @@ def mintyper_pipline(arguments):
                       arguments.database,
                       '-mint2 -Mt1 {} -t {}'.format(template_number, threads)).run()
 
-    if args.assemblies != []:
-        for item in args.assemblies:
+    if arguments.assemblies != []:
+        for item in arguments.assemblies:
             prefix = item.split('/')[-1].split('.')[0]
             KMARunner(item,
                       arguments.output + '/alignments/' + prefix,
@@ -91,7 +91,7 @@ def mintyper_pipline(arguments):
                   ccphylo_flag,
                   arguments.cluster_length).dist()
 
-    if args.cluster_length > 0:
+    if arguments.cluster_length > 0:
         CcphyloRunner(arguments.output,
                       reference_header_text,
                       ccphylo_flag,
