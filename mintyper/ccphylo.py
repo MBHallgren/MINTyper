@@ -24,7 +24,7 @@ class CcphyloRunner():
             sys.exit(1)
             
     def prepare_list_of_alignment_files(self):
-    """Returns a list of alignment files"""
+        """Returns a list of alignment files"""
         run_list = []
         fsa_list = os.listdir(mintyper_input.target_dir + '/alignments/')
         for item in fsa_list:
