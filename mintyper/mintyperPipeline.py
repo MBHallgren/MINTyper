@@ -91,9 +91,9 @@ def mintyper_pipline(arguments):
                   ccphylo_flag).run()
 
     if arguments.cluster_length > 0:
-        ccphylo.CcphyloDBSCAN(arguments.output).run()
+        ccphylo.CcphyloDBSCAN(arguments.output, arguments.cluster_length).run()
 
-    ccphylo.CcphyloTree(arguments.output, arguments.cluster_length).run()
+    ccphylo.CcphyloTree(arguments.output).run()
 
 
 
