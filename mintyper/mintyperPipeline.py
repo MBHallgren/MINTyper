@@ -88,18 +88,11 @@ def mintyper_pipeline(arguments):
     if arguments.insig_prune == True:
         ccphyloflag = 32
 
-    #ccphylo.CcphyloTrim(arguments.output,
-    #                    reference_header_text,
-    #                    ccphylo_flag,
-    #                    arguments.prune_distance,
-    #                    arguments.masking_scheme).run()
-
     ccphylo.CcphyloDist(arguments.output,
                         reference_header_text,
                         ccphylo_flag,
                         arguments.prune_distance,
                         arguments.masking_scheme).run()
-
 
     if arguments.cluster_length > 0:
         ccphylo.CcphyloDBSCAN(arguments.output, arguments.cluster_length).run()

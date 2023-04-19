@@ -134,7 +134,7 @@ class CcphyloDBSCAN():
     def run(self):
         """runs ccphylo dbscan"""
         cmd = "ccphylo dbscan --max_distance {} --input {}{} --output {}{}" \
-            .format(cluster_length, self.target_dir, '/distmatrix.txt', self.target_dir, '/clusters.txt')
+            .format(self.cluster_length, self.target_dir, '/distmatrix.txt', self.target_dir, '/clusters.txt')
         #self.logger.info("Running ccphylo with the following command: {}".format(cmd))
         os.system(cmd)
 
