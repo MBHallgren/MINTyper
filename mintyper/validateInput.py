@@ -10,7 +10,7 @@ def validate_input(arguments):
 
 def check_illumina_pe(files):
     if len(files) % 2 != 0:
-        logging.info('Error: Illumina files must be paired-end. Exiting.')
+        logging.info('Error: Illumina files must be paired-end. Exiting. An odd number of files was provided.')
         sys.exit('Error: Illumina files must be paired-end. Exiting.')
 
 def check_database(database, reference):
