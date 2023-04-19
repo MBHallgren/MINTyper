@@ -7,7 +7,7 @@ class CcphyloDist():
     def __init__(self, target_dir, reference_header_text, ccphylo_flag):
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
-        self.check_for_ccphylo()
+        #self.check_for_ccphylo()
         self.target_dir = target_dir
         self.reference_header_text = reference_header_text
         self.ccphylo_flag = ccphylo_flag
@@ -25,14 +25,6 @@ class CcphyloDist():
                     logging.info(
                         'The alignment file {} is empty and therefore it was excluded from the analysis'.format(item))
         self.alignment_string = " ".join(run_list)
-
-    def check_for_ccphylo(self):
-        """Checks if ccphylo is installed"""
-        try:
-            subprocess.call(["ccphylo"], stdout=open(os.devnull, 'wb'))
-        except FileNotFoundError:
-            self.logger.info("ccphylo is not installed correctly directly in the PATH.")
-            sys.exit(1)
 
     def run(self):
         """runs ccphylo"""
