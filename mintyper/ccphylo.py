@@ -29,8 +29,8 @@ class CcphyloTrim():
 
     def run(self):
         """runs ccphylo"""
-        cmd = "ccphylo trim --input {} --output {}/alignments/multiple_alignment.fsa --reference \"{}\""\
-            .format(self.alignment_string, self.target_dir, self.reference_header_text)
+        cmd = "ccphylo trim --reference \"{}\" > --output {}/alignments/multiple_alignment.fsa" \
+            .format(self.alignment_string, self.reference_header_text, self.target_dir)
         if self.prune_distance != None:
             cmd += " --proximity {}".format(self.prune_distance)
         if self.masking_motif_file != None:
