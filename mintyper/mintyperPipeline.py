@@ -76,21 +76,23 @@ def mintyper_pipeline(arguments):
             KMARunner(item,
                       arguments.output + '/alignments/' + prefix,
                       arguments.database,
-                      '-mint1 -Mt1 {} -t {} -vcf'.format(template_number, threads)).run()
+                      '-mint2 -Mt1 {} -t {} -vcf'.format(template_number, threads)).run()
 
     time.sleep(3) #CCphylo might crash unless this. not sure why.
 
     ccphylo_flag = 1
+    if arguments.pairwise == True:
+        ccphylo_flag = 2
     if arguments.assemblies != []:
         ccphyloflag = 10
     if arguments.insig_prune == True:
         ccphyloflag = 32
 
-    ccphylo.CcphyloTrim(arguments.output,
-                        reference_header_text,
-                        ccphylo_flag,
-                        arguments.prune_distance,
-                        arguments.masking_scheme).run()
+    #ccphylo.CcphyloTrim(arguments.output,
+    #                    reference_header_text,
+    #                    ccphylo_flag,
+    #                    arguments.prune_distance,
+    #                    arguments.masking_scheme).run()
 
     ccphylo.CcphyloDist(arguments.output,
                   reference_header_text,

@@ -58,6 +58,8 @@ def main():
                         help="By default insignificant bases are included in the pruning process."
                              " Use this flag, if you wish to NOT include them in the pruning.")
     parser.add_argument('-v', '--version', action='version', version='%(prog)s ' + __version__)
+    parser.add_argument("-p", action="store_true", dest="pairwise", default=False,
+                        help="Pairwise distances are used to calculated distance matrix. Can be used for non-closely related isolates.")
 
     args = parser.parse_args()
 
