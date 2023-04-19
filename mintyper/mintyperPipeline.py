@@ -92,7 +92,6 @@ def mintyper_pipeline(arguments):
                         arguments.prune_distance,
                         arguments.masking_scheme).run()
 
-    sys.exit()
     ccphylo.CcphyloDist(arguments.output,
                   reference_header_text,
                   ccphylo_flag).run()
