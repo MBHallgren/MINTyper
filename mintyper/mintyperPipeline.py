@@ -10,7 +10,7 @@ from mintyper.validateInput import validate_input
 from mintyper.kma import KMARunner
 from mintyper.findBestTemplate import find_best_template_from_spa_file
 import mintyper.ccphylo as ccphylo
-def mintyper_pipline(arguments):
+def mintyper_pipeline(arguments):
     if not os.path.exists(arguments.output):
         os.makedirs(arguments.output)
 
@@ -96,7 +96,7 @@ def mintyper_pipline(arguments):
     ccphylo.CcphyloTree(arguments.output).run()
 
     cmd = "cat {}/alignments/*.vcf.gz > {}/combined.vcf.gz" \
-        .format(arguments.target_dir, arguments.target_dir)
+        .format(arguments.output, arguments.output)
     os.system(cmd)
 
 
