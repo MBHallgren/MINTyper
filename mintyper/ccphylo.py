@@ -57,7 +57,7 @@ class CcphyloDist():
             cmd += " -f {} 2>&1".format(self.ccphylo_flag)
         else:
             cmd += " 2>&1"
-        #self.logger.info("Running ccphylo with the following command: {}".format(cmd))
+        self.logger.info(cmd)
         os.system(cmd)
 
 
