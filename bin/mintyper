@@ -28,7 +28,7 @@ def main():
                         default=[], help='Assembly input files. Assemblies should not be'
                                          ' mixed with raw reads in the same analysis.')
     parser.add_argument("--masking_scheme", type=str, action="store", dest="masking_scheme",
-                        default="", help="Give a fasta file containing a motif"
+                        help="Give a fasta file containing a motif"
                                          ' that is to be masked in the aligned concensus files.')
     parser.add_argument("--prune_distance", type=int, action="store", dest="prune_distance",
                         default=10, help="X length that SNPs can be located between each other."

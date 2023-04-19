@@ -35,7 +35,7 @@ class CcphyloTrim():
             cmd += " --proximity {}".format(self.prune_distance)
         if self.masking_motif_file != None:
             cmd += " --methylation_motifs {}".format(self.masking_motif_file)
-        #self.logger.info("Running ccphylo with the following command: {}".format(cmd))
+        self.logger.info("Running ccphylo with the following command: {}".format(cmd))
         os.system(cmd)
 
 
