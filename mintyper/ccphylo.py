@@ -35,7 +35,7 @@ class CcphyloDist():
             cmd += " -f {} 2>&1".format(self.ccphylo_flag)
         else:
             cmd += " 2>&1"
-        self.logger.info("Running ccphylo with the following command: {}".format(cmd))
+        #self.logger.info("Running ccphylo with the following command: {}".format(cmd))
         os.system(cmd)
 
 
@@ -63,7 +63,7 @@ class CcphyloTree():
         """runs ccphylo tree"""
         cmd = "ccphylo tree --input {}/distmatrix.txt --output {}/tree.newick" \
             .format(self.target_dir, self.target_dir)
-        self.logger.info("Running ccphylo with the following command: {}".format(cmd))
+        #self.logger.info("Running ccphylo with the following command: {}".format(cmd))
         os.system(cmd)
 
 class CcphyloDBSCAN():
@@ -91,7 +91,7 @@ class CcphyloDBSCAN():
         """runs ccphylo dbscan"""
         cmd = "ccphylo dbscan --max_distance {} --input {}{} --output {}{}" \
             .format(cluster_length, self.target_dir, '/distmatrix.txt', self.target_dir, '/clusters.txt')
-        self.logger.info("Running ccphylo with the following command: {}".format(cmd))
+        #self.logger.info("Running ccphylo with the following command: {}".format(cmd))
         os.system(cmd)
 
 
