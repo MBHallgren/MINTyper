@@ -28,7 +28,7 @@ def mintyper_pipeline(arguments):
     if arguments.reference != None:
         arguments.database = arguments.output + '/tmp_db'
         template_number = 1
-        info.logging('Reference provided: {}'.format(arguments.reference))
+        logging.info('Reference provided: {}'.format(arguments.reference))
         KMARunner(arguments.reference,
                   arguments.database,
                   '',
