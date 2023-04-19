@@ -50,9 +50,9 @@ class CcphyloDist():
 
     def run(self):
         """runs ccphylo"""
-        cmd = "ccphylo dist --input {}/alignments/multiple_alignment.fsa --output {}/distmatrix.txt --reference \"{}\"" \
+        cmd = "ccphylo dist --input {0}/alignments/multiple_alignment.fsa --output {0}/distmatrix.txt --reference \"{1}\"" \
               " --min_cov 1 --normalization_weight 0" \
-            .format(self.alignment_string, self.target_dir, self.reference_header_text)
+            .format(self.target_dir, self.reference_header_text)
         if self.ccphylo_flag != 1:
             cmd += " -f {} 2>&1".format(self.ccphylo_flag)
         else:
