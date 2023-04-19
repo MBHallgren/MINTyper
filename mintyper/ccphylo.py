@@ -29,7 +29,7 @@ class CcphyloTrim():
 
     def run(self):
         """runs ccphylo"""
-        cmd = "ccphylo trim --input {} --reference \"{}\" > --output {}/alignments/multiple_alignment.fsa" \
+        cmd = "ccphylo trim --input {} --reference \"{}\" > {}/alignments/multiple_alignment.fsa" \
             .format(self.alignment_string, self.reference_header_text, self.target_dir)
         if self.prune_distance != None:
             cmd += " --proximity {}".format(self.prune_distance)
