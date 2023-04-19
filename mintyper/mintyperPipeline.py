@@ -82,9 +82,9 @@ def mintyper_pipline(arguments):
     time.sleep(3) #CCphylo might crash unless this. not sure why.
 
     ccphylo_flag = 1
-    if mintyper_input.assemblies != []:
+    if arguments.assemblies != []:
         ccphyloflag = 10
-    if mintyper_input.insig_prune == True:
+    if arguments.insig_prune == True:
         ccphyloflag = 32
 
     CcphyloRunner(arguments.output,
