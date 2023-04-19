@@ -43,17 +43,8 @@ class CcphyloTree():
     def __init__(self, target_dir):
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
-        self.check_for_ccphylo()
         self.target_dir = target_dir
         self.prepare_list_of_alignment_files()
-
-    def check_for_ccphylo(self):
-        """Checks if ccphylo is installed"""
-        try:
-            subprocess.call(["ccphylo"], stdout=open(os.devnull, 'wb'))
-        except FileNotFoundError:
-            self.logger.info("ccphylo is not installed correctly directly in the PATH.")
-            sys.exit(1)
 
     def prepare_list_of_alignment_files(self):
         """Returns a list of alignment files"""
@@ -79,18 +70,9 @@ class CcphyloDBSCAN():
     def __init__(self, target_dir, cluster_length):
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
-        self.check_for_ccphylo()
         self.target_dir = target_dir
         self.cluster_length = cluster_length
         self.prepare_list_of_alignment_files()
-
-    def check_for_ccphylo(self):
-        """Checks if ccphylo is installed"""
-        try:
-            subprocess.call(["ccphylo"], stdout=open(os.devnull, 'wb'))
-        except FileNotFoundError:
-            self.logger.info("ccphylo is not installed correctly directly in the PATH.")
-            sys.exit(1)
 
     def prepare_list_of_alignment_files(self):
         """Returns a list of alignment files"""

@@ -89,7 +89,7 @@ def mintyper_pipline(arguments):
     ccphylo.CcphyloDist(arguments.output,
                   reference_header_text,
                   ccphylo_flag).run()
-    sys.exit()
+
     if arguments.cluster_length > 0:
         ccphylo.CcphyloDBSCAN(arguments.output).run()
 

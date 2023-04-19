@@ -20,3 +20,11 @@ def check_database(database, reference):
             if not os.path.isfile(database + db):
                 logging.info('Error: KMA database not found. Exiting.')
                 sys.exit('Error: KMA database not found. Exiting.')
+
+def check_for_ccphylo():
+    """Checks if ccphylo is installed"""
+    try:
+        subprocess.call(["ccphylo"], stdout=open(os.devnull, 'wb'))
+    except FileNotFoundError:
+        self.logger.info("ccphylo is not installed correctly directly in the PATH.")
+        sys.exit(1)
