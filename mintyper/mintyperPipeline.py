@@ -53,14 +53,14 @@ def mintyper_pipline(arguments):
             KMARunner(item,
                       arguments.output + '/alignments/' + prefix,
                       arguments.database,
-                      '-mint3 -Mt1 {} -t {}'.format(template_number, threads)).run()
+                      '-mint3 -Mt1 {} -t {} -vcf'.format(template_number, threads)).run()
     if arguments.iontorrent != []:
         for item in arguments.iontorrent:
             prefix = item.split('/')[-1].split('.')[0]
             KMARunner(item,
                       arguments.output + '/alignments/' + prefix,
                       arguments.database,
-                      '-mint2 -Mt1 {} -t {}'.format(template_number, threads)).run()
+                      '-mint2 -Mt1 {} -t {} -vcf'.format(template_number, threads)).run()
 
     if arguments.illumina != []:
         for i in range(0, len(arguments.illumina), 2):
@@ -68,7 +68,7 @@ def mintyper_pipline(arguments):
             KMARunner(arguments.illumina[i] + ' ' + arguments.illumina[i+1],
                       arguments.output + '/alignments/' + prefix,
                       arguments.database,
-                      '-mint2 -Mt1 {} -t {}'.format(template_number, threads)).run()
+                      '-mint2 -Mt1 {} -t {} -vcf'.format(template_number, threads)).run()
 
     if arguments.assemblies != []:
         for item in arguments.assemblies:
@@ -76,7 +76,7 @@ def mintyper_pipline(arguments):
             KMARunner(item,
                       arguments.output + '/alignments/' + prefix,
                       arguments.database,
-                      '-mint1 -Mt1 {} -t {}'.format(template_number, threads)).run()
+                      '-mint1 -Mt1 {} -t {} -vcf'.format(template_number, threads)).run()
 
     time.sleep(3) #CCphylo might crash unless this. not sure why.
 
@@ -94,6 +94,10 @@ def mintyper_pipline(arguments):
         ccphylo.CcphyloDBSCAN(arguments.output, arguments.cluster_length).run()
 
     ccphylo.CcphyloTree(arguments.output).run()
+
+    cmd = "cat {}/alignments/*.vcf.gz > {}/combined.vcf.gz" \
+        .format(arguments.target_dir, arguments.target_dir)
+    os.system(cmd)
 
 
 
