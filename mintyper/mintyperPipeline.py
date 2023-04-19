@@ -95,8 +95,11 @@ def mintyper_pipeline(arguments):
     #                    arguments.masking_scheme).run()
 
     ccphylo.CcphyloDist(arguments.output,
-                  reference_header_text,
-                  ccphylo_flag).run()
+                        reference_header_text,
+                        ccphylo_flag,
+                        arguments.prune_distance,
+                        arguments.masking_scheme).run()
+
 
     if arguments.cluster_length > 0:
         ccphylo.CcphyloDBSCAN(arguments.output, arguments.cluster_length).run()
