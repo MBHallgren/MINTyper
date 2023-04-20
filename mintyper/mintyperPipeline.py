@@ -54,7 +54,7 @@ def mintyper_pipeline(arguments):
                       arguments.output + '/alignments/' + prefix,
                       arguments.database,
                       #'-mint3 -Mt1 {} -t {} -vcf'.format(template_number, threads)).run()
-                      '-1t1 -mem_mode -ca -mq 1 -ref_fsa 2 -dense -bcNano -bcd 10 -bc 0.7 -vcf -ef -Mt1 {} -t {}'.format(
+                      '-mp 20 -1t1 -dense -vcf -ref_fsa -ca -bcNano -bc 0.7 -Mt1 {} -t {}'.format(
                           template_number, threads)).run()
     if arguments.iontorrent != []:
         for item in arguments.iontorrent:
@@ -70,7 +70,7 @@ def mintyper_pipeline(arguments):
             KMARunner(arguments.illumina[i] + ' ' + arguments.illumina[i+1],
                       arguments.output + '/alignments/' + prefix,
                       arguments.database,
-                      '-1t1 -mem_mode -ca -mq 1 -ref_fsa 2 -dense -bcg -bcd 10 -bc 0.9 -vcf -ef -Mt1 {} -t {}'.format(template_number, threads)).run()
+                      '-ref_fsa -ca -dense -bc90 -vcf -cge -Mt1 {} -t {}'.format(template_number, threads)).run()
             #'-mint2 -Mt1 {} -t {} -vcf'.format(template_number, threads)).run()
 
     if arguments.assemblies != []:
