@@ -24,9 +24,6 @@ def main():
                         default=[], help='Nanopore input files.')
     parser.add_argument('--iontorrent', action="store", type=str, dest='iontorrent', nargs="+",
                         default=[], help='IonTorrent input files.')
-    parser.add_argument('--assemblies', action="store", type=str, dest='assemblies', nargs="+",
-                        default=[], help='Assembly input files. Assemblies should not be'
-                                         ' mixed with raw reads in the same analysis.')
     parser.add_argument("--masking_scheme", type=str, action="store", dest="masking_scheme",
                         help="Give a fasta file containing a motif"
                                          ' that is to be masked in the aligned concensus files.')

@@ -22,7 +22,7 @@ def mintyper_pipeline(arguments):
     logging.info('Input validated. Mintyper is running with the following parameters:')
     logging.info(arguments)
 
-    all_input_files_string = ' '.join(arguments.illumina + arguments.nanopore + arguments.iontorrent + arguments.assemblies)
+    all_input_files_string = ' '.join(arguments.illumina + arguments.nanopore + arguments.iontorrent)
 
     threads = int(multiprocessing.cpu_count()/2)
 
@@ -69,21 +69,11 @@ def mintyper_pipeline(arguments):
                       arguments.database,
                       '-mint2 -Mt1 {} -t {} -vcf'.format(template_number, threads)).run()
 
-    if arguments.assemblies != []:
-        for item in arguments.assemblies:
-            prefix = item.split('/')[-1].split('.')[0]
-            KMARunner(item,
-                      arguments.output + '/alignments/' + prefix,
-                      arguments.database,
-                      '-mint2 -Mt1 {} -t {} -vcf'.format(template_number, threads)).run()
-
     time.sleep(3) #CCphylo might crash unless this. not sure why.
 
     ccphylo_flag = 1
     if arguments.pairwise == True:
         ccphylo_flag = 2
-    if arguments.assemblies != []:
-        ccphylo_flag = 10
     if arguments.insig_prune == True:
         ccphylo_flag += 32
 
