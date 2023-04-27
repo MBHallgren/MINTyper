@@ -87,9 +87,9 @@ def mintyper_pipeline(arguments):
 
     ccphylo_flag = 1
     if arguments.pairwise == True:
-        ccphylo_flag += 2
+        ccphylo_flag = 3
     if arguments.assemblies != []:
-        ccphyloflag += 10
+        ccphyloflag = 10
     if arguments.insig_prune == True:
         ccphyloflag += 32
 
