@@ -46,14 +46,8 @@ def main():
                         default=-1, help="Maximum distance within the same cluster."
                                          " Default is -1, thus not estimating any clusters."
                                          " Set to positive integer to generate a cluster file.")
-    parser.add_argument("--o", action="store", dest="output",
+    parser.add_argument("--output", action="store", dest="output",
                         help="Output directory name.")
-    #parser.add_argument("-iqtree", action="store_true", default=False, dest="iqtree",
-    #                    help="To use iqtree if it is installed."
-    #                         " Default clustering is ccphylo (preinstalled).")
-    #parser.add_argument("-fast_tree", action="store_true", dest="fast_tree", default=False,
-    #                    help="To use FastTree if it is installed."
-    #                         " Default clustering is ccphylo (preinstalled)..")
     parser.add_argument("-insig_prune", action="store_true", dest="insig_prune", default=False,
                         help="By default insignificant bases are included in the pruning process."
                              " Use this flag, if you wish to NOT include them in the pruning.")

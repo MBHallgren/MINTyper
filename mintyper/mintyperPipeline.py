@@ -54,8 +54,6 @@ def mintyper_pipeline(arguments):
                       arguments.output + '/alignments/' + prefix,
                       arguments.database,
                       '-mint3 -Mt1 {} -t {} -vcf'.format(template_number, threads)).run()
-                      #'-mp 20 -1t1 -dense -vcf -ref_fsa -ca -bcNano -bc 0.7 -Mt1 {} -t {}'.format(
-                          #template_number, threads)).run()
     if arguments.iontorrent != []:
         for item in arguments.iontorrent:
             prefix = item.split('/')[-1].split('.')[0]
@@ -70,8 +68,7 @@ def mintyper_pipeline(arguments):
             KMARunner(arguments.illumina[i] + ' ' + arguments.illumina[i+1],
                       arguments.output + '/alignments/' + prefix,
                       arguments.database,
-                      #'-ref_fsa -ca -dense -bc90 -vcf -cge -Mt1 {} -t {}'.format(template_number, threads)).run()
-            '-mint2 -Mt1 {} -t {} -vcf'.format(template_number, threads)).run()
+                      '-mint2 -Mt1 {} -t {} -vcf'.format(template_number, threads)).run()
 
     if arguments.assemblies != []:
         for item in arguments.assemblies:
@@ -79,8 +76,6 @@ def mintyper_pipeline(arguments):
             KMARunner(item,
                       arguments.output + '/alignments/' + prefix,
                       arguments.database,
-                      #'-1t1 -mem_mode -ca -mq 1 -ref_fsa 2 -dense -bcg -bcd 10 -bc 0.9 -vcf -ef -Mt1 {} -t {}'.format(template_number, threads)).run()
-
                       '-mint2 -Mt1 {} -t {} -vcf'.format(template_number, threads)).run()
 
     time.sleep(3) #CCphylo might crash unless this. not sure why.
@@ -89,9 +84,9 @@ def mintyper_pipeline(arguments):
     if arguments.pairwise == True:
         ccphylo_flag = 2
     if arguments.assemblies != []:
-        ccphyloflag = 10
+        ccphylo_flag = 10
     if arguments.insig_prune == True:
-        ccphyloflag += 32
+        ccphylo_flag += 32
 
     ccphylo.CcphyloDist(arguments.output,
                         reference_header_text,
