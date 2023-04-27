@@ -23,7 +23,6 @@ def mintyper_pipeline(arguments):
     logging.info(arguments)
 
     all_input_files_string = ' '.join(arguments.illumina + arguments.nanopore + arguments.iontorrent + arguments.assemblies)
-    print (all_input_files_string)
 
     threads = int(multiprocessing.cpu_count()/2)
 
