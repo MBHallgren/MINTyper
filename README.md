@@ -4,9 +4,7 @@ Read more about mintyper here:
 # Table of contents
 
 * [Introduction](#introduction)
-* [Requirements](#requirements)
 * [Installation](#installation)
-* [Database](#database)
 * [Standard usage](#standard-options)
 * [Output](#output)
 * [Licens](#licens)
@@ -50,7 +48,7 @@ python3 scripts/install_dependencies.py
 The easiest way to install mintyper is using pip:
 
 ```bash
-pip3 install mintyper
+pip install mintyper
 ```
 
 ### From source
