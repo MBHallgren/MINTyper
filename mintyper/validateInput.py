@@ -28,3 +28,11 @@ def check_for_ccphylo():
     except FileNotFoundError:
         self.logger.info("ccphylo is not installed correctly directly in the PATH.")
         sys.exit(1)
+
+def check_for_kma():
+    """Checks if kma is installed"""
+    try:
+        subprocess.call(["kma"], stdout=open(os.devnull, 'wb'))
+    except FileNotFoundError:
+        self.logger.info("kma is not installed correctly directly in the PATH.")
+        sys.exit(1)
