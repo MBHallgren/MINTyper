@@ -10,13 +10,13 @@ Read more about mintyper here:
 * [Licens](#licens)
     
 # Introduction
-mintyper is a tool designed to quickly estimate a distance matrix from a set of input sequencing reads. It can take both short read from Illumina's sequencing platforms and long reads from Oxford Nanopore's platform. 
+Mintyper is a tool designed to quickly estimate a distance matrix from a set of input sequencing reads. It can take both short read from Illumina's sequencing platforms and long reads from Oxford Nanopore's platform. 
 
 # Installation
 
 ## Dependencies
 
-mintyper requires the following dependencies:
+Mintyper requires the following dependencies:
 
 * Python 3.6 or higher
 * KMA (https://bitbucket.org/genomicepidemiology/kma/src/master/)
@@ -33,7 +33,7 @@ conda env create -f environment.yml -n mintyper
 conda activate mintyper
 ```
 
-#### Manual installation (Linus and MacOS)
+#### Manual installation (Linus and MacOS, requires libz-dev installed)
 
 ```bash
 git clone https://bitbucket.org/genomicepidemiology/mintyper.git
@@ -61,7 +61,7 @@ python3 setup.py install
 
 ## Database
 
-mintyper provides two options: Either the user can give a single fasta file as reference sequence by using the -ref argument, or a whole KMA indexed database can be used with the -db argument.
+Mintyper provides two options: Either the user can give a single fasta file as reference sequence by using the -ref argument, or a whole KMA indexed database can be used with the -db argument.
 
 A guide for indexing a given database correctly can be found at https://bitbucket.org/genomicepidemiology/kma/src/master/
 
