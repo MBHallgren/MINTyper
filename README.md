@@ -95,4 +95,4 @@ Unless required by applicable law or agreed to in writing, software distributed 
 ```
 
 # Additional information
-As of April 2023 IQtree and FastTree are no longer supported automatically. If you wish to use these programs, please install them manually and use the distance matrix or multiple alignment as input.
+As of April 2023 IQtree and FastTree are no longer supported automatically. If you wish to use these programs, please install them manually and use the multiple alignment as input.
