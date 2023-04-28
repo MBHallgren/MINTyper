@@ -261,7 +261,7 @@ if len(inputFiles) > 100:
     GraceFullExit("Error: Attempt to analyze more than 100 files, please keep your uploads to 100 or less.\n")
 
 # Get inputfiles splitted in Nanopore and non-nanopre sequences.
-cmd = "%s/bin/fingerseq -i %s | grep -v \"^#\"> %s/fingerReport.tsv" % (
+cmd = "%s/mintyper/fingerseq -i %s | grep -v \"^#\"> %s/fingerReport.tsv" % (
 paths['scripts'], " ".join(inputFiles), paths['outputs']);
 os.system(cmd);
 infile = open(paths['outputs'] + "/fingerReport.tsv", "r");
@@ -282,11 +282,11 @@ for line in infile:
 
 maskingScheme = "";
 if (args.masking == "DCM"):
-    maskingScheme = "/home/data1/services/MINTyper/MINTyper-1.0/scripts/bin/mintyper/dcmMethylations.txt";
+    maskingScheme = "/home/data1/services/MINTyper/MINTyper-1.0/scripts/mintyper/dcmMethylations.txt";
 
 # ADDING PROGRAMS
 mintyper = proglist.AddProgram(program(
-    name='MINTyper-1.1.0', path=paths['scripts'] + 'bin/mintyper/bin/mintyper', timer=0,
+    name='MINTyper-1.1.0', path=paths['scripts'] + 'mintyper/bin/mintyper', timer=0,
     ptype='python3', toQueue=True, wait=False, workDir='',
     args=['--prune_distance', args.prune,
           '--output', paths['outputs']]))
@@ -297,13 +297,13 @@ mintyper = proglist.AddProgram(program(
 # mintyper.AppendArgs(["-i_path", paths['uploads']]);
 # Remove False statements when prev options are set back
 if (len(Nano_files) != 0):
-    # mintyper.AppendArgs(["-i_nanopore", " ".join(Nano_files)]);
-    input_path = '{}/'.format(paths['uploads']);
-    mintyper.AppendArgs(['--nanopore', input_path]);
+    mintyper.AppendArgs(["--nanopore"] + Nano_files);
+    #input_path = '{}/*'.format(paths['uploads']);
+    #mintyper.AppendArgs(['--nanopore', input_path]);
 if (len(Illumina_files) != 0):
-    # mintyper.AppendArgs(["-i_illumina", " ".join(Illumina_files)]);
-    input_path = '{}/'.format(paths['uploads']);
-    mintyper.AppendArgs(['--illumina', input_path]);
+    mintyper.AppendArgs(["--illumina"] + Illumina_files);
+    #input_path = '{}/*'.format(paths['uploads']);
+    #mintyper.AppendArgs(['--illumina', input_path]);
 
 if (len(maskingScheme) != 0):
     mintyper.AppendArgs(['--masking_scheme', maskingScheme]);
@@ -375,7 +375,7 @@ tree.render(graphpath, tree_style=style, dpi=300)
 # Make Zip archive with vcf files
 cmd = "mkdir %s/results_vcf/" % (paths['outputs']);
 os.system(cmd);
-cmd = "for vcf in %s/data_files/*.vcf.gz; do mv $vcf ${vcf%%.vcf.gz}.vcf.txt.gz; mv ${vcf%%.vcf.gz}.vcf.txt.gz %s; done" % (
+cmd = "for vcf in %s/alignments/*.vcf.gz; do mv $vcf ${vcf%%.vcf.gz}.vcf.txt.gz; mv ${vcf%%.vcf.gz}.vcf.txt.gz %s; done" % (
 paths['outputs'], paths['outputs'] + 'results_vcf/');
 os.system(cmd);
 cmd = "gunzip %s/*" % (paths['outputs'] + 'results_vcf');
@@ -430,7 +430,7 @@ if False and sos.path.exists(paths['downloads'] + 'results.nwck'):
 # _ = PrepareDownload(paths['serviceRoot']+'outputs/results.aln')
 
 # PRINT STATS
-makeIncOut(paths['downloads'] + 'results.log', paths['serviceRoot'] + 'outputs/data_files/', fsaInput);
+makeIncOut(paths['downloads'] + 'results.log', paths['serviceRoot'] + 'outputs/alignments/', fsaInput);
 
 # PRINT TAB FILE(S) AS RESULT TABLES TO THE HTML OUTPUT FILE
 # tsv1=paths['downloads']+'results.res'
