@@ -27,7 +27,7 @@ Mintyper requires the following dependencies:
 #### Conda (works on linux only due to KMA conda package)
 
 ```bash
-git clone https://bitbucket.org/genomicepidemiology/mintyper.git
+git clone https://github.com/mbhallgren/mintyper
 cd mintyper
 conda env create -f environment.yml -n mintyper
 conda activate mintyper
