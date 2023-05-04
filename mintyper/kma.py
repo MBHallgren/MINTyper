@@ -25,7 +25,7 @@ class KMARunner():
     def run(self):
         """runs kma"""
         kma_cmd = "kma -t_db {} -i {} -o {} {}".format(self.reference_database, self.input, self.output, self.argument_string)
-        self.logger.info(kma_cmd)
+        #self.logger.info(kma_cmd)
         os.system(kma_cmd)
 
     def index(self):
