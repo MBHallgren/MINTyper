@@ -39,7 +39,6 @@ class CcphyloTrim():
         proc = subprocess.Popen(cmd, shell=True,
                                 stdout=subprocess.PIPE, )
         output = proc.communicate()[0].decode()
-        self.logger.info('Test')
         self.logger.info(output)
 
 
@@ -82,8 +81,11 @@ class CcphyloDist():
             cmd += " -f {} 2>&1".format(self.ccphylo_flag)
         else:
             cmd += " 2>&1"
+        proc = subprocess.Popen(cmd, shell=True,
+                                stdout=subprocess.PIPE, )
+        output = proc.communicate()[0].decode()
         self.logger.info(cmd)
-        os.system(cmd)
+        self.logger.info(output)
 
 
 class CcphyloTree():
