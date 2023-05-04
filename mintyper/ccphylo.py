@@ -29,15 +29,17 @@ class CcphyloTrim():
 
     def run(self):
         """runs ccphylo"""
-        cmd = "ccphylo trim --input {} --reference \"{}\""\
+        cmd = "ccphylo trim --input {} --reference \"{}\"" \
             .format(self.alignment_string, self.reference_header_text)
         if self.prune_distance != None:
             cmd += " --proximity {}".format(self.prune_distance)
         if self.masking_motif_file != None:
             cmd += " --methylation_motifs {}".format(self.masking_motif_file)
         cmd += ' > {}/alignments/multiple_alignment.fsa'.format(self.target_dir)
-        self.logger.info(cmd)
-        os.system(cmd)
+        proc = subprocess.Popen(cmd, shell=True,
+                                stdout=subprocess.PIPE, )
+        output = proc.communicate()[0].decode()
+        self.logger.info(output)
 
 
 class CcphyloDist():
