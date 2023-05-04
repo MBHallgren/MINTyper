@@ -39,6 +39,7 @@ class CcphyloTrim():
         proc = subprocess.Popen(cmd, shell=True,
                                 stdout=subprocess.PIPE, )
         output = proc.communicate()[0].decode()
+        self.logger.info('Test')
         self.logger.info(output)
 
 
