@@ -30,6 +30,7 @@ def mintyper_pipeline(arguments):
         arguments.database = arguments.output + '/tmp_db'
         template_number = 1
         logging.info('Reference provided: {}'.format(arguments.reference))
+        args.reference = concat_reference(arguments.reference, arguments.output)
         KMARunner(arguments.reference,
                   arguments.database,
                   '',
@@ -92,6 +93,22 @@ def mintyper_pipeline(arguments):
         .format(arguments.output, arguments.output)
     os.system(cmd)
 
+
+
+def concat_reference(reference, output):
+    sequence = ''
+    header = '>concatenated_draft_reference'
+    with open(reference, 'r') as f:
+        for line in f:
+            if not line.startswith('>'):
+                line = line.strip()
+                sequence += line
+
+    with open('{}/{}'.format(output, 'draft_genome.fasta'), 'w') as f:
+        print (header, file = f)
+        print (sequence, file = f)
+
+    return '{}/{}'.format(output, 'draft_genome.fasta')
 
 
 
