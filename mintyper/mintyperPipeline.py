@@ -34,6 +34,7 @@ def mintyper_pipeline(arguments):
         KMARunner(arguments.reference,
                   arguments.database,
                   '',
+                  arguments.threads,
                   '').index()
         with open(arguments.output + '/tmp_db.name') as f:
             reference_header_text = f.readline().strip()
@@ -41,6 +42,7 @@ def mintyper_pipeline(arguments):
         KMARunner(all_input_files_string,
                   arguments.output + '/read_mapping',
                   arguments.database,
+                  arguments.threads,
                   '-mem_mode -Sparse -ss c -t {}'.format(threads)).run()
         template_number, template_score, reference_header_text = find_best_template_from_spa_file(arguments.output + '/read_mapping.spa', arguments.database)
         logging.info('Best template found: {}'.format(reference_header_text))
@@ -53,6 +55,7 @@ def mintyper_pipeline(arguments):
             KMARunner(item,
                       arguments.output + '/alignments/' + prefix,
                       arguments.database,
+                      arguments.threads,
                       '-mint3 -Mt1 {} -t {} -vcf'.format(template_number, threads)).run()
     if arguments.iontorrent != []:
         for item in arguments.iontorrent:
@@ -60,6 +63,7 @@ def mintyper_pipeline(arguments):
             KMARunner(item,
                       arguments.output + '/alignments/' + prefix,
                       arguments.database,
+                      arguments.threads,
                       '-mint2 -Mt1 {} -t {} -vcf'.format(template_number, threads)).run()
 
     if arguments.illumina != []:
@@ -68,6 +72,7 @@ def mintyper_pipeline(arguments):
             KMARunner(arguments.illumina[i] + ' ' + arguments.illumina[i+1],
                       arguments.output + '/alignments/' + prefix,
                       arguments.database,
+                      arguments.threads,
                       '-mint2 -Mt1 {} -t {} -vcf'.format(template_number, threads)).run()
 
     time.sleep(3) #CCphylo might crash unless this. not sure why.
