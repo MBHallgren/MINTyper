@@ -67,7 +67,7 @@ A guide for indexing a given database correctly can be found at https://bitbucke
 
 A database of complete bacterial genomes can be downloaded with: 
 ```bash
-wget https://cge.food.dtu.dk/services/MINTyper/bac_db.tar.gz .
+wget https://cge.food.dtu.dk/services/MINTyper/bac_species_db.tar.gz .
 ```
 
 # Standard usage
