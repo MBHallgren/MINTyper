@@ -27,9 +27,6 @@ def mintyper_pipeline(arguments):
     all_input_files_string = ' '.join(arguments.illumina + arguments.nanopore + arguments.iontorrent)
 
     threads = int(multiprocessing.cpu_count()/2)
-    template_number, template_score, reference_header_text = find_best_template_from_spa_file(
-        arguments.output + '/read_mapping.spa', arguments.database)
-    """
 
     if arguments.reference != None:
         arguments.database = arguments.output + '/tmp_db'
@@ -81,8 +78,6 @@ def mintyper_pipeline(arguments):
                       '-mint2 -Mt1 {} -t {} -vcf'.format(template_number, threads)).run()
 
     time.sleep(3) #CCphylo might crash unless this. not sure why.
-    
-    """
 
     ccphylo_flag = 1
     if arguments.pairwise == True:
