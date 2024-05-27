@@ -127,6 +127,7 @@ def load_matrix_file(matrix_file):
 
     # Extract header and filenames with coordinates
     header = lines[0].strip()
+    num_samples = int(header)
     file_mappings = [line.strip().split() for line in lines[1:]]
 
     # Create a mapping from coordinates to filenames
@@ -147,8 +148,14 @@ def update_variant_file(variant_file, coord_to_filename):
     updated_lines = []
     for line in lines:
         parts = line.strip().split()
-        coord = int(parts[0][1:-1])  # Extract the coordinate (assuming format (x, 0))
-        new_line = f"({parts[0]}) {coord_to_filename[coord]}{parts[1][1:]}"
+        coord_str = parts[0][1:-1]  # Extract the coordinate string (assuming format (x, y))
+        x, y = map(int, coord_str.split(','))
+        coord = x  # Use 'x' as the coordinate to match with the matrix file
+        if coord in coord_to_filename:
+            new_line = f"({x}, {y}) {coord_to_filename[coord]}{parts[1][1:]}"
+        else:
+            print(f"Warning: Coordinate {coord} not found in the matrix file. Line: {line.strip()}")
+            new_line = line.strip()  # Keep the original line if coordinate not found
         updated_lines.append(new_line)
 
     with open(variant_file, 'w') as f:
