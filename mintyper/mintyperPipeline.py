@@ -128,10 +128,10 @@ def concat_reference(reference, output):
 
 def load_matrix_file(matrix_file):
     coord_to_filename = {}
-    t = 0
+    t = -1
     with open(matrix_file, 'r') as f:
         for line in f:
-            if t != 0:
+            if t != -1:
                 coord = t
                 filename = line.strip().split()[0]
                 coord_to_filename[coord] = filename
