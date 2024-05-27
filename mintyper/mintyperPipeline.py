@@ -27,7 +27,8 @@ def mintyper_pipeline(arguments):
     all_input_files_string = ' '.join(arguments.illumina + arguments.nanopore + arguments.iontorrent)
 
     threads = int(multiprocessing.cpu_count()/2)
-
+    template_number, template_score, reference_header_text = find_best_template_from_spa_file(
+        arguments.output + '/read_mapping.spa', arguments.database)
     """
 
     if arguments.reference != None:
