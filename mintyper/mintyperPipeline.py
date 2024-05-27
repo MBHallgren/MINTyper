@@ -139,11 +139,13 @@ def load_matrix_file(matrix_file):
 
     # Create a mapping from coordinates to filenames
     coord_to_filename = {}
+    t = 1
     for mapping in file_mappings:
         filename = mapping[0]
-        coords = mapping[1:]
+        coords = t
         for coord in coords:
             coord_to_filename[int(coord)] = filename
+        t += 1
 
     return coord_to_filename
 
