@@ -129,23 +129,15 @@ def concat_reference(reference, output):
 
 
 def load_matrix_file(matrix_file):
-    with open(matrix_file, 'r') as f:
-        lines = f.readlines()
-
-    # Extract header and filenames with coordinates
-    header = lines[0].strip()
-    num_samples = int(header)
-    file_mappings = [line.strip().split() for line in lines[1:]]
-
-    # Create a mapping from coordinates to filenames
     coord_to_filename = {}
-    t = 1
-    for mapping in file_mappings:
-        filename = mapping[0]
-        coords = t
-        for coord in coords:
-            coord_to_filename[coord] = filename
-        t += 1
+    t = 0
+    with open(matrix_file, 'r') as f:
+        for line in f:
+            if t != 0:
+                coord = t
+                filename = line.strip().split()[0]
+                coord_to_filename[coord] = filename
+            t += 1
 
     return coord_to_filename
 
