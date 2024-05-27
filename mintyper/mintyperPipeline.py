@@ -141,30 +141,18 @@ def load_matrix_file(matrix_file):
 
 
 def update_variant_file(variant_file, coord_to_filename):
+    output = []
     with open(variant_file, 'r') as f:
-        lines = f.readlines()
-
-    updated_lines = []
-    for line in lines:
-        parts = line.strip().split()
-        coord_str = parts[0].strip("()")  # Remove parentheses
-        if ',' in coord_str and coord_str.count(',') == 1:
-            try:
-                x, y = map(int, coord_str.split(','))
-                coord = x  # Use 'x' as the coordinate to match with the matrix file
-                if coord in coord_to_filename:
-                    new_line = f"({x}, {y}) {coord_to_filename[coord]}{parts[1][1:]}"
-                else:
-                    print(f"Warning: Coordinate {coord} not found in the matrix file. Line: {line.strip()}")
-                    new_line = line.strip()  # Keep the original line if coordinate not found
-            except ValueError as e:
-                print(f"Warning: Malformed coordinate {coord_str}. Line: {line.strip()}. Error: {e}")
-                new_line = line.strip()  # Keep the original line if coordinate is malformed
-        else:
-            print(f"Warning: Malformed coordinate {coord_str}. Line: {line.strip()}")
-            new_line = line.strip()  # Keep the original line if coordinate is malformed
-        updated_lines.append(new_line)
+        for line in f:
+            line = line.strip().split('\t')
+            coord_1 = int(line[0].split(', ')[0][1:])
+            coord_2 = int(line[0].split(', ')[1][:-1])
+            mutation = line[1]
+            output_string = '({}, {})\t{}'.format(coord_to_filename[coord_1], coord_to_filename[coord_2], mutation)
+            output.append(output_string)
 
     with open(variant_file, 'w') as f:
-        for line in updated_lines:
-            f.write(line + '\n')
+        for line in output:
+            print(line, file=f)
+
+
