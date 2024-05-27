@@ -36,7 +36,7 @@ conda activate mintyper
 #### Manual installation (Linus and MacOS, requires libz-dev installed)
 
 ```bash
-git clone https://bitbucket.org/genomicepidemiology/mintyper.git
+git clone https://github.com/MBHallgren/MINTyper.git
 cd mintyper
 python3 scripts/install_dependencies.py
 ```
@@ -54,7 +54,7 @@ pip install mintyper
 ### From source
 
 ```bash
-git clone https://bitbucket.org/genomicepidemiology/mintyper.git
+git clone https://github.com/MBHallgren/MINTyper.git
 cd mintyper
 python3 setup.py install
 ```
