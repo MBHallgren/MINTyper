@@ -128,11 +128,11 @@ def concat_reference(reference, output):
 
 def load_matrix_file(matrix_file):
     coord_to_filename = {}
-    t = -1
+    t = 0
     with open(matrix_file, 'r') as f:
         for line in f:
-            if t != -1:
-                coord = t
+            if t != 0:  # Skip the first line
+                coord = t - 1  # Adjust to start coordinates from 0
                 filename = line.strip().split()[0]
                 coord_to_filename[coord] = filename
             t += 1
@@ -148,14 +148,18 @@ def update_variant_file(variant_file, coord_to_filename):
     for line in lines:
         parts = line.strip().split()
         coord_str = parts[0].strip("()")  # Remove parentheses
-        if ',' in coord_str:
-            x, y = map(int, coord_str.split(','))
-            coord = x  # Use 'x' as the coordinate to match with the matrix file
-            if coord in coord_to_filename:
-                new_line = f"({x}, {y}) {coord_to_filename[coord]}{parts[1][1:]}"
-            else:
-                print(f"Warning: Coordinate {coord} not found in the matrix file. Line: {line.strip()}")
-                new_line = line.strip()  # Keep the original line if coordinate not found
+        if ',' in coord_str and coord_str.count(',') == 1:
+            try:
+                x, y = map(int, coord_str.split(','))
+                coord = x  # Use 'x' as the coordinate to match with the matrix file
+                if coord in coord_to_filename:
+                    new_line = f"({x}, {y}) {coord_to_filename[coord]}{parts[1][1:]}"
+                else:
+                    print(f"Warning: Coordinate {coord} not found in the matrix file. Line: {line.strip()}")
+                    new_line = line.strip()  # Keep the original line if coordinate not found
+            except ValueError as e:
+                print(f"Warning: Malformed coordinate {coord_str}. Line: {line.strip()}. Error: {e}")
+                new_line = line.strip()  # Keep the original line if coordinate is malformed
         else:
             print(f"Warning: Malformed coordinate {coord_str}. Line: {line.strip()}")
             new_line = line.strip()  # Keep the original line if coordinate is malformed
@@ -164,4 +168,3 @@ def update_variant_file(variant_file, coord_to_filename):
     with open(variant_file, 'w') as f:
         for line in updated_lines:
             f.write(line + '\n')
-
