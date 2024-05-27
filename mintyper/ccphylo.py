@@ -72,7 +72,7 @@ class CcphyloDist():
         """runs ccphylo"""
         cmd = "ccphylo dist --input {} --output {}/distmatrix.txt --reference \"{}\"" \
               " --min_cov 1 --normalization_weight 0 -V {}/matrix_SNVs.txt" \
-            .format(self.alignment_string, self.target_dir, self.reference_header_text)
+            .format(self.alignment_string, self.target_dir, self.reference_header_text, self.target_dir)
         if self.prune_distance != None:
             cmd += " --proximity {}".format(self.prune_distance)
         if self.masking_motif_file != None:
