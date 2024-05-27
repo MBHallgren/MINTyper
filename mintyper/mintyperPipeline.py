@@ -144,7 +144,7 @@ def load_matrix_file(matrix_file):
         filename = mapping[0]
         coords = t
         for coord in coords:
-            coord_to_filename[int(coord)] = filename
+            coord_to_filename[coord] = filename
         t += 1
 
     return coord_to_filename
