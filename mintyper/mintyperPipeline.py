@@ -3,6 +3,8 @@ import sys
 import logging
 import multiprocessing
 import time
+import pandas as pd
+
 
 sys.path = [os.path.join(os.path.dirname(os.path.realpath(__file__)),'..')] + sys.path
 
@@ -94,6 +96,9 @@ def mintyper_pipeline(arguments):
 
     ccphylo.CcphyloTree(arguments.output).run()
 
+    coord_to_filename = load_matrix_file(arguments.output + '/distmatrix.txt')
+    update_variant_file(arguments.output + '/matrix_SNVs.txt', coord_to_filename)
+
     cmd = "cat {}/alignments/*.vcf.gz > {}/combined.vcf.gz" \
         .format(arguments.output, arguments.output)
     os.system(cmd)
@@ -116,5 +121,37 @@ def concat_reference(reference, output):
     return '{}/{}'.format(output, 'draft_genome.fasta')
 
 
+def load_matrix_file(matrix_file):
+    with open(matrix_file, 'r') as f:
+        lines = f.readlines()
 
+    # Extract header and filenames with coordinates
+    header = lines[0].strip()
+    file_mappings = [line.strip().split() for line in lines[1:]]
+
+    # Create a mapping from coordinates to filenames
+    coord_to_filename = {}
+    for mapping in file_mappings:
+        filename = mapping[0]
+        coords = mapping[1:]
+        for coord in coords:
+            coord_to_filename[int(coord)] = filename
+
+    return coord_to_filename
+
+
+def update_variant_file(variant_file, coord_to_filename):
+    with open(variant_file, 'r') as f:
+        lines = f.readlines()
+
+    updated_lines = []
+    for line in lines:
+        parts = line.strip().split()
+        coord = int(parts[0][1:-1])  # Extract the coordinate (assuming format (x, 0))
+        new_line = f"({parts[0]}) {coord_to_filename[coord]}{parts[1][1:]}"
+        updated_lines.append(new_line)
+
+    with open(variant_file, 'w') as f:
+        for line in updated_lines:
+            f.write(line + '\n')
 
