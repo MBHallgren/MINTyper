@@ -102,8 +102,6 @@ def mintyper_pipeline(arguments):
     ccphylo.CcphyloTree(arguments.output).run()
 
     coord_to_filename = load_matrix_file(arguments.output + '/distmatrix.txt')
-    print (coord_to_filename)
-    sys.exit()
     update_variant_file(arguments.output + '/matrix_SNVs.txt', coord_to_filename)
 
     cmd = "cat {}/alignments/*.vcf.gz > {}/combined.vcf.gz" \
